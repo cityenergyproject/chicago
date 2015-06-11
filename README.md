@@ -1,2 +1,46 @@
-# cityenergy
-Visualizing the energy use of buildings in major cities for the City Energy Project
+# City Energy Project
+
+Visualizing the energy use of buildings in major cities for the City Energy Project.
+
+This README is almost all boilerplate for now. We'll fill in the details as we begin work.
+
+## Branches
+
+* List, describe and link
+
+To clone a specific branch (to prevent having to switch branches when working
+on different components), use:
+
+```bash
+git clone git@github.com:stamen/repo-name.git -b <branch> repo-name-<branch>
+```
+
+## Dependencies
+
+### Software
+
+We know we're hosting all project data on CartoDB and hosting all code and documentation on Github (eventually in an open source repository).
+
+### Data
+
+* What data is this project working with? Describe the data itself in a sentence or three.
+* What assumptions does the proejct make about data format or schema?
+* Is this a static data project or does it require a database?
+* Is there an existing database anyone installing or building on this should know about? Where is it?
+
+### Static Assets
+
+* Location and (basic) description of images, existing CSS, HTML, etc.
+
+## How do I install it?
+
+Describe that here.
+
+## How do I test it other than locally?
+
+Do we have Prosthetic or any other special methods required for testing? Describe those here if so.
+
+## How do I deploy it to the world?
+
+If this is a live thing in the world, how do we push changes to the live thing?
+
