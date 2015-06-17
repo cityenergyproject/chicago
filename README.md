@@ -21,6 +21,9 @@ git clone git@github.com:stamen/repo-name.git -b <branch> repo-name-<branch>
 
 We know we're hosting all project data on CartoDB and hosting all code and documentation on Github (eventually in an open source repository).
 
+#### Development
+  Use npm, gulp for local building
+
 ### Data
 
 * What data is this project working with? Describe the data itself in a sentence or three.
@@ -30,11 +33,15 @@ We know we're hosting all project data on CartoDB and hosting all code and docum
 
 ### Static Assets
 
-* Location and (basic) description of images, existing CSS, HTML, etc.
+Source files are in /src 
+```bash
+  gulp
+```
+to compile, and copy to dist folder
 
 ## How do I install it?
 
-Describe that here.
+To run in a local browser go to dist/index.html
 
 ## How do I test it other than locally?
 
