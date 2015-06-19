@@ -24,6 +24,16 @@ We know we're hosting all project data on CartoDB and hosting all code and docum
 #### Development
   Use npm, gulp for local building
 
+  Start webserver
+  ``` 
+    $ gulp connect
+  ```
+
+  Start livereload
+  ``` 
+    $ gulp watch
+  ```
+
 ### Data
 
 * What data is this project working with? Describe the data itself in a sentence or three.

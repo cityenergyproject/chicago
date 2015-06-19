@@ -15,16 +15,14 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
+    connect     = require('gulp-connect'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
 gulp.task('fileinclude', function() {
   return  gulp.src(['src/index.html'])
     .pipe(fileinclude())
-    
-    
     .pipe(gulp.dest('dist'))
-    // .pipe(livereload())
     .pipe(notify({ message: 'Includes: included' }));
 });
 
@@ -70,6 +68,13 @@ gulp.task('default', ['clean'], function() {
     gulp.start('fileinclude', 'styles', 'scripts', 'images');
 });
 
+gulp.task('connect', function() {
+  connect.server({
+    root: 'dist',
+    livereload: false
+  });
+});
+
 // Watch
 gulp.task('watch', function() {
 
@@ -87,8 +92,6 @@ gulp.task('watch', function() {
 
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);
-
-  
 
   // Watch any files in dist/, reload on change
   gulp.watch(['dist/**']).on('change', livereload.changed);
