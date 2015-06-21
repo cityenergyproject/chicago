@@ -2,6 +2,7 @@
 
   var Map = {
     TABLE: 'la_data_fake',
+    map: {},
 
     init: function() {
 
@@ -9,22 +10,48 @@
         center: [34.093041824023125, -118.30215454101562], // Los Angeles
         zoom: 11
       });
+      this.map = map
 
       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
+
+      fieldName = 'primary_property_type___epa_calculated'
 
       cartodb.createLayer(map, {
         user_name: 'cityenergyproject',
         type: 'cartodb',
         sublayers: [{
           sql: "SELECT * FROM " + this.TABLE,
-          cartocss: this.cartoCSS()
+          cartocss: this.cartoCSS(fieldName),
+          interactivity: "cartodb_id, " + fieldName
         }]
       })
-      .addTo(map);
+      .addTo(map)
+      .on('done', function(layer) {
+        sub = layer.getSubLayer(0);
+        sub.setInteraction(true);
+        sub.on('featureClick', function(e, latlng, pos, data) {
+          Map.showInfoWindow(e, latlng, pos, data);
+        })
+        .on('featureOver', function(e, latlng, pos, data) {
+          $('#map').css('cursor', "help");
+        })
+        .on('featureOut', function(e, latlng, pos, data) {
+          $('#map').css('cursor', "auto");
+        });
+
+      });
 
     },
 
-    cartoCSS: function() {
+    showInfoWindow: function(e, latlng, pos, data) {
+      template = _.template($('#infowindow_template').html())
+      info = L.popup()
+        .setLatLng(latlng)
+        .setContent(template(data))
+        .openOn(Map.map);
+    },
+
+    cartoCSS: function(fieldName) {
       var base = [
             '{marker-fill: #999;',
             'marker-fill-opacity: 0.8;',
@@ -59,17 +86,13 @@
           {name: 'Other', value: '#FB9A99'}
         ];
 
-      var FIELD_NAME = 'primary_property_type___epa_calculated';
-
       var typeCSS = typeBuckets.map(function(bucket){
-        return "#" + this.TABLE + "[" + FIELD_NAME + "='" + bucket.name + "']{marker-fill:" + bucket.value + ";}";
+        return "#" + this.TABLE + "[" + fieldName + "='" + bucket.name + "']{marker-fill:" + bucket.value + ";}";
       }, this);
 
       return '#' + this.TABLE + base.join(['\n']) +'\n' + typeCSS.join(['\n']);
 
     }
-
-
   
   };
 
