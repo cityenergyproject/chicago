@@ -1,0 +1,23 @@
+{
+  "name": "cityenergy",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stamen/cityenergy",
+  "authors": [
+    "Jeff Parr"
+  ],
+  "main": "styles/main.css",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.1",
+    "jquery": "~2.1.4",
+    "requirejs": "~2.1.18"
+  }
+}

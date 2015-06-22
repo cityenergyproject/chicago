@@ -1,9 +1,3 @@
-// test code
-window.onload = function() {
-  Map.init();
-};
-
-
 (function() {
 
   var Map = {
