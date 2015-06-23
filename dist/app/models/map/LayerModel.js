@@ -7,7 +7,7 @@ define([
 
     defaults : {
         title : 'Building Types',
-        field_name : 'primary_property_type___epa_calculated',
+        field_name : 'energy_star_score',
         baseCSS : [
             '{marker-fill: #999;',
             'marker-fill-opacity: 0.8;',
@@ -23,7 +23,7 @@ define([
     },
 
     initialize: function(map){
-      this.map = map //parent map model
+      this.map = map; //parent map model
     },
 
     cartoCSS: function(){
@@ -48,9 +48,9 @@ define([
           {name: 'Other', value: '#FB9A99'}
         ];
 
-      var table_name = this.map.get('table_name')
-      var field_name = this.get('field_name')
-      var baseCSS = this.get('baseCSS')
+      var table_name = this.map.get('table_name');
+      var field_name = this.get('field_name');
+      var baseCSS = this.get('baseCSS');
 
       var typeCSS = typeBuckets.map(function(bucket){
         return "#" + table_name + "[" + field_name + "='" + bucket.name + "']{marker-fill:" + bucket.value + ";}";

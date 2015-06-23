@@ -14,7 +14,7 @@ define([
 
   var initialize = function(){
 
-    var app_router = new AppRouter;
+    var app_router = new AppRouter();
 
     app_router.on('route:defaultAction', function (actions) {
         var mapView = new MapView();
