@@ -18,6 +18,7 @@
     "underscore": "~1.8.3",
     "backbone": "~1.2.1",
     "jquery": "~2.1.4",
-    "requirejs": "~2.1.18"
+    "requirejs": "~2.1.18",
+    "d3": "~3.5.5"
   }
 }
