@@ -8,7 +8,6 @@ define([
 
   var AppRouter = Backbone.Router.extend({
     routes: {
-      // Default
       '*actions': 'defaultAction'
     }
   });
@@ -18,7 +17,6 @@ define([
     var app_router = new AppRouter;
 
     app_router.on('route:defaultAction', function (actions) {
-       // We have no matching route, lets display the home page
         var mapView = new MapView();
         mapView.render();
     });
