@@ -51,7 +51,12 @@ to compile, and copy to dist folder
 
 ## How do I install it?
 
-To run in a local browser go to dist/index.html
+  * clone the repo
+  * make sure you have node and bower installed
+  * in the root of the repo, run ```sudo npm install```
+  * in the root of the repo, run ```bower install```
+  * in a separate terminal window run ```gulp connect```
+  * point your browswer to http://localhost:8080/
 
 ## How do I test it other than locally?
 

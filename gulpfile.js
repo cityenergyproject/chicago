@@ -5,6 +5,7 @@
 
 // Load plugins
 var gulp = require('gulp'),
+    mainBowerFiles = require('main-bower-files');
     fileinclude = require('gulp-file-include'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -26,6 +27,12 @@ gulp.task('fileinclude', function() {
     .pipe(notify({ message: 'Includes: included' }));
 });
 
+gulp.task('templates', function() {
+  return gulp.src('src/app/templates/**/*.html')
+    .pipe(gulp.dest('dist/app/templates'))
+    .pipe(notify({ message: 'templates copied' }));
+});
+
 // Styles
 gulp.task('styles', function() {
   return gulp.src('src/styles/**/*.scss')
@@ -39,14 +46,10 @@ gulp.task('styles', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
+  return gulp.src('src/app/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(rename({ suffix: '.min' }))
-    // .pipe(uglify())
-    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('dist/app'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
@@ -58,6 +61,11 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
+gulp.task('copy-bower', function() {
+  return gulp.src(mainBowerFiles())
+    .pipe(gulp.dest('dist/app/lib'));
+});
+
 // Clean
 gulp.task('clean', function(cb) {
     del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
@@ -65,7 +73,7 @@ gulp.task('clean', function(cb) {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('fileinclude', 'styles', 'scripts', 'images');
+    gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates');
 });
 
 gulp.task('connect', function() {
@@ -82,13 +90,13 @@ gulp.task('watch', function() {
   livereload.listen({start:true});
 
   // Watch .html files
-  gulp.watch('src/**/*.html', ['fileinclude']);
+  gulp.watch('src/**/*.html', ['fileinclude', 'templates']);
 
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
 
   // Watch .js files
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
+  gulp.watch('src/app/**/*.js', ['scripts']);
 
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);
