@@ -16,7 +16,7 @@ define([
         user_name: 'cityenergyproject',
         type: 'cartodb',
         sublayers: [{
-          sql: "SELECT * FROM " + this.model.map.get('table_name'),
+          sql: "SELECT * FROM " + this.model.get('table_name'),
           cartocss: this.model.cartoCSS(),
           interactivity: "cartodb_id, " + this.model.get('field_name')
         }]

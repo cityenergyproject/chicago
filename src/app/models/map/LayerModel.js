@@ -1,15 +1,15 @@
 define([
   'underscore',
   'backbone',
+  'd3',
 ], function(_, Backbone) {
 
   var LayerModel = Backbone.Model.extend({
 
     defaults : {
-        title : 'Building Types',
-        field_name : 'energy_star_score',
+        
         baseCSS : [
-            '{marker-fill: #999;',
+            '{marker-fill: #CCC;',
             'marker-fill-opacity: 0.8;',
             'marker-line-color: #FFF;',
             'marker-line-width: 0.5;',
@@ -22,41 +22,26 @@ define([
         ]
     },
 
-    initialize: function(map){
-      this.map = map; //parent map model
-    },
-
     cartoCSS: function(){
-      var typeBuckets = [
-          {name: 'K-12 School', value: '#A6CEE3'},
-          {name: 'Office', value: '#1F78B4'},
-          {name: 'Medical Office', value: '#52A634'},
-          {name: 'Warehouse', value: '#B2DF8A'},
-          {name: 'College/University', value: '#33A02C'},     
-          {name: 'Retail', value: '#E31A1C'},
-          {name: 'Municipal', value: '#FDBF6F'},
-          {name: 'Multifamily', value: '#FF7F00'},
-          {name: 'Hotel', value: '#CAB2D6'},
-          {name: 'Industrial', value: '#6A3D9A'},
-          {name: 'Worship', value: '#9C90C4'},
-          {name: 'Supermarket', value: '#E8AE6C'},
-          {name: 'Parking', value: '#62afe8'},
-          {name: 'Laboratory', value: '#3AA3FF'},
-          {name: 'Hospital', value: '#C6B4FF'},
-          {name: 'Data Center', value: '#a3d895'},
-          {name: 'Unknown', value: '#DDDDDD'},
-          {name: 'Other', value: '#FB9A99'}
-        ];
+      var min = this.get('min');
+      var max = this.get('max');
+      var range_step = (max - min) / this.get('range_slice_count');
+      var bucket_steps = _.range(max, min, -(range_step));
 
-      var table_name = this.map.get('table_name');
+      var colorScale = d3.scale.linear()
+        .range(this.get('color_range'))
+        .domain([min, max]);
+
+      
+      var table_name = this.get('table_name');
       var field_name = this.get('field_name');
       var baseCSS = this.get('baseCSS');
 
-      var typeCSS = typeBuckets.map(function(bucket){
-        return "#" + table_name + "[" + field_name + "='" + bucket.name + "']{marker-fill:" + bucket.value + ";}";
+      var dataCSS = bucket_steps.map(function(bucket){
+        return "#" + table_name + "[" + field_name + "<=" + bucket + "]{marker-fill:" + colorScale(bucket) + ";}";
       }, this);
 
-      return '#' + table_name + baseCSS.join(['\n']) +'\n' + typeCSS.join(['\n']);
+      return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
     }
 
