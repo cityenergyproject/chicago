@@ -96,6 +96,7 @@ gulp.task('watch', function() {
 
   // Watch .html files
   gulp.watch('src/**/*.html', ['fileinclude', 'templates']);
+  gulp.watch('src/app/templates/**/*.html', ['templates']);
 
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);

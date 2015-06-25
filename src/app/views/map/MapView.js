@@ -13,6 +13,8 @@ define([
     el: $("#map"),
 
     initialize: function(){
+      document.title = this.model.get('title');
+
       this.map = new L.Map(this.el, {
         center: this.model.get('center'),
         zoom: this.model.get('zoom')
@@ -20,14 +22,16 @@ define([
 
       L.tileLayer(this.model.get('tileSource')).addTo(this.map);
 
-      // this.model.on('change', this.renderCurrentLayer, this); //to use router or change?
+      
     },
 
     render: function(){ 
-      document.title = this.model.get('title');
+      
 
       this.renderCurrentLayer();
       this.renderMapControls();
+
+      this.listenTo(this.model, 'change', this.update);
 
       return this;
     },
@@ -41,9 +45,9 @@ define([
       if (this.currentLayerView) {
         this.currentLayerView.model = currentLayer
       }else{
-        this.currentLayerView = new LayerView({model: currentLayer});
+        this.currentLayerView = new LayerView({model: currentLayer, leafletMap: this.map});
       }
-      this.currentLayerView.render(this.map);
+      // this.currentLayerView.render(this.map);
 
       console.log("render " + current_layer_name)
       return this;
@@ -55,7 +59,18 @@ define([
         new MapControlView({model: layer, map: this.model}).render();
       }, this);
       return this;
+    },
+
+    update: function(){
+      // will need to inspect this.model.changed - for now only current_layer changes
+      var city = this.model.get('city');
+      var current_layer_name = this.model.changed.current_layer
+      var currentLayer = city.layers.findWhere({field_name: current_layer_name});
+      this.currentLayerView.model = currentLayer
+      this.currentLayerView.render();
     }
+
+
 
   });
 

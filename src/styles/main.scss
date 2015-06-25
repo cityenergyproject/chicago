@@ -17,3 +17,12 @@ html, body {
   }
 
 }
+
+.leaflet-popup-content .building-info {
+  dt {
+    font-weight: bold
+  }
+  dd {
+    margin-left: 0;
+  }
+}
