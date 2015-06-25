@@ -79,8 +79,13 @@ gulp.task('default', ['clean'], function() {
 gulp.task('connect', function() {
   connect.server({
     root: 'dist',
+    port: process.env.PORT || 8080,
     livereload: false
   });
+});
+
+gulp.task("heroku:production", function(){
+  gulp.start('connect')
 });
 
 // Watch
