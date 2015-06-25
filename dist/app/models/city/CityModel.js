@@ -16,6 +16,15 @@ define([
         default_layer : 'year_built',
         map_layers : [
           {
+            title: 'Year Built',
+            field_name: 'year_built',
+            display_type: 'range',
+            min: 1900,
+            max: 2015,
+            range_slice_count: 10,
+            color_range: ['#C7E9B4', '#225EA8']
+          },
+          {
             title: 'Energy Star Score',
             field_name: 'energy_star_score',
             display_type: 'range',
@@ -25,14 +34,33 @@ define([
             color_range: ['#d73027', '#1a9850']
           },
           {
-            title: 'Year Built',
-            field_name: 'year_built',
+            title: 'Gas Use',
+            field_name: 'weather_normalized_site_natural_gas_use_therms',
             display_type: 'range',
-            min: 1900,
-            max: 2015,
-            range_slice_count: 10,
-            color_range: ['#C7E9B4', '#225EA8']
-          }
+            min: 0,
+            max: 170000,
+            range_slice_count: 30,
+            color_range: ['#dd8d01', '#B10026']
+          },
+          {
+            title: 'Electricity Use',
+            field_name: 'weather_normalized_site_electricity_kwh',
+            display_type: 'range',
+            min: 15000,
+            max: 9100000,
+            range_slice_count: 30,
+            color_range: ['#0080ff', '#fff2cc', '#ff4d4d']
+          },
+          {
+            title: 'Water Use',
+            field_name: 'water_use_all_water_sources_kgal',
+            display_type: 'range',
+            min: 0,
+            max: 19000,
+            range_slice_count: 30,
+            color_range: ['#7fbfff', '#0080ff']
+          },
+
         ]
     },
 

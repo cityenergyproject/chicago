@@ -10,7 +10,7 @@ define([
         
         baseCSS : [
             '{marker-fill: #CCC;',
-            'marker-fill-opacity: 0.8;',
+            'marker-fill-opacity: 0.9;',
             'marker-line-color: #FFF;',
             'marker-line-width: 0.5;',
             'marker-line-opacity: 1;',

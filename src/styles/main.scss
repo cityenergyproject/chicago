@@ -10,4 +10,10 @@ html, body {
 #map-controls{
   width: 200px;
   float: left;
+  padding-left: 20px;
+
+  .show-layer{
+    cursor: pointer
+  }
+
 }
