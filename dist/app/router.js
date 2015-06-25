@@ -16,6 +16,9 @@ define([
     },
 
     initialize:function () {
+      this.city = new CityModel(); //eventually this will init the current city - for now LA is default
+      this.map = new MapModel({city: this.city})
+      this.mapView = new MapView({model: this.map});
     },
 
     root:function () {
@@ -28,15 +31,14 @@ define([
     },
 
     layer: function(cityname, layername){
-      var city = new CityModel(); //eventually this will init the current city - for now LA is default
-      var map = new MapModel({city: city, current_layer: layername})
-      var mapView = new MapView({model: map});
-      mapView.render();
+      this.map.set('current_layer', layername)
+      this.mapView.render();
     }
 
   });
   var router = new AppRouter();
   Backbone.history.start();
+  return AppRouter;
 });
 
 

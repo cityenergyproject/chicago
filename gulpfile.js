@@ -85,7 +85,7 @@ gulp.task('connect', function() {
 
 // Watch
 gulp.task('watch', function() {
-
+  gulp.start('default')
   // Create LiveReload server
   livereload.listen({start:true});
 
