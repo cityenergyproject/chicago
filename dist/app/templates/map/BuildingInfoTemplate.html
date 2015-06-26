@@ -1,18 +1,9 @@
 <div class="building-info">
   <dl>
-    <dt>Property ID</dt>
-    <dd> <%= property_id %> </dd>
-
-    <dt>Building Name</dt>
-    <dd> <%= name %> </dd>
-
-    <dt>Address</dt>
-    <dd> <%= address %> </dd>
-
-    <%_.each(obj.data_fields, function (field) {%>
-      <dt><%= field.title %></dt>
-      <dd><%= field.value %></dd>
-    <%})%>
+    <dt>Cartodb_id:</dt>
+    <dd><%=cartodb_id%></<dd>
+    <dt>Property ID:</dt>
+    <dd><%=property_id%></dd>
   </dl>
-  
+  <%=obj.keys%>
 </div>
