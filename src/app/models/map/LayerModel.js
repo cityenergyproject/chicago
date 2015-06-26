@@ -25,22 +25,31 @@ define([
     cartoCSS: function(){
       var min = this.get('min');
       var max = this.get('max');
-      var range_step = (max - min) / this.get('range_slice_count');
-      var bucket_steps = _.range(max, min, -(range_step));
-
-      var colorScale = d3.scale.linear()
-        .range(this.get('color_range'))
-        .domain([min, max]);
-
-      
+      var range_slice_count = this.get('range_slice_count');
       var table_name = this.get('table_name');
       var field_name = this.get('field_name');
       var baseCSS = this.get('baseCSS');
+      var dataCSS = [];
 
-      var dataCSS = bucket_steps.map(function(bucket){
-        return "#" + table_name + "[" + field_name + "<=" + bucket + "]{marker-fill:" + colorScale(bucket) + ";}";
-      }, this);
+      var colorScale = d3.scale.linear()
+        .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
+        .domain([0, range_slice_count]);
 
+      var colorRampValues = _.range(this.get('range_slice_count'))
+        .map(function(value){
+          return colorScale(value);
+        });
+
+      // may want to put a linear option in LayerModel, will need to rework this if so
+      if (this.get('data')){
+        var colorMap = d3.scale.quantile()
+          .domain(d3.values(this.get('data')))
+          .range(colorRampValues);
+
+        dataCSS = colorRampValues.map(function(color){
+          return "#" + table_name + "[" + field_name + ">=" + colorMap.invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
+        }, this);
+      };
       return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
     }

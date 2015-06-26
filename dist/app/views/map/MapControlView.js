@@ -31,7 +31,6 @@ define([
     },
 
     showLayer: function(){
-      // this.map.set("current_layer", this.model.get('field_name')); //using router I think
       Backbone.history.navigate('los_angeles/' + this.model.get('field_name'), {trigger: true});
     }
 

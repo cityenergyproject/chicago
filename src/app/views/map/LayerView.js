@@ -37,6 +37,8 @@ define([
 
       }, this);
       // this.el = layer // need to consider what el really is here
+
+      this.listenTo(this.model, 'change', this.render);
     },
 
     render: function(){

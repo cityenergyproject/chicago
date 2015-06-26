@@ -21,18 +21,11 @@ define([
       });
 
       L.tileLayer(this.model.get('tileSource')).addTo(this.map);
-
-      
     },
 
     render: function(){ 
-      
-
       this.renderCurrentLayer();
       this.renderMapControls();
-
-      this.listenTo(this.model, 'change', this.update);
-
       return this;
     },
 
@@ -46,6 +39,7 @@ define([
         this.currentLayerView.model = currentLayer
       }else{
         this.currentLayerView = new LayerView({model: currentLayer, leafletMap: this.map});
+        this.listenTo(this.model, 'change:current_layer', this.update);
       }
       // this.currentLayerView.render(this.map);
 
@@ -62,7 +56,6 @@ define([
     },
 
     update: function(){
-      // will need to inspect this.model.changed - for now only current_layer changes
       var city = this.model.get('city');
       var current_layer_name = this.model.changed.current_layer
       var currentLayer = city.layers.findWhere({field_name: current_layer_name});

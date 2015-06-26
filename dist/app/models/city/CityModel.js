@@ -5,7 +5,7 @@ define([
 ], function(_, Backbone,LayerModel) {
 
   var CityModel = Backbone.Model.extend({
-    
+
     //eventually we will populate this from a config file - for now just LA
     defaults : {
         name : 'Los Angeles',
@@ -76,7 +76,7 @@ define([
             min: 15000,
             max: 9100000,
             range_slice_count: 30,
-            color_range: ['#0080ff', '#fff2cc', '#ff4d4d']
+            color_range: ['#0080ff', '#ff4d4d']
           },
           {
             title: 'Energy Cost',
@@ -94,7 +94,7 @@ define([
             min: 0.27,
             max: 139,
             range_slice_count: 30,
-            color_range: ['#7fbfff', '#b10026']
+            color_range: ['#0080ff', '#ff4d4d']
           },
           {
             title: 'Water Use',
@@ -139,11 +139,29 @@ define([
     },
 
     initialize: function(){
+      var self = this;
+
       var layerOpts = this.get('map_layers').map(function(layer){
         return _.extend(layer, {table_name: this.get('table_name')});
       }, this);
 
       this.layers = new Backbone.Collection(layerOpts, {model: LayerModel});
+      
+      var sql = new cartodb.SQL({ user: 'cityenergyproject' });
+      this.data = sql.execute("SELECT * FROM " + this.get('table_name'))
+      .done(function(data) {
+        self.addDataToLayers(data)
+      });
+      
+    },
+
+    addDataToLayers: function(data){
+      var self = this;
+
+      self.layers.each(function(layer){
+        var data = this;
+        layer.set('data', _.pluck(data, layer.get('field_name')))
+      }, data.rows);
     }
 
   });
