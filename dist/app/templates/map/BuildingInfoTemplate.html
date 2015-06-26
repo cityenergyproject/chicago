@@ -1,8 +1,17 @@
 <div class="building-info">
   <dl>
-    <%_.each(obj, function (v,k) {%>
-      <dt><%=k%></dt>
-      <dd><%=v%></<dd>
+    <dt>Property ID</dt>
+    <dd> <%= property_id %> </dd>
+
+    <dt>Building Name</dt>
+    <dd> <%= name %> </dd>
+
+    <dt>Address</dt>
+    <dd> <%= address %> </dd>
+
+    <%_.each(obj.data_fields, function (field) {%>
+      <dt><%= field.title %></dt>
+      <dd><%= field.value %></dd>
     <%})%>
   </dl>
   

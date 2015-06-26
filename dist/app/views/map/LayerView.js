@@ -26,7 +26,6 @@ define([
         sub = layer.getSubLayer(0);
         sub.setInteraction(true);
         sub.on('featureClick', function(e, latlng, pos, data) {
-          console.log(data);
           this.showBuildingInfo(e, latlng, pos, data)
         }, this)
         .on('featureOver', function(e, latlng, pos, data) {
@@ -46,10 +45,25 @@ define([
     },
 
     showBuildingInfo: function(e, latlng, pos, data){
-      template = _.template(BuildingInfoTemplate)
+      console.log(data);
+      var mapped_data = {
+        property_id: data.property_id,
+        name: data.property_name,
+        address: data.address_1 + ", " + data.city
+      };
+      var data_fields = _.map(this.model.collection.models, function(layer){
+        return {
+          field_name: layer.get('field_name'),
+          title: layer.get('title'),
+          value: this[layer.get('field_name')]
+        }; 
+      }, data);
+      mapped_data.data_fields = data_fields;
+
+      template = _.template(BuildingInfoTemplate);
       info = L.popup()
         .setLatLng(latlng)
-        .setContent(template(data))
+        .setContent(template(mapped_data))
         .openOn(this.leafletMap);
     }
 
