@@ -52,7 +52,25 @@ define([
       }
       return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
-    }
+    },
+
+    distributionData: function(slices){
+      if (this.get('data') === undefined) {return undefined;}
+
+      var data = this.get('data');
+      var binMap = d3.scale.linear()
+          .domain(d3.extent(data))
+          .rangeRound([0, slices]);
+
+      var counts = Array.apply(null, Array(slices+1)).map(Number.prototype.valueOf,0);
+
+      _.each(data, function(value){
+        if (value === null) {return;}
+        var bin = binMap(value);
+        counts[bin] += 1;
+      });
+      return counts;
+    },
 
   });
 

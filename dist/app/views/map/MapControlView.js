@@ -5,8 +5,7 @@ define([
   'models/city/CityModel',
   'models/map/MapModel',
   'models/map/LayerModel',
-  'router',
-], function($, _, Backbone,CityModel,MapModel,LayerModel,AppRouter){
+], function($, _, Backbone,CityModel,MapModel,LayerModel){
 
   var MapControlView = Backbone.View.extend({
     className: "map-control",
@@ -30,12 +29,10 @@ define([
     },
 
     renderChart: function(){
-      if (this.model.get('data') === undefined) {return;}
-      var slices = 30;
-      var data = this.model.get('data');
-
-      var chartData = this.chartData();
-
+      // think about pulling this out into a DistributionChartView
+      if (this.model.distributionData(1) === undefined) {return this;}
+      var slices = 50;
+      var chartData = this.model.distributionData(slices);
       var height = 75, width = 150;
 
       var yScale = d3.scale.linear()
@@ -69,23 +66,6 @@ define([
       return this;
     },
 
-    chartData: function(){
-      var slices = 30;
-      var data = this.model.get('data');
-      var binMap = d3.scale.linear()
-          .domain(d3.extent(data))
-          .rangeRound([0, slices]);
-
-      var counts = Array.apply(null, Array(slices+1)).map(Number.prototype.valueOf,0);
-
-      _.each(data, function(value){
-        if (value === null) {return;}
-        var bin = binMap(value);
-        counts[bin] += 1;
-      });
-      return counts;
-    },
-
     events: {
       'click .show-layer' : 'showLayer',
       'click .chart' : 'chartClick'
@@ -96,8 +76,7 @@ define([
     },
 
     chartClick: function(){
-      var data = this.model.get('data');
-      var chartData = this.chartData();
+      var chartData = this.model.distributionData(50);
       console.log(chartData);
     }
 
