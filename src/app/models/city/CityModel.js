@@ -150,7 +150,7 @@ define([
       var sql = new cartodb.SQL({ user: 'cityenergyproject' });
       this.data = sql.execute("SELECT * FROM " + this.get('table_name'))
       .done(function(data) {
-        self.addDataToLayers(data)
+        self.addDataToLayers(data);
       });
       
     },
@@ -160,7 +160,7 @@ define([
 
       self.layers.each(function(layer){
         var data = this;
-        layer.set('data', _.pluck(data, layer.get('field_name')))
+        layer.set('data', _.pluck(data, layer.get('field_name')));
       }, data.rows);
     }
 

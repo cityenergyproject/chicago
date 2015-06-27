@@ -4,11 +4,18 @@ html, body {
   padding: 0;
   margin: 0;
 }
+.main-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 #map {
-  height: 800px;
+  height: 100%;
 }
 #map-controls{
   width: 200px;
+  height: 100%;
+  overflow: scroll;
   float: left;
   padding-left: 20px;
 

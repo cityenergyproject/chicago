@@ -17,7 +17,7 @@ define([
 
     initialize:function () {
       this.city = new CityModel(); //eventually this will init the current city - for now LA is default
-      this.map = new MapModel({city: this.city})
+      this.map = new MapModel({city: this.city});
       this.mapView = new MapView({model: this.map});
     },
 
@@ -31,7 +31,7 @@ define([
     },
 
     layer: function(cityname, layername){
-      this.map.set('current_layer', layername)
+      this.map.set('current_layer', layername);
       this.mapView.render();
     }
 

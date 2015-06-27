@@ -49,7 +49,7 @@ define([
         dataCSS = colorRampValues.map(function(color){
           return "#" + table_name + "[" + field_name + ">=" + colorMap.invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
         }, this);
-      };
+      }
       return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
     }

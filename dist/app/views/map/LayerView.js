@@ -22,11 +22,11 @@ define([
       })
       .addTo(this.leafletMap)
       .on('done', function(layer) {
-        this.leafletLayer = layer
+        this.leafletLayer = layer;
         sub = layer.getSubLayer(0);
         sub.setInteraction(true);
         sub.on('featureClick', function(e, latlng, pos, data) {
-          this.showBuildingInfo(e, latlng, pos, data)
+          this.showBuildingInfo(e, latlng, pos, data);
         }, this)
         .on('featureOver', function(e, latlng, pos, data) {
           $('#map').css('cursor', "help");
@@ -42,7 +42,7 @@ define([
     },
 
     render: function(){
-      this.leafletLayer.getSubLayer(0).setCartoCSS(this.model.cartoCSS())
+      this.leafletLayer.getSubLayer(0).setCartoCSS(this.model.cartoCSS());
       return this;
     },
 

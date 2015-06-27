@@ -17,7 +17,8 @@ define([
 
       this.map = new L.Map(this.el, {
         center: this.model.get('center'),
-        zoom: this.model.get('zoom')
+        zoom: this.model.get('zoom'),
+        scrollWheelZoom: false
       });
 
       L.tileLayer(this.model.get('tileSource')).addTo(this.map);
@@ -36,14 +37,14 @@ define([
 
       //find a better approach - show/hide/load?
       if (this.currentLayerView) {
-        this.currentLayerView.model = currentLayer
+        this.currentLayerView.model = currentLayer;
       }else{
         this.currentLayerView = new LayerView({model: currentLayer, leafletMap: this.map});
         this.listenTo(this.model, 'change:current_layer', this.update);
       }
       // this.currentLayerView.render(this.map);
 
-      console.log("render " + current_layer_name)
+      console.log("render " + current_layer_name);
       return this;
     },
 
@@ -57,9 +58,9 @@ define([
 
     update: function(){
       var city = this.model.get('city');
-      var current_layer_name = this.model.changed.current_layer
+      var current_layer_name = this.model.changed.current_layer;
       var currentLayer = city.layers.findWhere({field_name: current_layer_name});
-      this.currentLayerView.model = currentLayer
+      this.currentLayerView.model = currentLayer;
       this.currentLayerView.render();
     }
 
