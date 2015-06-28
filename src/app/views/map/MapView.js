@@ -6,8 +6,9 @@ define([
   'models/map/MapModel',
   'models/map/LayerModel',
   'views/map/LayerView',
-  'views/map/MapControlView'
-], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,MapControlView){
+  'views/map/MapControlView',
+  'text!/app/templates/map_controls/MapControlCategoryTemplate.html'
+], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,MapControlView,MapControlCategoryTemplate){
 
   var MapView = Backbone.View.extend({
     el: $("#map"),
@@ -49,10 +50,23 @@ define([
     },
 
     renderMapControls: function(){
+      this.renderCategories();
       var layers = this.model.get('city').layers;
       _.each(layers.models, function(layer){
         new MapControlView({model: layer, map: this.model}).render();
       }, this);
+      return this;
+    },
+
+    renderCategories: function(){
+      var $map_controls = $('#map-controls');
+      if ($map_controls.find('.category').length > 0) { return this; }
+
+      var categories = this.model.get('city').get('layer_categories');
+      var categoryTemplate = _.template(MapControlCategoryTemplate);
+      _.each(categories, function(category){
+        $map_controls.append(categoryTemplate({category: category}));
+      });
       return this;
     },
 
