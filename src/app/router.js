@@ -12,7 +12,9 @@ define([
     routes:{
         "":"root",
         ":cityname":"city",
-        ":cityname/:layer":"layer"
+        ":cityname/":"city",
+        ":cityname/:layer":"layer",
+        ":cityname/:layer/":"layer"
     },
 
     initialize:function () {
