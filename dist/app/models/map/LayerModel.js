@@ -23,51 +23,66 @@ define([
     },
 
     cartoCSS: function(){
-      var min = this.get('min');
-      var max = this.get('max');
-      var range_slice_count = this.get('range_slice_count');
       var table_name = this.get('table_name');
       var field_name = this.get('field_name');
       var baseCSS = this.get('baseCSS');
       var dataCSS = [];
-
-      var colorScale = d3.scale.linear()
-        .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
-        .domain([0, range_slice_count]);
-
-      var colorRampValues = _.range(this.get('range_slice_count'))
-        .map(function(value){
-          return colorScale(value);
-        });
+      var self = this;
 
       // may want to put a linear option in LayerModel, will need to rework this if so
       if (this.get('data')){
-        var colorMap = d3.scale.quantile()
-          .domain(d3.values(this.get('data')))
-          .range(colorRampValues);
-
+        var colorRampValues = this.colorRampValues();
         dataCSS = colorRampValues.map(function(color){
-          return "#" + table_name + "[" + field_name + ">=" + colorMap.invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
-        }, this);
+          return "#" + table_name + "[" + field_name + ">=" + self.colorMap().invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
+        });
       }
       return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
     },
 
+    colorRamp: function(value){ 
+      var color = d3.scale.linear()
+        .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
+        .domain([0, this.get('range_slice_count')]);
+      return color(value);
+    },
+
+    colorRampValues: function(){
+      var self = this;
+      var range = Array.apply(null, {length: this.get('range_slice_count')}).map(Number.call, Number)
+      return range
+        .map(function(value){
+          return self.colorRamp(value);
+        });
+    },
+
+    colorMap: function(){
+      return d3.scale.quantile()
+        .domain(d3.values(this.get('data')))
+        .range(this.colorRampValues());
+    },
+
     distributionData: function(slices){
       if (this.get('data') === undefined) {return undefined;}
+      var self = this;
 
       var data = this.get('data');
       var binMap = d3.scale.linear()
           .domain(d3.extent(data))
-          .rangeRound([0, slices]);
+          .rangeRound([0, slices-1]);
 
-      var counts = Array.apply(null, Array(slices+1)).map(Number.prototype.valueOf,0);
+      var counts = Array.apply(null, Array(slices))
+        .map(function(){
+          return {count: 0, color: '#CCCCCC'};
+
+        });
 
       _.each(data, function(value){
         if (value === null) {return;}
         var bin = binMap(value);
-        counts[bin] += 1;
+        var color = self.colorMap()(value);
+        counts[bin].count += 1;
+        counts[bin].color = color;
       });
       return counts;
     },

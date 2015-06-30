@@ -42,10 +42,11 @@ define([
 
       var slices = 50;
       var chartData = this.model.distributionData(slices);
+      var counts = _.pluck(chartData, 'count');
       var height = 75, width = 150;
 
       var yScale = d3.scale.linear()
-        .domain([0, d3.max(chartData)])
+        .domain([0, d3.max(counts)])
         .range([0, height]);
  
       var xScale = d3.scale.ordinal()
@@ -60,16 +61,19 @@ define([
         .style('background', 'transparent')
         .selectAll('rect').data(chartData)
         .enter().append('rect')
-          .style({'fill': '#CCCCCC'})
+          .style({'fill': function(d){
+            return d.color;
+            } 
+          })
           .attr('width', xScale.rangeBand())
           .attr('height', function (data) {
-              return yScale(data);
+              return yScale(data.count);
           })
           .attr('x', function (data, i) {
               return xScale(i);
           })
           .attr('y', function (data) {
-              return height - yScale(data);
+              return height - yScale(data.count);
           });
 
       return this;
