@@ -105,16 +105,16 @@ define([
       }
       if (c.length > 0){return c;} 
 
-      // create a new category
-      var new_category = _.template(MapControlCategoryTemplate)({category: category_name});
+      // // create a new category
+      // var new_category = _.template(MapControlCategoryTemplate)({category: category_name});
 
-      // put it before other if there is one
-      if ($other.length > 0){
-        return $(new_category).insertBefore($other);
-      }else{
-        return $(new_category).appendTo(this.$container);
-      }
-      // TODO: refactor this method - such ugly
+      // // put it before other if there is one
+      // if ($other.length > 0){
+      //   return $(new_category).insertBefore($other);
+      // }else{
+      //   return $(new_category).appendTo(this.$container);
+      // }
+      // // TODO: refactor this method - such ugly
     }
 
 
