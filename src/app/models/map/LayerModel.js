@@ -22,6 +22,10 @@ define([
         ]
     },
 
+    initialize: function(){
+      this.setColorRampValues();
+    },
+
     cartoCSS: function(){
       var table_name = this.get('table_name');
       var field_name = this.get('field_name');
@@ -31,8 +35,8 @@ define([
 
       // may want to put a linear option in LayerModel, will need to rework this if so
       if (this.get('data')){
-        var colorRampValues = this.colorRampValues();
-        dataCSS = colorRampValues.map(function(color){
+        // var colorRampValues = this.colorRampValues;
+        dataCSS = this.colorRampValues.map(function(color){
           return "#" + table_name + "[" + field_name + ">=" + self.colorMap().invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
         });
       }
@@ -40,26 +44,25 @@ define([
 
     },
 
-    colorRamp: function(value){ 
-      var color = d3.scale.linear()
+    colorRamp: function(){ 
+      return d3.scale.linear()
         .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
         .domain([0, this.get('range_slice_count')]);
-      return color(value);
     },
 
-    colorRampValues: function(){
+    setColorRampValues: function(){
       var self = this;
       var range = Array.apply(null, {length: this.get('range_slice_count')}).map(Number.call, Number)
-      return range
+      this.colorRampValues = range
         .map(function(value){
-          return self.colorRamp(value);
+          return self.colorRamp()(value);
         });
     },
 
     colorMap: function(){
       return d3.scale.quantile()
-        .domain(d3.values(this.get('data')))
-        .range(this.colorRampValues());
+        .domain(this.get('data'))
+        .range(this.colorRampValues);
     },
 
     distributionData: function(slices){
@@ -67,14 +70,14 @@ define([
       var self = this;
 
       var data = this.get('data');
+      var extent = d3.extent(data);
       var binMap = d3.scale.linear()
-          .domain(d3.extent(data))
+          .domain(extent)
           .rangeRound([0, slices-1]);
 
       var counts = Array.apply(null, Array(slices))
         .map(function(){
           return {count: 0, color: '#CCCCCC'};
-
         });
 
       _.each(data, function(value){
