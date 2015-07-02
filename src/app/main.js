@@ -4,7 +4,7 @@ require.config({
     underscore: 'lib/underscore',
     backbone: 'lib/backbone',
     d3: 'lib/d3',
-    ionrangeslider: 'lib/ion.rangeslider',
+    ionrangeslider: 'lib/ion.rangeSlider',
     templates: '../templates'
   }
 });
