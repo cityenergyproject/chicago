@@ -24,6 +24,32 @@ define([
 
     initialize: function(){
       this.setColorRampValues();
+      this.on('change:data', this.setDataFields);
+    },
+
+    setDataFields: function(){
+      this.set({extent: d3.extent(this.get('data'))});
+      this.trigger('dataReady');
+    },
+
+    getFilter: function(){
+      var filter = this.get('filter');
+      if (filter === undefined){
+        filter = this.get('extent');
+      }
+      return filter;
+    },
+
+    cartoProperties: function(){
+      var base_sql = "SELECT * FROM " + this.get('table_name');
+      
+      var filtersSQL = this.collection.filtersSQL();
+      var sql = base_sql + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
+      return {
+          sql: sql,
+          cartocss: this.cartoCSS(),
+          interactivity: this.collection.interactivity()
+        };
     },
 
     cartoCSS: function(){
@@ -35,7 +61,6 @@ define([
 
       // may want to put a linear option in LayerModel, will need to rework this if so
       if (this.get('data')){
-        // var colorRampValues = this.colorRampValues;
         dataCSS = this.colorRampValues.map(function(color){
           return "#" + table_name + "[" + field_name + ">=" + self.colorMap().invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
         });
@@ -52,7 +77,7 @@ define([
 
     setColorRampValues: function(){
       var self = this;
-      var range = Array.apply(null, {length: this.get('range_slice_count')}).map(Number.call, Number)
+      var range = Array.apply(null, {length: this.get('range_slice_count')}).map(Number.call, Number);
       this.colorRampValues = range
         .map(function(value){
           return self.colorRamp()(value);

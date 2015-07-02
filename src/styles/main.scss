@@ -17,7 +17,7 @@ html, body {
   height: 100%;
   overflow: scroll;
   float: left;
-  padding-left: 20px;
+  padding: 0 20px;
 
   .show-layer{
     cursor: pointer
@@ -32,4 +32,8 @@ html, body {
   dd {
     margin-left: 0;
   }
+}
+
+.map-control .irs-with-grid {
+  top: -20px
 }

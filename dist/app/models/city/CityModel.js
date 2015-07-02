@@ -1,8 +1,8 @@
 define([
   'underscore',
   'backbone',
-  'models/map/LayerModel',
-], function(_, Backbone,LayerModel) {
+  'collections/map/MapLayersCollection'
+], function(_, Backbone,MapLayersCollection) {
 
   var CityModel = Backbone.Model.extend({
 
@@ -175,7 +175,7 @@ define([
         return _.extend(layer, {table_name: this.get('table_name')});
       }, this);
 
-      this.layers = new Backbone.Collection(layerOpts, {model: LayerModel});
+      this.layers = new MapLayersCollection(layerOpts);
       
       var sql = new cartodb.SQL({ user: 'cityenergyproject' });
       this.data = sql.execute("SELECT * FROM " + this.get('table_name'))

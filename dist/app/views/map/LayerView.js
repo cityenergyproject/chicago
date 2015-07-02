@@ -14,11 +14,7 @@ define([
       var newLayer = cartodb.createLayer(this.leafletMap, {
         user_name: 'cityenergyproject',
         type: 'cartodb',
-        sublayers: [{
-          sql: "SELECT * FROM " + this.model.get('table_name'),
-          cartocss: this.model.cartoCSS(),
-          interactivity: "cartodb_id, property_id, address_1, city, property_name, " + this.model.collection.pluck('field_name').join(', ')
-        }]
+        sublayers: [this.model.cartoProperties()]
       })
       .addTo(this.leafletMap)
       .on('done', function(layer) {
@@ -38,11 +34,14 @@ define([
       }, this);
       // this.el = layer // need to consider what el really is here
 
-      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'dataReady', this.render);
+      this.listenTo(this.model.collection, 'change:filter', this.render);
+      
     },
 
     render: function(){
-      this.leafletLayer.getSubLayer(0).setCartoCSS(this.model.cartoCSS());
+      this.leafletLayer.getSubLayer(0).set(this.model.cartoProperties());
+      console.log(this.model.cartoProperties())
       return this;
     },
 

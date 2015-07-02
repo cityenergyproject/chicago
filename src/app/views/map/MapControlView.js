@@ -2,11 +2,13 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'ionrangeslider',
   'models/city/CityModel',
   'models/map/MapModel',
   'models/map/LayerModel',
-  'text!/app/templates/map_controls/MapControlCategoryTemplate.html'
-], function($, _, Backbone,CityModel,MapModel,LayerModel,MapControlCategoryTemplate){
+  'text!/app/templates/map_controls/MapControlCategoryTemplate.html',
+  'text!/app/templates/map_controls/MapControlFilterTemplate.html'
+], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapControlCategoryTemplate, MapControlFilterTemplate){
 
   var MapControlView = Backbone.View.extend({
     className: "map-control",
@@ -19,15 +21,20 @@ define([
       this.$el = $("<div id='"+this.id+"' class='map-control'></div>").appendTo(this.$category());
       this.delegateEvents(this.events);
 
-      this.listenTo(this.model, 'change:data', this.renderChart);
+      this.listenTo(this.model, 'dataReady', this.update);
     },
 
     render: function(){ 
       $(this.el).html(
         "<p class='show-layer'>"+this.model.get('title')+"</p>"
       );
-      this.renderChart();
+      this.update();
       return this;
+    },
+
+    update: function(){
+      this.renderChart();
+      this.renderFilter();
     },
 
     renderChart: function(){
@@ -38,7 +45,6 @@ define([
 
       // lets not render charts for layers that don't have categories
       if (this.model.get('category') === undefined) {return this;}
-
 
       var slices = 50;
       var chartData = this.model.distributionData(slices);
@@ -77,6 +83,33 @@ define([
           });
 
       return this;
+    },
+
+    renderFilter: function(){
+      if (this.model.get('data') === undefined) {return this;}
+      var self = this;
+      var data = this.model.get('data');
+      var $filter = $(_.template(MapControlFilterTemplate)({id: this.model.cid})).appendTo($(this.el));
+      var extent = this.model.get('extent');
+      var from_to = this.model.getFilter();
+
+      $filter.ionRangeSlider({
+        type: 'double',
+        min: extent[0],
+        max: extent[1],
+        from: from_to[0],
+        to: from_to[1],
+        hide_from_to: true,
+        grid: true,
+        hide_min_max: true,
+        onFinish: function(filterControl){
+          if (filterControl.from == filterControl.min && filterControl.to == filterControl.max){
+            self.model.set('filter', undefined);
+          }else{
+            self.model.set('filter', [filterControl.from, filterControl.to]);
+          }
+        }
+      });
     },
 
     events: {
