@@ -1,0 +1,138 @@
+{
+    "url_name": "philadelphia",
+    "cartoDbUser": "cityenergyproject",
+    "name": "Philadelphia",
+    "table_name": "philadelphia_propertiesreported_csv",
+    "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    "center": [
+        39.952584,
+        -75.165222
+    ],
+    "zoom": 11,
+    "layer_categories": [
+        "Building Info",
+        "Energy Use",
+        "Climate Emissions",
+        "Water"
+    ],
+
+    "building_info_fields": {
+        "property_id": "portfolio_manager_id",
+        "name": "property_name",
+        "address": "address",
+        "postal_code": "postal_code"
+    },
+    "default_layer": "site_eui_kbtu_ft",
+    "map_layers": [
+        {
+            "title": "Year Built",
+            "field_name": "year_built",
+            "display_type": "range",
+            "category": "Building Info",
+            "range_slice_count": 10,
+            "color_range": [
+                "#C7E9B4",
+                "#225EA8"
+            ]
+        },
+        {
+            "title": "Square Feet",
+            "field_name": "property_floor_area_buildings_and_parking_ft",
+            "display_type": "range",
+            "category": "Building Info",
+            "range_slice_count": 30,
+            "color_range": [
+                "#dd8d01",
+                "#B10026"
+            ]
+        },
+        {
+            "title": "Energy Star Score",
+            "field_name": "energy_star_score",
+            "display_type": "range",
+            "category": "Building Info",
+            "range_slice_count": 10,
+            "color_range": [
+                "#d73027",
+                "#1a9850"
+            ]
+        },
+        {
+            "title": "Energy Use per Sq Ft",
+            "field_name": "site_eui_kbtu_ft",
+            "display_type": "range",
+            "category": "Energy Use",
+            "range_slice_count": 30,
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ]
+        },
+        {
+            "title": "Electricity Use",
+            "field_name": "electricity_use___grid_purchase_and_generated_from_onsite_renew",
+            "display_type": "range",
+            "category": "Energy Use",
+            "range_slice_count": 30,
+            "color_range": [
+                "#0080ff",
+                "#ff4d4d"
+            ]
+        },
+        {
+            "title": "Steam Energy",
+            "field_name": "district_steam_use_kbtu",
+            "display_type": "range",
+            "category": "Energy Use",
+            "range_slice_count": 30,
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ]
+        },
+        {
+            "title": "Fuel Oil",
+            "field_name": "fuel_oil__2_use_kbtu",
+            "display_type": "range",
+            "category": "Energy Use",
+            "range_slice_count": 30,
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ]
+        },
+        {
+            "title": "Gas Use",
+            "field_name": "natural_gas_use_kbtu",
+            "display_type": "range",
+            "category": "Energy Use",
+            "range_slice_count": 30,
+            "color_range": [
+                "#dd8d01",
+                "#B10026"
+            ]
+        },
+        {
+            "title": "Total GHG Emissions (Metric Tons CO2e)",
+            "field_name": "total_ghg_emissions_mtco2e",
+            "display_type": "range",
+            "category": "Climate Emissions",
+            "range_slice_count": 30,
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ]
+        },
+        {
+            "title": "Water Use",
+            "field_name": "water_use_all_water_sources_kgal",
+            "display_type": "range",
+            "category": "Water",
+            "range_slice_count": 30,
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ]
+        }
+    ]
+}

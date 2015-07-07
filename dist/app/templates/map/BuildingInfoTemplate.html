@@ -9,6 +9,8 @@
     <dt>Address</dt>
     <dd> <%= address %> </dd>
 
+    <!--if other address fields are defined in building_info_fields they are available here-->
+
     <%_.each(obj.data_fields, function (field) {%>
       <dt><%= field.title %></dt>
       <dd><%= field.value %></dd>

@@ -16,36 +16,29 @@ define([
     initialize: function(){
       document.title = this.model.get('title');
 
-      this.map = new L.Map(this.el, {
-        center: this.model.get('center'),
-        zoom: this.model.get('zoom'),
-        scrollWheelZoom: false
-      });
-
-      L.tileLayer(this.model.get('tileSource')).addTo(this.map);
+      this.listenTo(this.model, 'change:city', this.changeCity);
+      this.listenTo(this.model, 'cityChange', this.initWithCity);
     },
 
-    render: function(){ 
-      this.renderCurrentLayer();
-      this.renderMapControls();
+    initWithCity: function(){
+      document.title = this.model.get('title');
+
+      if (!this.leafletMap){
+        this.leafletMap = new L.Map(this.el, {
+          center: this.model.get('center'),
+          zoom: this.model.get('zoom'),
+          scrollWheelZoom: false
+        });
+        L.tileLayer(this.model.get('city').get('tileSource')).addTo(this.leafletMap);
+      }
+
+      this.currentLayerView = this.currentLayerView || new LayerView({mapView: this});
+      this.render();
       return this;
     },
 
-    renderCurrentLayer: function(){
-      var city = this.model.get('city');
-      var current_layer_name = this.model.get('current_layer');
-      var currentLayer = city.layers.findWhere({field_name: current_layer_name});
-
-      //find a better approach - show/hide/load?
-      if (this.currentLayerView) {
-        this.currentLayerView.model = currentLayer;
-      }else{
-        this.currentLayerView = new LayerView({model: currentLayer, leafletMap: this.map});
-        this.listenTo(this.model, 'change:current_layer', this.update);
-      }
-      // this.currentLayerView.render(this.map);
-
-      console.log("render " + current_layer_name);
+    render: function(){ 
+      this.renderMapControls();
       return this;
     },
 
@@ -70,12 +63,11 @@ define([
       return this;
     },
 
-    update: function(){
-      var city = this.model.get('city');
-      var current_layer_name = this.model.changed.current_layer;
-      var currentLayer = city.layers.findWhere({field_name: current_layer_name});
-      this.currentLayerView.model = currentLayer;
-      this.currentLayerView.render();
+    changeCity: function(){
+      console.log("change city")
+      $('#map-controls').empty();
+      this.leafletMap.setView(this.model.get('center'), parseInt(this.model.get('zoom')));
+      // other cleanup here
     }
 
 

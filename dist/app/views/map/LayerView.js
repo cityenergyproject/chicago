@@ -8,9 +8,14 @@ define([
 ], function($, _, Backbone,MapModel,LayerModel,BuildingInfoTemplate){
 
   var LayerView = Backbone.View.extend({
+    model: LayerModel,
 
-    initialize: function(options){  
-      this.leafletMap = options.leafletMap;
+    initialize: function(options){ 
+      this.mapView = options.mapView;
+      this.leafletMap = options.mapView.leafletMap;
+
+      this.setCurrentLayer();
+
       var newLayer = cartodb.createLayer(this.leafletMap, {
         user_name: 'cityenergyproject',
         type: 'cartodb',
@@ -36,6 +41,7 @@ define([
 
       this.listenTo(this.model, 'dataReady', this.render);
       this.listenTo(this.model.collection, 'change:filter', this.render);
+      this.listenTo(this.mapView.model, 'change:current_layer', this.showCurrentLayer);
       
     },
 
@@ -45,13 +51,33 @@ define([
       return this;
     },
 
+    showCurrentLayer: function(){
+      this.setCurrentLayer().render();
+    },
+
+    setCurrentLayer: function(){
+      var current_layer = this.mapView.model.getCurrentLayer();
+      if (current_layer===undefined){
+        alert("City has no data for " + this.mapView.model.get('current_layer'));
+        // maybe reset route?
+      }else{
+        this.model = current_layer;
+      }
+      return this;
+    },
+
     showBuildingInfo: function(e, latlng, pos, data){
       console.log(data);
-      var mapped_data = {
-        property_id: data.property_id,
-        name: data.property_name,
-        address: data.address_1 + ", " + data.city
-      };
+      // var mapped_data = {
+      //   property_id: data.property_id,
+      //   name: data.property_name,
+      //   address: data.address_1 + ", " + data.city
+      // };
+      // var mapped_data = {};
+      var building_info_fields = this.model.collection.city.get('building_info_fields');
+      var mapped_data = _.mapObject(building_info_fields, function(value, key){
+        return data[value];
+      });
       var data_fields = _.map(this.model.collection.models, function(layer){
         return {
           field_name: layer.get('field_name'),

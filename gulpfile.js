@@ -53,6 +53,15 @@ gulp.task('scripts', function() {
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
+// Cities Config
+gulp.task('cities_config', function() {
+  return gulp.src('src/cities/*.json')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(gulp.dest('dist/cities'))
+    .pipe(notify({ message: 'Cities config task complete' }));
+});
+
 // Images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
@@ -73,7 +82,7 @@ gulp.task('clean', function(cb) {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates');
+    gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates', 'cities_config');
 });
 
 gulp.task('connect', function() {
@@ -106,6 +115,8 @@ gulp.task('watch', function() {
 
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);
+
+  gulp.watch('src/cities/*.json', ['cities_config']);
 
   // Watch any files in dist/, reload on change
   gulp.watch(['dist/**']).on('change', livereload.changed);

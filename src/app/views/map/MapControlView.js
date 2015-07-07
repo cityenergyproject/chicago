@@ -41,7 +41,7 @@ define([
       // pull this out into a DistributionChartView
 
        // return if no data, but we are listening for it and will render then
-      if (this.model.distributionData(1) === undefined) {return this;}
+      if (this.model.get('data') === undefined) {return this;}
 
       // lets not render charts for layers that don't have categories
       if (this.model.get('category') === undefined) {return this;}
@@ -87,6 +87,8 @@ define([
 
     renderFilter: function(){
       if (this.model.get('data') === undefined) {return this;}
+      if (this.model.get('category') === undefined) {return this;}
+
       var self = this;
       var data = this.model.get('data');
       var $filter = $(_.template(MapControlFilterTemplate)({id: this.model.cid})).appendTo($(this.el));
@@ -118,7 +120,7 @@ define([
     },
 
     showLayer: function(){
-      Backbone.history.navigate('los_angeles/' + this.model.get('field_name'), {trigger: true});
+      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.model.get('field_name'), {trigger: true});
     },
 
     chartClick: function(){

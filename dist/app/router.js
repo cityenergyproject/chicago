@@ -8,7 +8,7 @@ define([
   'models/map/MapModel',
 ], function($, _, Backbone, MapView, CityModel, MapModel) {
 
-  var AppRouter = Backbone.Router.extend({
+  var Router = Backbone.Router.extend({
     routes:{
         "":"root",
         ":cityname":"city",
@@ -17,30 +17,60 @@ define([
         ":cityname/:layer/":"layer"
     },
 
-    initialize:function () {
-      this.city = new CityModel(); //eventually this will init the current city - for now LA is default
-      this.map = new MapModel({city: this.city});
-      this.mapView = new MapView({model: this.map});
-    },
-
     root:function () {
       this.navigate('los_angeles', {trigger: true, replace: true});
     },
 
-    city: function(name){
-      var city = new CityModel();
-      this.navigate('los_angeles/' + city.get('default_layer'), {trigger: true, replace: true});
+    city: function(cityname){
+      CityController.load(cityname)
     },
 
     layer: function(cityname, layername){
-      this.map.set('current_layer', layername);
-      this.mapView.render();
+      CityController.load(cityname, layername)
     }
 
   });
-  var router = new AppRouter();
+
+  
+
+  var CityController = {
+    load: function(cityname, layername){
+
+      // should probably cache cities in collections? need some way of cleaning up if you switch btw
+      if (!this.city || this.city.get('url_name') !== cityname){
+        this.city = new CityModel({url_name: cityname})
+      };
+
+      layername = layername || '';
+
+      AppRouter.navigate(cityname + '/' + layername, {trigger: false, replace: true});
+      this.render(layername);
+
+      return this;
+    },
+
+    render: function(layername){
+
+      if (this.map){
+        this.map.set({city: this.city});
+      } else {
+        this.map = new MapModel({city: this.city});
+      }
+
+      //set current_layer before initializing new MapView in order to avoid triggering layer change with empty layer
+      this.map.set('current_layer', layername); 
+      this.mapView = this.mapView || new MapView({model: this.map});
+
+      return this;
+    }
+    
+  };
+
+  var AppRouter = new Router();
   Backbone.history.start();
-  return AppRouter;
+  
+  
+  return Router;
 });
 
 
