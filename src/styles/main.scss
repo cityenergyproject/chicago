@@ -27,7 +27,7 @@ html, body {
 
 .leaflet-popup-content .building-info {
   dt {
-    font-weight: bold
+    font-weight: bold;
   }
   dd {
     margin-left: 0;
@@ -36,4 +36,31 @@ html, body {
 
 .map-control .irs-with-grid {
   top: -20px
+}
+
+#map-category-controls {
+  margin-left: 250px;
+  .map-control {
+    position: relative;
+    
+    .categories {
+      position: absolute;
+      z-index: 99;
+      background-color: rgba(100,100,100,0.3);
+      ul {
+        padding-left: 10px;
+        list-style: none;
+        li {
+          line-height: 1.5;
+          span {
+            margin-right: 5px;
+            input{
+              vertical-align: middle;
+              margin: 2px 2px 2px 5px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

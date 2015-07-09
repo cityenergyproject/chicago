@@ -2,9 +2,11 @@ define([
   'underscore',
   'backbone',
   'd3',
-], function(_, Backbone, d3) {
+  'models/map/LayerModel'
+], function(_, Backbone,d3,LayerModel) {
 
-  var LayerModel = Backbone.Model.extend({
+  // look at making a LayerModel that gets subclassed here
+  var CategoryLayerModel = Backbone.Model.extend({
 
     defaults : {
         
@@ -19,28 +21,33 @@ define([
             'marker-type: ellipse;',
             'marker-allow-overlap: true;',
             'marker-clip: false;}'
-        ]
+        ],
+        categories_to_show : 10
     },
 
     initialize: function(){
-      this.setColorRampValues();
       this.on('change:data', this.setDataFields);
     },
 
     setDataFields: function(){
-      this.set({extent: d3.extent(this.get('data'))});
+      this.setColorRampValues();
       this.trigger('dataReady');
     },
 
     getFilter: function(){
-      var filter = this.get('filter');
-      if (filter === undefined){
-        filter = this.get('extent');
-      }
-      return filter;
+      return this.get('filter');   
     },
+
     filterSQL: function(){
-      return this.get('field_name') + " BETWEEN " + this.get('filter').join(' AND ');
+      var field_name = this.get('field_name');
+      var categories = _.values(this.get('filter'))[0];
+      var key = _.keys(this.get('filter'))[0]
+      op = (key == 'exclude') ? '!=' : '=';
+      sql = categories.map(function(category){
+        return  field_name + op + "'" + category + "'";
+      });
+      var sqlJoin = (key == 'exclude') ? ' AND ' : ' OR ';
+      return "(" + sql.join(sqlJoin) + ")";
     },
 
     cartoProperties: function(){
@@ -64,62 +71,56 @@ define([
 
       // may want to put a linear option in LayerModel, will need to rework this if so
       if (this.get('data')){
-        dataCSS = this.colorRampValues.map(function(color){
-          return "#" + table_name + "[" + field_name + ">=" + self.colorMap().invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
+        dataCSS = this.colorRampValues.map(function(value){
+          return "#" + table_name + "[" + field_name + "='" + value.name + "']{marker-fill:" + value.color + ";}";
         });
       }
       return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
 
     },
 
-    colorRamp: function(){ 
-      return d3.scale.linear()
-        .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
-        .domain([0, this.get('range_slice_count')]);
+    colorRamp: function(domain){ 
+      // todo: figure out how to use the nicer colorbrewer lib here
+      return d3.scale.category10().domain(domain)
     },
 
     setColorRampValues: function(){
       var self = this;
-      var range = Array.apply(null, {length: this.get('range_slice_count')}).map(Number.call, Number);
-      this.colorRampValues = range
-        .map(function(value){
-          return self.colorRamp()(value);
+      var category_counts = this.distributionData();
+      var displayed_categories = _.reject(category_counts, function(category){
+        return category.name == "Other";
+      }).slice(0,this.get('categories_to_display'))
+      this.colorRampValues = displayed_categories
+        .map(function(category){
+          var names = _.pluck(displayed_categories,'name');
+          category.color = self.colorRamp(names)(category.name);
+          return category;
         });
+
+      return this;
     },
 
-    colorMap: function(){
-      return d3.scale.quantile()
-        .domain(this.get('data'))
-        .range(this.colorRampValues);
-    },
-
-    distributionData: function(slices){
+    distributionData: function(){
       if (this.get('data') === undefined) {return undefined;}
       var self = this;
 
       var data = this.get('data');
-      var extent = d3.extent(data);
-      var binMap = d3.scale.linear()
-          .domain(extent)
-          .rangeRound([0, slices-1]);
-
-      var counts = Array.apply(null, Array(slices))
-        .map(function(){
-          return {count: 0, color: '#CCCCCC'};
-        });
+      var categories = _.uniq(data).map(function(category){
+        return {name: category, count: 0};
+      });
 
       _.each(data, function(value){
         if (value === null) {return;}
-        var bin = binMap(value);
-        var color = self.colorMap()(value);
-        counts[bin].count += 1;
-        counts[bin].color = color;
+
+        var category = _.findWhere(categories, {name: value});
+        category.count += 1;
+
       });
-      return counts;
+      return _.sortBy(categories, 'count').reverse();
     },
 
   });
 
-  return LayerModel;
+  return CategoryLayerModel;
 
 });

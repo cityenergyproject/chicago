@@ -68,12 +68,7 @@ define([
 
     showBuildingInfo: function(e, latlng, pos, data){
       console.log(data);
-      // var mapped_data = {
-      //   property_id: data.property_id,
-      //   name: data.property_name,
-      //   address: data.address_1 + ", " + data.city
-      // };
-      // var mapped_data = {};
+
       var building_info_fields = this.model.collection.city.get('building_info_fields');
       var mapped_data = _.mapObject(building_info_fields, function(value, key){
         return data[value];

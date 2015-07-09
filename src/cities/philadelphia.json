@@ -25,6 +25,13 @@
     "default_layer": "site_eui_kbtu_ft",
     "map_layers": [
         {
+            "title": "Building Type",
+            "field_name": "primary_property_type___epa_calculated",
+            "display_type": "category",
+            "category": "Building Info",
+            "categories_to_display": 9
+        },
+        {
             "title": "Year Built",
             "field_name": "year_built",
             "display_type": "range",

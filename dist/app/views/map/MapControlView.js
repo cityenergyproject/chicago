@@ -33,8 +33,11 @@ define([
     },
 
     update: function(){
-      this.renderChart();
-      this.renderFilter();
+      if (this.model.get('display_type')=='range'){
+        this.renderChart();
+        this.renderFilter();
+      }
+      
     },
 
     renderChart: function(){

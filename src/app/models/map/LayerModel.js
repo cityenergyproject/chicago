@@ -2,7 +2,7 @@ define([
   'underscore',
   'backbone',
   'd3',
-], function(_, Backbone) {
+], function(_, Backbone, d3) {
 
   var LayerModel = Backbone.Model.extend({
 
@@ -38,6 +38,9 @@ define([
         filter = this.get('extent');
       }
       return filter;
+    },
+    filterSQL: function(){
+      return this.get('field_name') + " BETWEEN " + this.get('filter').join(' AND ');
     },
 
     cartoProperties: function(){

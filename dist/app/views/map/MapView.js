@@ -7,8 +7,9 @@ define([
   'models/map/LayerModel',
   'views/map/LayerView',
   'views/map/MapControlView',
+  'views/map/MapCategoryControlView',
   'text!/app/templates/map_controls/MapControlCategoryTemplate.html'
-], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,MapControlView,MapControlCategoryTemplate){
+], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,MapControlView,MapCategoryControlView,MapControlCategoryTemplate){
 
   var MapView = Backbone.View.extend({
     el: $("#map"),
@@ -30,6 +31,7 @@ define([
           scrollWheelZoom: false
         });
         L.tileLayer(this.model.get('city').get('tileSource')).addTo(this.leafletMap);
+        this.leafletMap.zoomControl.setPosition('topright');
       }
 
       this.currentLayerView = this.currentLayerView || new LayerView({mapView: this});
@@ -46,7 +48,12 @@ define([
       this.renderCategories();
       var layers = this.model.get('city').layers;
       _.each(layers.models, function(layer){
-        new MapControlView({model: layer, map: this.model}).render();
+        // I think we can duck type this but for now...
+        if (layer.get('display_type')=='range'){
+          new MapControlView({model: layer, map: this.model}).render();
+        }else if (layer.get('display_type')=='category'){
+          new MapCategoryControlView({model: layer, map: this.model}).render();
+        }
       }, this);
       return this;
     },

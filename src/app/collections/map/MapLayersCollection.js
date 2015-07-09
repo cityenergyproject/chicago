@@ -1,8 +1,9 @@
 define([
   'underscore',
   'backbone',
-  'models/map/LayerModel'
-], function(_, Backbone, LayerModel) {
+  'models/map/LayerModel',
+  'models/map/CategoryLayerModel'
+], function(_, Backbone, LayerModel, CategoryLayerModel) {
 
   var MapLayersCollection = Backbone.Collection.extend({
     model: LayerModel,
@@ -28,7 +29,7 @@ define([
     filtersSQL: function(){
       var sql = this.map(function(layer){
         if(layer.get('filter')===undefined){return "";}
-        return layer.get('field_name') + " BETWEEN " + layer.get('filter').join(' AND ') ;
+        return layer.filterSQL();
       });
       return _.compact(sql).join(' AND ');
     },
@@ -37,7 +38,11 @@ define([
       this.reset(null);
       var layers = this.city.get('map_layers').map(function(layer){
         _.extend(layer, {table_name: this.city.get('table_name')});
-        return new LayerModel(layer);
+        if (layer.display_type=='category'){
+          return new CategoryLayerModel(layer);
+        }else{
+          return new LayerModel(layer);
+        }
       }, this);
       this.add(layers);
       this.fetch();
