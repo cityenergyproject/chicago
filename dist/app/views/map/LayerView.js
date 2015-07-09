@@ -46,8 +46,13 @@ define([
     },
 
     render: function(){
-      this.leafletLayer.getSubLayer(0).set(this.model.cartoProperties());
-      console.log(this.model.cartoProperties())
+      var cartoProperties = this.model.cartoProperties();
+      if (cartoProperties == undefined){
+        this.leafletLayer.getSubLayer(0).hide();
+      }else{
+        this.leafletLayer.getSubLayer(0).set(cartoProperties).show();
+        console.log(this.model.cartoProperties());
+      }
       return this;
     },
 

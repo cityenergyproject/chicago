@@ -41,11 +41,16 @@ define([
     filterSQL: function(){
       var field_name = this.get('field_name');
       var categories = _.values(this.get('filter'))[0];
-      var key = _.keys(this.get('filter'))[0]
-      op = (key == 'exclude') ? '!=' : '=';
-      sql = categories.map(function(category){
+      var key = _.keys(this.get('filter'))[0];
+      var op = (key == 'exclude') ? '!=' : '=';
+
+      var sql = categories.map(function(category){
         return  field_name + op + "'" + category + "'";
       });
+
+      // find a better way
+      if (sql.length == 0){return 'NULLSET';}
+
       var sqlJoin = (key == 'exclude') ? ' AND ' : ' OR ';
       return "(" + sql.join(sqlJoin) + ")";
     },
@@ -54,6 +59,9 @@ define([
       var base_sql = "SELECT * FROM " + this.get('table_name');
       
       var filtersSQL = this.collection.filtersSQL();
+      
+      if (filtersSQL.indexOf('NULLSET') > -1){return undefined}
+
       var sql = base_sql + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
       return {
           sql: sql,
