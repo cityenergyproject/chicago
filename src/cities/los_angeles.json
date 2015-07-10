@@ -2,7 +2,7 @@
     "url_name": "los_angeles",
     "name": "Los Angeles",
     "cartoDbUser": "cityenergyproject",
-    "table_name": "losangelestestdatasetcep_na_to_null_20150619",
+    "table_name": "losangeles_2015revised_20150708",
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
         34.093041824023125,
@@ -12,7 +12,6 @@
     "layer_categories": [
         "Building Info",
         "Energy Use",
-        "Energy Cost",
         "Climate Emissions",
         "Water Use"
     ],
@@ -27,19 +26,13 @@
     "default_layer": "year_built",
     "map_layers": [
         {
-            "title": "Year Built",
-            "field_name": "year_built",
-            "display_type": "range",
+            "title": "Building Type",
+            "field_name": "property_type",
+            "display_type": "category",
             "category": "Building Info",
-            "min": 1900,
-            "max": 2015,
-            "range_slice_count": 10,
-            "color_range": [
-                "#C7E9B4",
-                "#225EA8"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            "categories_to_display": 9
         },
+        
         {
             "title": "Square Feet",
             "field_name": "property_floor_area_buildings_and_parking_ft",
@@ -51,8 +44,7 @@
             "color_range": [
                 "#dd8d01",
                 "#B10026"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Energy Star Score",
@@ -65,8 +57,7 @@
             "color_range": [
                 "#d73027",
                 "#1a9850"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Energy Use",
@@ -79,8 +70,7 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Energy Use per Sq Ft",
@@ -93,8 +83,7 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Gas Use",
@@ -107,8 +96,7 @@
             "color_range": [
                 "#dd8d01",
                 "#B10026"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Electricity Use",
@@ -121,36 +109,7 @@
             "color_range": [
                 "#0080ff",
                 "#ff4d4d"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
-        },
-        {
-            "title": "Energy Cost",
-            "field_name": "energy_cost",
-            "display_type": "range",
-            "category": "Energy Cost",
-            "min": 2767,
-            "max": 1426500,
-            "range_slice_count": 30,
-            "color_range": [
-                "#7fbfff",
-                "#0080ff"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
-        },
-        {
-            "title": "Energy Cost Intensity ($/ft²)",
-            "field_name": "energy_cost_intensity_ft",
-            "display_type": "range",
-            "category": "Energy Cost",
-            "min": 0.27,
-            "max": 139,
-            "range_slice_count": 30,
-            "color_range": [
-                "#0080ff",
-                "#ff4d4d"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Water Use",
@@ -163,22 +122,7 @@
             "color_range": [
                 "#7fbfff",
                 "#0080ff"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
-        },
-        {
-            "title": "Total Water Cost",
-            "field_name": "total_water_cost_all_water_sources",
-            "display_type": "range",
-            "category": "Water Use",
-            "min": 0,
-            "max": 134644,
-            "range_slice_count": 30,
-            "color_range": [
-                "#7fbfff",
-                "#0080ff"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Total GHG Emissions (Metric Tons CO2e)",
@@ -191,8 +135,7 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "Direct GHG Emissions Intensity (kgCO2e/ft²)",
@@ -205,8 +148,7 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         },
         {
             "title": "On-site energy for water",
@@ -216,20 +158,8 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
-        },
-        {
-            "title": "National Median Energy Cost",
-            "field_name": "national_median_energy_cost",
-            "display_type": "range",
-            "category": "Test Category",
-            "range_slice_count": 30,
-            "color_range": [
-                "#1a9850",
-                "#d73027"
-            ],
-            "table_name": "losangelestestdatasetcep_na_to_null_20150619"
+            ]
         }
+
     ]
 }
