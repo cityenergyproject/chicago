@@ -49,7 +49,7 @@ define([
       });
 
       // find a better way
-      if (sql.length == 0){return 'NULLSET';}
+      if (sql.length === 0){return 'NULLSET';}
 
       var sqlJoin = (key == 'exclude') ? ' AND ' : ' OR ';
       return "(" + sql.join(sqlJoin) + ")";
@@ -59,8 +59,8 @@ define([
       var base_sql = "SELECT * FROM " + this.get('table_name');
       
       var filtersSQL = this.collection.filtersSQL();
-      
-      if (filtersSQL.indexOf('NULLSET') > -1){return undefined}
+
+      if (filtersSQL.indexOf('NULLSET') > -1){return undefined;}
 
       var sql = base_sql + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
       return {
@@ -89,7 +89,7 @@ define([
 
     colorRamp: function(domain){ 
       // todo: figure out how to use the nicer colorbrewer lib here
-      return d3.scale.category10().domain(domain)
+      return d3.scale.category10().domain(domain);
     },
 
     setColorRampValues: function(){
@@ -97,7 +97,8 @@ define([
       var category_counts = this.distributionData();
       var displayed_categories = _.reject(category_counts, function(category){
         return category.name == "Other";
-      }).slice(0,this.get('categories_to_display'))
+      }).slice(0,this.get('categories_to_display'));
+
       this.colorRampValues = displayed_categories
         .map(function(category){
           var names = _.pluck(displayed_categories,'name');

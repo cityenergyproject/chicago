@@ -19,6 +19,7 @@ define([
       this.fetch({ url: "/cities/" + url_name + ".json", 
         success: function(model, response, options) {
           model.set(response);
+          model.trigger('cityLoaded');
         },
         error: function(model, response, options){
           alert("Unable to find city config file");
@@ -26,8 +27,7 @@ define([
       });
 
     },
-
-
+    
   });
 
   return CityModel;

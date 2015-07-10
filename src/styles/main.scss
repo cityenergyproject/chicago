@@ -3,6 +3,7 @@ html, body {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-family: 'sans-serif';
 }
 .main-container {
   position: absolute;
@@ -64,3 +65,31 @@ html, body {
     }
   }
 }
+#buildings table {
+  th {
+    background-color: #CCCCCC;
+    padding: 5px;
+    border: 5px solid white;
+    .remove{
+      cursor: pointer;
+      float: right;
+    }
+  }
+  tr {
+    padding: 5px 0;
+  }
+  td {
+    text-align: center;
+    padding: 5px
+  }
+  td.building_info {
+    text-align: right;
+    span {
+      display: none;
+      &.address, &.name{
+        display: block;
+      }
+    }
+  }
+}
+

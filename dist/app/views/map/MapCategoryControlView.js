@@ -51,7 +51,7 @@ define([
 
     toggleCategory: function(){
       var unchecked = this.$el.find("input:not(:checked)").map(function(){return $(this).val();});
-      if (unchecked.length==0){
+      if (unchecked.length===0){
         return this.model.set('filter', undefined);
       }
       var checked = this.$el.find("input:checked").map(function(){return $(this).val();});
@@ -67,10 +67,6 @@ define([
     showLayer: function(){
       Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.model.get('field_name'), {trigger: true});
     },
-
-
-
-
 
 
   });

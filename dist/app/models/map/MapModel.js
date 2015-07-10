@@ -11,7 +11,7 @@ define([
     },
 
     initialize: function(){
-      this.listenTo(this.get('city'), 'change', this.cityChange)
+      this.listenTo(this.get('city'), 'cityLoaded', this.cityChange);
     },
 
     getCurrentLayer: function(){

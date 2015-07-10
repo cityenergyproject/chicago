@@ -6,7 +6,8 @@ define([
   'views/map/MapView',
   'models/city/CityModel',
   'models/map/MapModel',
-], function($, _, Backbone, MapView, CityModel, MapModel) {
+  'views/info/BuildingView',
+], function($, _, Backbone, MapView, CityModel, MapModel, BuildingView) {
 
   var Router = Backbone.Router.extend({
     routes:{
@@ -22,11 +23,11 @@ define([
     },
 
     city: function(cityname){
-      CityController.load(cityname)
+      CityController.load(cityname);
     },
 
     layer: function(cityname, layername){
-      CityController.load(cityname, layername)
+      CityController.load(cityname, layername);
     }
 
   });
@@ -38,8 +39,8 @@ define([
 
       // should probably cache cities in collections? need some way of cleaning up if you switch btw
       if (!this.city || this.city.get('url_name') !== cityname){
-        this.city = new CityModel({url_name: cityname})
-      };
+        this.city = new CityModel({url_name: cityname});
+      }
 
       layername = layername || '';
 
@@ -51,6 +52,17 @@ define([
 
     render: function(layername){
 
+      this.initializeMap(layername);
+      this.initializeBuildingView();
+
+      return this;
+    },
+
+    initializeBuildingView: function(){
+      this.buildingView = this.buildingView || new BuildingView({map: this.map, mapView: this.mapView});
+    },
+
+    initializeMap: function(layername){
       if (this.map){
         this.map.set({city: this.city});
       } else {

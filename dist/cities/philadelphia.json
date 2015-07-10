@@ -20,7 +20,8 @@
         "property_id": "portfolio_manager_id",
         "name": "property_name",
         "address": "address",
-        "postal_code": "postal_code"
+        "postal_code": "postal_code",
+        "building_type": "primary_property_type___epa_calculated"
     },
     "default_layer": "site_eui_kbtu_ft",
     "map_layers": [

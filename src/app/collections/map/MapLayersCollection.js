@@ -20,6 +20,7 @@ define([
       });
 
       this.listenTo(this.city, 'change:map_layers', this.update);
+      this.listenTo(this, 'change:filter', this.updateCurrentBuildingSet);
     },
 
     interactivity: function(){
@@ -36,6 +37,9 @@ define([
 
     update: function(){
       this.reset(null);
+
+      this.dataSQLBase = "SELECT * FROM " + this.city.get('table_name');
+
       var layers = this.city.get('map_layers').map(function(layer){
         _.extend(layer, {table_name: this.city.get('table_name')});
         if (layer.display_type=='category'){
@@ -50,13 +54,29 @@ define([
 
     fetch: function(){
       var self = this;
-      this.cartoClient.execute("SELECT * FROM " + this.city.get('table_name'))
+
+      this.cartoClient.execute(this.dataSQLBase)
       .done(function(data) {
+        self.city.set('currentBuildingSet', data.rows);
+
         self.each(function(layer){
           var data = this;
           layer.set('data', _.pluck(data, layer.get('field_name')));
         }, data.rows);
       });
+    },
+
+
+    updateCurrentBuildingSet: function(){
+      var self = this;
+      var filtersSQL = this.filtersSQL();
+      var sql = this.dataSQLBase + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
+
+      this.cartoClient.execute(sql)
+      .done(function(data) {
+        self.city.set('currentBuildingSet', data.rows);
+      });
+
     }
 
   });

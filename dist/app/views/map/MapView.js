@@ -71,7 +71,7 @@ define([
     },
 
     changeCity: function(){
-      console.log("change city")
+      console.log("change city");
       $('#map-controls').empty();
       this.leafletMap.setView(this.model.get('center'), parseInt(this.model.get('zoom')));
       // other cleanup here

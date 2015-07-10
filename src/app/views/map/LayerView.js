@@ -47,7 +47,7 @@ define([
 
     render: function(){
       var cartoProperties = this.model.cartoProperties();
-      if (cartoProperties == undefined){
+      if (cartoProperties === undefined){
         this.leafletLayer.getSubLayer(0).hide();
       }else{
         this.leafletLayer.getSubLayer(0).set(cartoProperties).show();
