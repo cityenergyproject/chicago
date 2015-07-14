@@ -74,7 +74,9 @@ define([
 
       this.cartoClient.execute(sql)
       .done(function(data) {
-        self.city.set('currentBuildingSet', data.rows);
+        var currentBuildingSet = data.rows;
+        currentBuildingSet.__proto__.sortedBy = {};
+        self.city.set('currentBuildingSet', currentBuildingSet);
       });
 
     }

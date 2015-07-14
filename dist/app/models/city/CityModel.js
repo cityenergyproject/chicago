@@ -27,7 +27,21 @@ define([
       });
 
     },
-    
+
+    sortBuildingSetBy: function(sortedBy){
+      if (this.get('currentBuildingSet')===undefined){return this;}
+      var sorted = _.sortBy(this.get('currentBuildingSet'), sortedBy.field_name);
+      sorted.__proto__.sortedBy = sortedBy;
+
+      if (sortedBy.order=='desc'){
+        this.set('currentBuildingSet', sorted.reverse());
+      } else {
+        this.set('currentBuildingSet', sorted)
+      }
+      
+      return this;
+    }
+
   });
 
   return CityModel;

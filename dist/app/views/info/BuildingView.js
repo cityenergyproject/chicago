@@ -9,6 +9,7 @@ define([
   var BuildingView = Backbone.View.extend({
     el: "#buildings",
     metrics: [],
+    sortedBy: {},
 
     initialize: function(options){
       this.map = options.map;    
@@ -54,7 +55,7 @@ define([
       var $table = this.$el.find('table');
       var template = _.template(TableHeadTemplate);
 
-      $(template({metrics: this.metrics}))
+      $(template({metrics: this.metrics, sortedBy: this.sortedBy}))
       .appendTo($table);
 
     },
@@ -62,6 +63,10 @@ define([
     renderTableBody: function(){
       var building_set = this.city.get('currentBuildingSet');
       if (building_set===undefined || building_set.length===0) {return this;}
+      if (!_.isEmpty(this.sortedBy) && this.sortedBy != building_set.sortedBy){
+        this.city.sortBuildingSetBy(this.sortedBy);
+        return this;
+      }
 
       var $table = this.$el.find('table');
       var body = $table.find('tbody');
@@ -78,7 +83,8 @@ define([
     },
 
     events: {
-      'click .remove' : 'removeMetric'
+      'click .remove' : 'removeMetric',
+      'click .metric' : 'sortByMetric'
     },
 
     removeMetric: function(event){
@@ -86,7 +92,29 @@ define([
       this.metrics = _.reject(this.metrics, function(metric){
         return metric.get('field_name') == field_name;
       });
+      if (this.sortedBy.field_name == field_name){
+        this.sortedBy = {};
+        // this.city.sortBuildingSetBy(field_name, order); //pass it nil or sort to something else or do nothing?
+      }
+      event.stopPropagation();
       this.render();
+    },
+
+    sortByMetric: function(event){
+      
+      var $target = $(event.currentTarget);
+
+      var order = $target.hasClass('desc') ? 'asc' : 'desc';
+      var field_name = $target.attr('data-field');
+
+      this.sortedBy = {field_name: field_name, order: order};
+      $('.metric').removeClass('asc desc');
+      $target.addClass(order);
+      
+      this.city.sortBuildingSetBy(this.sortedBy);
+
+      return this;
+      
     },
 
 
