@@ -20,8 +20,8 @@
         "name": "property_name",
         "address": "address_1",
         "city": "city",
-        "postal_code": "postal_code"
-            
+        "postal_code": "postal_code",
+        "building_type": "property_type"
     },
     "default_layer": "year_built",
     "map_layers": [

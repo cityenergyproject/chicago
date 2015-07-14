@@ -8,6 +8,7 @@ define([
 
   var BuildingView = Backbone.View.extend({
     el: "#buildings",
+    metrics: [],
 
     initialize: function(options){
       this.map = options.map;    
@@ -19,7 +20,7 @@ define([
     initWithCity: function(){
       this.city = this.map.get('city');
       
-      this.metrics = [this.map.getCurrentLayer()];
+      this.addMetric();
       this.render();
 
       this.listenTo(this.city, 'change:currentBuildingSet', this.renderTableBody);
@@ -37,7 +38,7 @@ define([
 
     addMetric: function(){
       var newMetric = this.map.getCurrentLayer();
-      if (_.contains(this.metrics, newMetric)){return this;}
+      if (newMetric.get('display_type')==="category" || _.contains(this.metrics, newMetric)){return this;}
       if (this.metrics.length === 5){
         this.metrics[4] = newMetric;
       } else {

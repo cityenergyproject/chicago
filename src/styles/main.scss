@@ -86,7 +86,7 @@ html, body {
     text-align: right;
     span {
       display: none;
-      &.address, &.name{
+      &.building_type, &.name{
         display: block;
       }
     }
