@@ -2,7 +2,7 @@
     "url_name": "los_angeles",
     "name": "Los Angeles",
     "cartoDbUser": "cityenergyproject",
-    "table_name": "losangeles_2015revised_20150708",
+    "table_name": "losangeles_20131415revised_20150711",
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
         34.093041824023125,
@@ -21,25 +21,47 @@
         "address": "address_1",
         "city": "city",
         "postal_code": "postal_code",
-        "building_type": "property_type"
+        "building_type": "primary_property_type___self_selected"
     },
-    "default_layer": "year_built",
+    "default_layer": "primary_property_type___self_selected",
     "map_layers": [
         {
             "title": "Building Type",
-            "field_name": "property_type",
+            "field_name": "primary_property_type___self_selected",
             "display_type": "category",
             "category": "Building Info",
             "categories_to_display": 9
         },
-        
+        {
+            "title": "Council District",
+            "field_name": "councildistrict2012",
+            "display_type": "category",
+            "category": "Building Info",
+            "categories_to_display": 9
+        },
+        {
+            "title": "Neighborhood",
+            "field_name": "neighborhood",
+            "display_type": "category",
+            "category": "Building Info",
+            "categories_to_display": 9
+        },
+        {
+            "title": "Year Built",
+            "field_name": "year_built",
+            "display_type": "range",
+            "category": "Building Info",
+            "range_slice_count": 10,
+            "color_range": [
+                "#C7E9B4",
+                "#225EA8"
+            ]
+        },
         {
             "title": "Square Feet",
             "field_name": "property_floor_area_buildings_and_parking_ft",
             "display_type": "range",
             "category": "Building Info",
-            "min": 0,
-            "max": 773202,
             "range_slice_count": 30,
             "color_range": [
                 "#dd8d01",
@@ -51,8 +73,6 @@
             "field_name": "energy_star_score",
             "display_type": "range",
             "category": "Building Info",
-            "min": 0,
-            "max": 100,
             "range_slice_count": 10,
             "color_range": [
                 "#d73027",
@@ -60,25 +80,10 @@
             ]
         },
         {
-            "title": "Energy Use",
-            "field_name": "weather_normalized_site_energy_use_kbtu",
-            "display_type": "range",
-            "category": "Energy Use",
-            "min": 53977,
-            "max": 44508309,
-            "range_slice_count": 30,
-            "color_range": [
-                "#1a9850",
-                "#d73027"
-            ]
-        },
-        {
             "title": "Energy Use per Sq Ft",
-            "field_name": "weather_normalized_site_electricity_intensity_kwh_ft",
+            "field_name": "weather_normalized_site_eui_kbtu_ft",
             "display_type": "range",
             "category": "Energy Use",
-            "min": 0,
-            "max": 210,
             "range_slice_count": 30,
             "color_range": [
                 "#1a9850",
@@ -86,38 +91,10 @@
             ]
         },
         {
-            "title": "Gas Use",
-            "field_name": "weather_normalized_site_natural_gas_use_therms",
-            "display_type": "range",
-            "category": "Energy Use",
-            "min": 0,
-            "max": 170000,
-            "range_slice_count": 30,
-            "color_range": [
-                "#dd8d01",
-                "#B10026"
-            ]
-        },
-        {
-            "title": "Electricity Use",
-            "field_name": "weather_normalized_site_electricity_kwh",
-            "display_type": "range",
-            "category": "Energy Use",
-            "min": 15000,
-            "max": 9100000,
-            "range_slice_count": 30,
-            "color_range": [
-                "#0080ff",
-                "#ff4d4d"
-            ]
-        },
-        {
-            "title": "Water Use",
-            "field_name": "water_use_all_water_sources_kgal",
+            "title": "Water Use Intensity",
+            "field_name": "indoor_water_intensity_all_water_sources_gal_ft",
             "display_type": "range",
             "category": "Water Use",
-            "min": 0,
-            "max": 19000,
             "range_slice_count": 30,
             "color_range": [
                 "#7fbfff",
@@ -125,35 +102,10 @@
             ]
         },
         {
-            "title": "Total GHG Emissions (Metric Tons CO2e)",
-            "field_name": "total_ghg_emissions_metric_tons_co2e",
+            "title": "Total GHG Emissions Intensity",
+            "field_name": "total_ghg_emissions_intensity_kgco2e_ft",
             "display_type": "range",
             "category": "Climate Emissions",
-            "min": 0,
-            "max": 3192,
-            "range_slice_count": 30,
-            "color_range": [
-                "#1a9850",
-                "#d73027"
-            ]
-        },
-        {
-            "title": "Direct GHG Emissions Intensity (kgCO2e/ft²)",
-            "field_name": "direct_ghg_emissions_intensity_kgco2e_ft",
-            "display_type": "range",
-            "category": "Climate Emissions",
-            "min": 0,
-            "max": 8,
-            "range_slice_count": 30,
-            "color_range": [
-                "#1a9850",
-                "#d73027"
-            ]
-        },
-        {
-            "title": "On-site energy for water",
-            "field_name": "water_wastewater_site_eui_kbtu_gpd",
-            "display_type": "range",
             "range_slice_count": 30,
             "color_range": [
                 "#1a9850",

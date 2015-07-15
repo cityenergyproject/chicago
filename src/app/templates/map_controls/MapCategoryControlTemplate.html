@@ -4,13 +4,13 @@
     <li>
       <span style="background-color:<%=category.color%>">
       <input type="checkbox" class="category filter" 
-        id="filter-<%=id%>-<%=category.name.toLowerCase().replace(/\s/g, "-")%>" 
-        name="filter-<%=id%>-<%=category.name.toLowerCase().replace(/\s/g, "-")%>" 
+        id="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>" 
+        name="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>" 
         value="<%= category.name %>"
         checked="true"
       />
     </span>
-      <label for="filter-<%=id%>-<%=category.name.toLowerCase().replace(/\s/g, "-")%>">
+      <label for="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>">
         <%= category.name %>
       </label>
     </li>

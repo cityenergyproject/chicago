@@ -99,6 +99,10 @@ define([
 
       var data = this.get('data');
       var extent = d3.extent(data);
+      if (extent[0]===undefined){
+        return [];
+      }
+
       var binMap = d3.scale.linear()
           .domain(extent)
           .rangeRound([0, slices-1]);
