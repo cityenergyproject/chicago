@@ -36,7 +36,7 @@ gulp.task('templates', function() {
 // Styles
 gulp.task('styles', function() {
   return gulp.src('src/styles/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({includePaths: require('node-neat').includePaths}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
