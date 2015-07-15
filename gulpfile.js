@@ -6,25 +6,25 @@
 // Load plugins
 var gulp = require('gulp'),
     mainBowerFiles = require('main-bower-files');
-    fileinclude = require('gulp-file-include'),
+    // fileinclude = require('gulp-file-include'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
+    // uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
+    // cache = require('gulp-cache'),
     connect     = require('gulp-connect'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
 gulp.task('fileinclude', function() {
   return  gulp.src(['src/index.html'])
-    .pipe(fileinclude())
+    // .pipe(fileinclude())
     .pipe(gulp.dest('dist'))
-    .pipe(notify({ message: 'Includes: included' }));
+    .pipe(notify({ message: 'Index Copied' }));
 });
 
 gulp.task('templates', function() {
@@ -36,7 +36,7 @@ gulp.task('templates', function() {
 // Styles
 gulp.task('styles', function() {
   return gulp.src('src/styles/**/*.scss')
-    .pipe(sass())
+    .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
