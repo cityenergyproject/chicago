@@ -1,0 +1,38 @@
+#map-category-controls {
+  @include span-columns(7);
+  .map-category-control{
+    float: left;
+    display: block;
+    position: relative;
+    margin-right: 1em;
+    .show-layer {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .categories {
+      position: absolute;
+      z-index: 99;
+      color: $base-font-color;
+      background-color: $medium-gray;
+      width: 100%;
+      font-size: .8em;
+      ul {
+        padding-left: 10px;
+        li {
+          span {
+            margin-right: 5px;
+            input{
+              vertical-align: middle;
+              margin: 2px 2px 2px 5px;
+            }
+          }
+          label {
+            font-weight: 500;
+            display: inline;
+          }
+
+        }
+      }
+    }
+  }
+}

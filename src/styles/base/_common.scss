@@ -1,0 +1,23 @@
+%common-button-input{
+  
+  -webkit-font-smoothing: antialiased;
+  background-color: $orange;
+  border: $base-border;
+  border-radius: $base-border-radius;
+  color: #fff;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  box-sizing: border-box;
+  padding: $base-spacing/4 1em;
+  margin: .5em 1em;
+  
+  &:hover,
+  &:focus {
+    
+  }
+}
+%common-button-input-inverse {
+  @extend %common-button-input;
+  background-color: $inverse-font-color;
+  color: $normal-text;
+}

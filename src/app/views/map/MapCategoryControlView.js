@@ -10,14 +10,14 @@ define([
 ], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapCategoryControlTemplate){
 
   var MapCategoryControlView = Backbone.View.extend({
-    className: "map-control",
+    className: "map-category-control",
     $container: $('#map-category-controls'),
 
     initialize: function(opts){
       this.map = opts.map;
       this.id = "control-"+this.model.cid;
       this.el = "#"+this.id;
-      this.$el = $("<div id='"+this.id+"' class='map-control'></div>").appendTo(this.$container);
+      this.$el = $("<div id='"+this.id+"' class='map-category-control'></div>").appendTo(this.$container);
       this.delegateEvents(this.events);
 
       this.listenTo(this.model, 'dataReady', this.update);
@@ -25,7 +25,7 @@ define([
 
     render: function(){ 
       $(this.el).html(
-        "<p class='show-layer'>"+this.model.get('title')+"</p>"
+        "<button class='show-layer'>"+this.model.get('title')+"</button>"
       );
       this.update();
       return this;

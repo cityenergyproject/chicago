@@ -10,26 +10,36 @@ $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
 // Other Sizes
-$base-border-radius: 3px;
-$base-spacing: $base-line-height * 1em;
+$base-border-radius: 1em;
+$base-spacing: $base-line-height * .8em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
 $blue: #477dca;
 $dark-gray: #333;
-$medium-gray: #999;
+$medium-gray: #d1d1d0;
 $light-gray: #ddd;
+$orange: #e66346;
+$normal-text: $orange;
+
+
 
 // Font Colors
-$base-background-color: #fff;
-$base-font-color: $dark-gray;
-$action-color: $blue;
+$base-background-color: #f2f2f2;
+$base-font-color: $orange;
+$action-color: white;
+
+$inverse-font-color: white;
 
 // Border
-$base-border-color: $light-gray;
-$base-border: 1px solid $base-border-color;
+$base-border-size: 1px;
+$base-border-color: white;
+$base-border: $base-border-size solid $base-border-color;
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+$header-height: 5em;
+

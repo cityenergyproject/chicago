@@ -1,0 +1,11 @@
+#map-controls{
+  height: 100%;
+  overflow: scroll;
+  @include span-columns(3);
+  .show-layer{
+    cursor: pointer
+  }
+}
+.map-control .irs-with-grid {
+  top: -20px
+}

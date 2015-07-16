@@ -1,0 +1,55 @@
+#buildings {
+  @include row($display: table);
+  table {
+    thead tr {
+      background-color: $orange;
+    }
+    th {
+      padding: 0;
+      color: white;
+      @include span-columns(2);
+    }
+    tr {
+      th:first-child, td:first-child {
+        @include span-columns(3);
+        text-align: right;
+      } 
+    }
+    th, td {
+      text-align: center;
+    }
+  }
+}
+
+#buildings th.metric {
+  %title:after {
+    content:"\A";
+    border-style: solid;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+  &.desc .title:after{
+    @extend %title:after;
+    border-width: 10px 8px 0 8px;
+    border-color: $orange transparent transparent transparent;
+  }
+  &.asc .title:after{
+    @extend %title:after;
+    border-width: 0 8px 10px 8px;
+    border-color: transparent transparent $orange transparent;
+  }
+}
+
+#buildings td.building_info {
+  text-align: right;
+  span {
+    display: none;
+    &.building_type, &.name{
+      display: block;
+    }
+    &.name{
+      font-weight: 600;
+    }
+  }
+}

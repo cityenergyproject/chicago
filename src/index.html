@@ -8,11 +8,20 @@
     
   </head>
   <body>
-
+    <header><span id='title'></span></header>
+    <div id='toolbar'>
+        <div id='search'>
+          <input id='address-search' name'address-search' type='search' placeholder='Address'/>
+          <input id='id-search' name='id-search' type='search' placeholder='Building ID' />
+        </div>
+        <div id="map-category-controls"></div>
+        <div id='year-select'><span>2013</span> - <span>2014</span> - <span>2015</span></div>
+    </div>
     <div class='main-container'>
       <div id="map-controls"></div>
-      <div id="map-category-controls"></div>
-      <div id="map">LOADING...</div>
+      <div id='map-wrapper'>
+        <div id="map"></div>
+      </div>
       <div id="buildings"></div>
     </div>
   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>

@@ -8,7 +8,7 @@ define([
 
   var BuildingView = Backbone.View.extend({
     el: "#buildings",
-    metrics: [],
+    metrics: [undefined,undefined,undefined,undefined,undefined],
     sortedBy: {},
 
     initialize: function(options){
@@ -40,10 +40,12 @@ define([
     addMetric: function(){
       var newMetric = this.map.getCurrentLayer();
       if (newMetric.get('display_type')==="category" || _.contains(this.metrics, newMetric)){return this;}
-      if (this.metrics.length === 5){
-        this.metrics[4] = newMetric;
+
+      var open_metric = _.indexOf(this.metrics, undefined)
+      if (open_metric > -1){
+        this.metrics[open_metric] = newMetric;
       } else {
-        this.metrics.push(newMetric);
+        this.metrics[4] = newMetric;
       }
       
       this.render();
@@ -90,6 +92,7 @@ define([
     removeMetric: function(event){
       var field_name = $(event.target).attr('data-field');
       this.metrics = _.reject(this.metrics, function(metric){
+        if (metric===undefined){return false;}
         return metric.get('field_name') == field_name;
       });
       if (this.sortedBy.field_name == field_name){

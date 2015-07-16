@@ -1,0 +1,15 @@
+.main-container {
+  position: absolute;
+  top: $header-height + 3em;
+  bottom: 5em;
+  width: 100%;
+  @include outer-container(100%);
+}
+#map-wrapper{
+  @include span-columns(9);
+  height: 100%
+}
+#map {
+  height: 100%;
+  width: 100%;
+}

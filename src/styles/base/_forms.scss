@@ -37,7 +37,7 @@ textarea {
   font-family: $base-font-family;
   font-size: $base-font-size;
   margin-bottom: $base-spacing / 2;
-  padding: $base-spacing / 3;
+  padding: $base-spacing / 4;
   transition: border-color;
   width: 100%;
 
@@ -58,6 +58,10 @@ textarea {
 
 input[type="search"] {
   @include appearance(none);
+  @extend %common-button-input;
+  @include placeholder {
+    color: inherit;
+  }
 }
 
 input[type="checkbox"],

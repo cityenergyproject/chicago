@@ -1,0 +1,19 @@
+#toolbar {
+  background-color: $orange;
+  color: $inverse-font-color;
+  @include outer-container();
+  height: 3em;
+}
+
+#search {
+  @include span-columns(3);
+  input {
+    width: 40%;
+    display: inline;
+    margin-left: 6%;
+    margin-right: 0;
+  }
+}
+#year-select{
+  @include span-columns(2);  
+}

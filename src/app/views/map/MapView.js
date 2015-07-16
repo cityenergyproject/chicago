@@ -23,6 +23,7 @@ define([
 
     initWithCity: function(){
       document.title = this.model.get('title');
+      $('#title').html(this.model.get('title'));
 
       if (!this.leafletMap){
         this.leafletMap = new L.Map(this.el, {
