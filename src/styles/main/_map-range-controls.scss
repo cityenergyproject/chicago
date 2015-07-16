@@ -2,10 +2,22 @@
   height: 100%;
   overflow: scroll;
   @include span-columns(3);
-  .show-layer{
-    cursor: pointer
+
+  .category {
+    cursor: pointer;
+    .map-control {
+      display: none;
+    }
+    &.expand .map-control {
+      display: block;
+    }
   }
+
+
 }
+
+
+
 .map-control .irs-with-grid {
   top: -20px
 }

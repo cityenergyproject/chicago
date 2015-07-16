@@ -39,7 +39,7 @@ gulp.task('styles', function() {
     .pipe(sass({includePaths: require('node-neat').includePaths}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
+    // .pipe(minifycss())
     .pipe(gulp.dest('dist/styles'))
     .pipe(notify({ message: 'Styles task complete' }));
 });

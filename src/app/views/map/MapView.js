@@ -68,6 +68,9 @@ define([
       _.each(categories, function(category){
         $map_controls.append(categoryTemplate({category: category}));
       });
+      $map_controls.find('.category').on('click', 'h2', function(event){
+        $(event.delegateTarget).toggleClass('expand')
+      })
       return this;
     },
 
@@ -76,7 +79,8 @@ define([
       $('#map-controls').empty();
       this.leafletMap.setView(this.model.get('center'), parseInt(this.model.get('zoom')));
       // other cleanup here
-    }
+    },
+
 
 
 

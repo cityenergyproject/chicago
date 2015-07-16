@@ -118,6 +118,7 @@ define([
     },
 
     events: {
+      'click .category' : 'toggleCategory',
       'click .show-layer' : 'showLayer',
       'click .chart' : 'chartClick'
     },
