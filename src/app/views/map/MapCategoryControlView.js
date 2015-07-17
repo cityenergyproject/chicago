@@ -25,7 +25,7 @@ define([
 
     render: function(){ 
       $(this.el).html(
-        "<button class='show-layer'>"+this.model.get('title')+"</button>"
+        "<button>"+this.model.get('title')+"</button>"
       );
       this.update();
       return this;
@@ -45,7 +45,6 @@ define([
     },
 
     events: {
-      'click .show-layer' : 'showLayer',
       'change input.category.filter' : 'toggleCategory'
     },
 
@@ -62,11 +61,8 @@ define([
         this.model.set('filter', {include: checked.toArray()});
       }
 
-    },
+    }
 
-    showLayer: function(){
-      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.model.get('field_name'), {trigger: true});
-    },
 
 
   });
