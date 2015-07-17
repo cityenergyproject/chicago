@@ -11,6 +11,21 @@
     &.expand .map-control {
       display: block;
     }
+    h2, h3 {
+      font-weight: 300;
+    }
+    h3 {
+      font-size: .9em;
+    }
+    h2, .map-control {
+      padding: .65em .5em;
+      border-left: solid 1.5em transparent;
+      border-bottom: solid 1px $base-font-color;
+      &.active, &.current {
+        border-left-color: $base-font-color;
+      }
+    }
+
   }
 
 
@@ -21,9 +36,7 @@
   .chart {
     padding: 0 10px;
   }
-}
-
-
-.map-control .irs-with-grid {
-  top: -20px
+  .filter-wrapper {
+    padding: 0 15px 0 10px;
+  }
 }

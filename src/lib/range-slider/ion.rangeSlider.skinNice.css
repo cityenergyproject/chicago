@@ -22,28 +22,28 @@
     height: 60px;
 }
 .irs-line {
-    height: 8px; top: 25px;
+    height: 5px; top: 25px;
 }
     .irs-line-left {
-        height: 8px;
+        height: 5px;
         background-position: 0 -30px;
     }
     .irs-line-mid {
-        height: 8px;
+        height: 5px;
         background-position: 0 0;
     }
     .irs-line-right {
-        height: 8px;
+        height: 5px;
         background-position: 100% -30px;
     }
 
 .irs-bar {
-    height: 8px; top: 25px;
+    height: 5px; top: 25px;
     background-position: 0 -60px;
 }
     .irs-bar-edge {
         top: 25px;
-        height: 8px; width: 11px;
+        height: 5px; width: 11px;
         background-position: 0 -90px;
     }
 
@@ -79,11 +79,11 @@
 }
 
 .irs-from, .irs-to, .irs-single {
-    color: #fff;
+    color: $base-font-color;
     font-size: 10px; line-height: 1.333;
     text-shadow: none;
     padding: 1px 5px;
-    background: rgba(0,0,0,0.3);
+    background: white;
     -moz-border-radius: 3px;
     border-radius: 3px;
 }

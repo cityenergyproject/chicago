@@ -19,20 +19,23 @@ define([
       this.id = "control-"+this.model.cid;
       this.el = "#"+this.id;
       this.$el = $("<div id='"+this.id+"' class='map-control'></div>").appendTo(this.$category());
+
       this.delegateEvents(this.events);
 
       this.listenTo(this.model, 'dataReady', this.update);
+      this.listenTo(this.map, 'change:current_layer', this.setCurrentLayerProperties);
     },
 
     render: function(){ 
       $(this.el).html(
-        "<p class='show-layer'>"+this.model.get('title')+"</p>"
+        "<h3 class='show-layer'>"+this.model.get('title')+"</h3>"
       );
       this.update();
       return this;
     },
 
     update: function(){
+      this.setCurrentLayerProperties();
       if (this.model.get('display_type')=='range'){
         this.renderChart();
         this.renderFilter();
@@ -53,7 +56,7 @@ define([
       var chartData = this.model.distributionData(slices);
       var counts = _.pluck(chartData, 'count');
 
-      var padding = 10;
+      var padding = 30;
       var width = this.$el.parent().innerWidth() - padding*2;
       var height = 75
 
@@ -98,9 +101,15 @@ define([
 
       var self = this;
       var data = this.model.get('data');
-      var $filter = $(_.template(MapControlFilterTemplate)({id: this.model.cid})).appendTo($(this.el));
+      var $filter = $(_.template(MapControlFilterTemplate)({id: this.model.cid})).appendTo($(this.el)).find('input');
       var extent = this.model.get('extent');
       var from_to = this.model.getFilter();
+
+      var from_min = null, to_max = null;
+      if (this.model.get('filter_range')){
+        from_min = this.model.get('filter_range').min || null;
+        to_max = this.model.get('filter_range').max || null;
+      }
 
       $filter.ionRangeSlider({
         type: 'double',
@@ -109,8 +118,22 @@ define([
         from: from_to[0],
         to: from_to[1],
         hide_from_to: false,
+        force_edges: true,
         grid: false,
         hide_min_max: true,
+        from_min: from_min,
+        to_max: to_max,
+        prettify_enabled: true,
+        prettify: function (num) {
+          if (num == this.to_max) {
+            return num + "+";
+          } else if (num == this.from_min) {
+            return num + "-";
+          } else {
+            return num;
+          }
+          
+        },
         onFinish: function(filterControl){
           if (filterControl.from == filterControl.min && filterControl.to == filterControl.max){
             self.model.set('filter', undefined);
@@ -121,13 +144,25 @@ define([
       });
     },
 
+    setCurrentLayerProperties: function(){
+      if (this.model.get('data') === undefined) {return this;}
+      if (this.model==this.map.getCurrentLayer()){
+        $(this.el).addClass('current');
+      }else{
+        $(this.el).removeClass('current');
+      }
+
+    },
+
     events: {
       'click .category' : 'toggleCategory',
       'click .show-layer' : 'showLayer',
       'click .chart' : 'chartClick'
     },
 
-    showLayer: function(){
+    showLayer: function(event){
+      
+      // $(event.delegateTarget).addClass('current');
       Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.model.get('field_name'), {trigger: true});
     },
 

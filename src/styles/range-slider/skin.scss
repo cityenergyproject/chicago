@@ -12,7 +12,7 @@
 .irs-bar,
 .irs-bar-edge,
 .irs-slider {
-    background: url(/lib/range-slider/sprite-skin-nice.png) repeat-x;
+    background: url(/lib/range-slider/sprite-skin.png) repeat-x;
 }
 
 .irs {
@@ -22,7 +22,7 @@
     height: 60px;
 }
 .irs-line {
-    height: 5px; top: 25px;
+    height: 5px; top: 10px;
 }
     .irs-line-left {
         height: 5px;
@@ -38,11 +38,11 @@
     }
 
 .irs-bar {
-    height: 5px; top: 25px;
-    background-position: 0 -60px;
+    height: 5px; top: 10px;
+    background-position: 0 -62px;
 }
     .irs-bar-edge {
-        top: 25px;
+        top: 10px;
         height: 5px; width: 11px;
         background-position: 0 -90px;
     }
@@ -58,8 +58,9 @@
 
 .irs-slider {
     width: 22px; height: 22px;
-    top: 17px;
+    top: 2px;
     background-position: 0 -120px;
+    z-index: 3
 }
 .irs-slider.state_hover, .irs-slider:hover {
     background-position: 0 -150px;
@@ -79,13 +80,15 @@
 }
 
 .irs-from, .irs-to, .irs-single {
-    color: $base-font-color;
-    font-size: 10px; line-height: 1.333;
+    @extend %common-button-input-inverse;
+    margin: 0;
+    font-size: 11px; line-height: 1.333;
     text-shadow: none;
     padding: 1px 5px;
-    background: white;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    top: 3px;
+    z-index: 2;
+    
+    
 }
 .lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single {
     background: #999;

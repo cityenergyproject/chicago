@@ -63,6 +63,7 @@
             "display_type": "range",
             "category": "Building Info",
             "range_slice_count": 30,
+            "filter_range": {"max" : 160000},
             "color_range": [
                 "#dd8d01",
                 "#B10026"
@@ -108,6 +109,7 @@
             "display_type": "range",
             "category": "Climate Emissions",
             "range_slice_count": 30,
+            "filter_range": {"max" : 25},
             "color_range": [
                 "#1a9850",
                 "#d73027"
