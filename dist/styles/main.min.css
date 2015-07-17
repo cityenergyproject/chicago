@@ -539,14 +539,16 @@ header {
       font-size: .8em; }
       #map-category-controls .map-category-control .categories ul {
         padding-left: 10px; }
-        #map-category-controls .map-category-control .categories ul li span {
-          margin-right: 5px; }
-          #map-category-controls .map-category-control .categories ul li span input {
+        #map-category-controls .map-category-control .categories ul li {
+          line-height: 1; }
+          #map-category-controls .map-category-control .categories ul li input {
             vertical-align: middle;
-            margin: 2px 2px 2px 5px; }
-        #map-category-controls .map-category-control .categories ul li label {
-          font-weight: 500;
-          display: inline; }
+            margin: 1px;
+            float: left; }
+          #map-category-controls .map-category-control .categories ul li label {
+            font-weight: 500;
+            display: block;
+            margin-left: 1.5em; }
 
 #map-controls {
   height: 100%;

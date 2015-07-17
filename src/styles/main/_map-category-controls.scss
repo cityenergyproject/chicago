@@ -19,16 +19,18 @@
       ul {
         padding-left: 10px;
         li {
-          span {
-            margin-right: 5px;
-            input{
-              vertical-align: middle;
-              margin: 2px 2px 2px 5px;
-            }
+          line-height: 1;
+          input{
+            vertical-align: middle;
+            margin: 1px;
+            float: left;
           }
+          
           label {
             font-weight: 500;
-            display: inline;
+            display: block;
+            margin-left: 1.5em
+            
           }
 
         }
