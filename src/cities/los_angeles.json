@@ -84,7 +84,8 @@
             "field_name": "weather_normalized_site_eui_kbtu_ft",
             "display_type": "range",
             "category": "Energy Use",
-            "range_slice_count": 30,
+            "range_slice_count": 16,
+            "filter_range": {"max" : 300},
             "color_range": [
                 "#1a9850",
                 "#d73027"

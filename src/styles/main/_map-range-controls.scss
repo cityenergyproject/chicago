@@ -16,6 +16,12 @@
 
 }
 
+.map-control {
+  @include fill-parent;
+  .chart {
+    padding: 0 10px;
+  }
+}
 
 
 .map-control .irs-with-grid {

@@ -309,6 +309,11 @@ header {
     #map-controls .category.expand .map-control {
       display: block; }
 
+.map-control {
+  width: 100%; }
+  .map-control .chart {
+    padding: 0 10px; }
+
 .map-control .irs-with-grid {
   top: -20px; }
 

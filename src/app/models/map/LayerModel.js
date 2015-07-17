@@ -28,7 +28,19 @@ define([
     },
 
     setDataFields: function(){
-      this.set({extent: d3.extent(this.get('data'))});
+      var extent;
+      var data_extent = d3.extent(this.get('data'));
+
+      if (this.get('filter_range')!==undefined){
+        extent = [this.get('filter_range').min, this.get('filter_range').max];
+        if (extent[0]===undefined){extent[0] = data_extent[0];}
+        if (extent[1]===undefined){extent[1] = data_extent[1];}
+
+      } else {
+        extent = data_extent;
+      }
+
+      this.set({extent: extent});
       this.trigger('dataReady');
     },
 
@@ -98,10 +110,7 @@ define([
       var self = this;
 
       var data = this.get('data');
-      var extent = d3.extent(data);
-      if (extent[0]===undefined){
-        return [];
-      }
+      var extent = this.get('extent');
 
       var binMap = d3.scale.linear()
           .domain(extent)
@@ -114,10 +123,21 @@ define([
 
       _.each(data, function(value){
         if (value === null) {return;}
-        var bin = binMap(value);
+        var bin;
+        if (value < extent[0]){
+          bin = 0;
+        } else if (value > extent[1]){
+          bin = slices-1;
+        } else {
+          bin = binMap(value);
+        }
+        
         var color = self.colorMap()(value);
-        counts[bin].count += 1;
-        counts[bin].color = color;
+
+        if (counts[bin]!==undefined){
+          counts[bin].count += 1;
+          counts[bin].color = color;
+        }
       });
       return counts;
     },

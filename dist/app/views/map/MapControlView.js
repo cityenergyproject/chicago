@@ -49,10 +49,13 @@ define([
       // lets not render charts for layers that don't have categories
       if (this.model.get('category') === undefined) {return this;}
 
-      var slices = 50;
+      var slices = 18;
       var chartData = this.model.distributionData(slices);
       var counts = _.pluck(chartData, 'count');
-      var height = 75, width = 150;
+
+      var padding = 10;
+      var width = this.$el.parent().innerWidth() - padding*2;
+      var height = 75
 
       var yScale = d3.scale.linear()
         .domain([0, d3.max(counts)])
@@ -74,7 +77,8 @@ define([
             return d.color;
             } 
           })
-          .attr('width', xScale.rangeBand())
+          .attr('width', xScale.rangeBand() - xScale.rangeBand()/3)
+          .attr('stroke-width', xScale.rangeBand()/6)
           .attr('height', function (data) {
               return yScale(data.count);
           })
@@ -104,8 +108,8 @@ define([
         max: extent[1],
         from: from_to[0],
         to: from_to[1],
-        hide_from_to: true,
-        grid: true,
+        hide_from_to: false,
+        grid: false,
         hide_min_max: true,
         onFinish: function(filterControl){
           if (filterControl.from == filterControl.min && filterControl.to == filterControl.max){
