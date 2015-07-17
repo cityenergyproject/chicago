@@ -80,6 +80,12 @@ gulp.task('clean', function(cb) {
     del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
 });
 
+gulp.task('copy-lib', function() {
+  return gulp.src('src/lib/**/*')
+    .pipe(gulp.dest('dist/lib'))
+    .pipe(notify({ message: 'lib copied' }));
+});
+
 // Default task
 gulp.task('default', ['clean'], function() {
     gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates', 'cities_config');
@@ -108,7 +114,7 @@ gulp.task('watch', function() {
   gulp.watch('src/app/templates/**/*.html', ['templates']);
 
   // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  gulp.watch(['src/styles/**/*.scss', 'src/lib/**/*.css'], ['styles']);
 
   // Watch .js files
   gulp.watch('src/app/**/*.js', ['scripts']);
