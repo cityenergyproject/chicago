@@ -38,6 +38,7 @@
             "display_type": "range",
             "category": "Building Info",
             "range_slice_count": 10,
+            "filter_range": {"min" : 1880},
             "color_range": [
                 "#C7E9B4",
                 "#225EA8"
@@ -49,6 +50,7 @@
             "display_type": "range",
             "category": "Building Info",
             "range_slice_count": 30,
+            "filter_range": {"max" : 1500000},
             "color_range": [
                 "#dd8d01",
                 "#B10026"
@@ -71,6 +73,7 @@
             "display_type": "range",
             "category": "Energy Use",
             "range_slice_count": 30,
+            "filter_range": {"max" : 400},
             "color_range": [
                 "#1a9850",
                 "#d73027"
@@ -82,6 +85,7 @@
             "display_type": "range",
             "category": "Energy Use",
             "range_slice_count": 30,
+            "filter_range": {"max" : 100000000},
             "color_range": [
                 "#0080ff",
                 "#ff4d4d"
@@ -93,6 +97,7 @@
             "display_type": "range",
             "category": "Energy Use",
             "range_slice_count": 30,
+            "filter_range": {"max" : 100000000},
             "color_range": [
                 "#1a9850",
                 "#d73027"
@@ -104,6 +109,7 @@
             "display_type": "range",
             "category": "Energy Use",
             "range_slice_count": 30,
+            "filter_range": {"max" : 12000000},
             "color_range": [
                 "#1a9850",
                 "#d73027"
@@ -115,6 +121,7 @@
             "display_type": "range",
             "category": "Energy Use",
             "range_slice_count": 30,
+            "filter_range": {"max" : 60000000},
             "color_range": [
                 "#dd8d01",
                 "#B10026"
@@ -126,6 +133,7 @@
             "display_type": "range",
             "category": "Climate Emissions",
             "range_slice_count": 30,
+            "filter_range": {"max" : 20000},
             "color_range": [
                 "#1a9850",
                 "#d73027"
@@ -137,6 +145,7 @@
             "display_type": "range",
             "category": "Water",
             "range_slice_count": 30,
+            "filter_range": {"max" : 50000},
             "color_range": [
                 "#1a9850",
                 "#d73027"
