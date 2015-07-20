@@ -116,6 +116,8 @@ define([
       
       this.city.sortBuildingSetBy(this.sortedBy);
 
+      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + field_name, {trigger: true});
+
       return this;
       
     },
