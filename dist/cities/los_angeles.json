@@ -11,9 +11,8 @@
     "zoom": 11,
     "layer_categories": [
         "Building Info",
-        "Energy Use",
-        "Climate Emissions",
-        "Water Use"
+        "Energy Efficiency",
+        "Climate Emissions"
     ],
     "building_info_fields": {
         "property_id": "property_id",
@@ -23,7 +22,7 @@
         "postal_code": "postal_code",
         "building_type": "primary_property_type___self_selected"
     },
-    "default_layer": "primary_property_type___self_selected",
+    "default_layer": "weather_normalized_source_eui_kbtu_ft",
     "map_layers": [
         {
             "title": "Building Type",
@@ -73,7 +72,7 @@
             "title": "Energy Star Score",
             "field_name": "energy_star_score",
             "display_type": "range",
-            "category": "Building Info",
+            "category": "Energy Efficiency",
             "range_slice_count": 10,
             "color_range": [
                 "#d73027",
@@ -82,25 +81,14 @@
         },
         {
             "title": "Energy Use per Sq Ft",
-            "field_name": "weather_normalized_site_eui_kbtu_ft",
+            "field_name": "weather_normalized_source_eui_kbtu_ft",
             "display_type": "range",
-            "category": "Energy Use",
+            "category": "Energy Efficiency",
             "range_slice_count": 16,
             "filter_range": {"max" : 300},
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ]
-        },
-        {
-            "title": "Water Use Intensity",
-            "field_name": "indoor_water_intensity_all_water_sources_gal_ft",
-            "display_type": "range",
-            "category": "Water Use",
-            "range_slice_count": 30,
-            "color_range": [
-                "#7fbfff",
-                "#0080ff"
             ]
         },
         {
