@@ -6,10 +6,11 @@ define([
   'models/map/MapModel',
   'models/map/LayerModel',
   'views/map/LayerView',
+  'views/map/AddressSearchView',
   'views/map/MapControlView',
   'views/map/MapCategoryControlView',
   'text!/app/templates/map_controls/MapControlCategoryTemplate.html'
-], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,MapControlView,MapCategoryControlView,MapControlCategoryTemplate){
+], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,AddressSearchView,MapControlView,MapCategoryControlView,MapControlCategoryTemplate){
 
   var MapView = Backbone.View.extend({
     el: $("#map"),
@@ -36,6 +37,7 @@ define([
       }
 
       this.currentLayerView = this.currentLayerView || new LayerView({mapView: this});
+      this.addressSearchView = this.addressSearchView || new AddressSearchView({mapView: this});
       this.render();
       return this;
     },

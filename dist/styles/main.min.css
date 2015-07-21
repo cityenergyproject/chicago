@@ -501,11 +501,13 @@ header {
   width: 25%; }
   #search:last-child {
     margin-right: 0; }
-  #search input {
-    width: 40%;
-    display: inline;
-    margin-left: 6%;
-    margin-right: 0; }
+  #search .search-control {
+    float: left;
+    display: block;
+    margin-right: 0%;
+    width: 50%; }
+    #search .search-control:last-child {
+      margin-right: 0; }
 
 #year-select {
   float: left;

@@ -7,11 +7,8 @@
 
 #search {
   @include span-columns(3);
-  input {
-    width: 40%;
-    display: inline;
-    margin-left: 6%;
-    margin-right: 0;
+  .search-control {
+    @include span-columns(1.5 of 3);
   }
 }
 #year-select{
