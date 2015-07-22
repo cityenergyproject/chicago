@@ -77,7 +77,8 @@
             "color_range": [
                 "#d73027",
                 "#1a9850"
-            ]
+            ],
+            "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
         },
         {
             "title": "Energy Use per Sq Ft",
@@ -89,7 +90,8 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ]
+            ],
+            "description": "Weather Normalized Site Energy divided by property size in square feet"
         },
         {
             "title": "Total GHG Emissions Intensity",
@@ -101,7 +103,8 @@
             "color_range": [
                 "#1a9850",
                 "#d73027"
-            ]
+            ],
+            "description": "Greenhouse Gas Emissions associated with onsite fuel combustion (e.g. combustion of natural gas or fuel oil) measured in kilograms divided by property square footage."
         }
 
     ]

@@ -11,12 +11,10 @@
     &.expand .map-control {
       display: block;
     }
-    h2, h3 {
+    h2{
       font-weight: 300;
     }
-    h3 {
-      font-size: .9em;
-    }
+
     h2, .map-control {
       padding: .65em .5em;
       border-left: solid 1.5em transparent;
@@ -33,10 +31,54 @@
 
 .map-control {
   @include fill-parent;
+   
   .chart {
     padding: 0 10px;
   }
   .filter-wrapper {
     padding: 0 15px 0 10px;
   }
+  
+  .description {
+    font-size: .9em;
+    display: none;
+  } 
+  &.more-info .description {
+    display: block;
+  }
+}
+
+.control-head {
+  margin-bottom: .5em;
+  line-height: 1.2em;
+  font-size: .9em;
+  height: 1.2em;
+  .show-layer {
+    float: left;
+    margin: 0;
+    font-size: inherit;
+    font-weight: 500;
+  }
+  .more-info {
+  text-transform: uppercase;
+  font-weight: 300;
+  float: right;
+  font-size: .9em;
+  }
+
+  .more-info:after {
+    content:"\A";
+    border-style: solid;
+    display: inline-block;
+    margin-left: 5px;
+    border-width: .4em 0 .4em .6em;
+    border-color: transparent transparent transparent $orange;
+  }
+  .more-info & .more-info:after{
+    @extend %title:after;
+    border-width: .4em .6em .4em 0;
+    border-color: transparent $orange transparent transparent;
+  }
+
+  
 }

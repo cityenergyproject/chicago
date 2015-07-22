@@ -7,8 +7,9 @@ define([
   'models/map/MapModel',
   'models/map/LayerModel',
   'text!/app/templates/map_controls/MapControlCategoryTemplate.html',
-  'text!/app/templates/map_controls/MapControlFilterTemplate.html'
-], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapControlCategoryTemplate, MapControlFilterTemplate){
+  'text!/app/templates/map_controls/MapControlFilterTemplate.html',
+    'text!/app/templates/map_controls/MapControlTemplate.html'
+], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapControlCategoryTemplate, MapControlFilterTemplate, MapControlTemplate){
 
   var MapControlView = Backbone.View.extend({
     className: "map-control",
@@ -27,8 +28,9 @@ define([
     },
 
     render: function(){ 
+      var template = _.template(MapControlTemplate);
       $(this.el).html(
-        "<h3 class='show-layer'>"+this.model.get('title')+"</h3>"
+        template(this.model)
       );
       this.update();
       return this;
@@ -68,8 +70,6 @@ define([
         .domain(d3.range(0, slices))
         .rangeBands([0, width]);
 
-      $(this.el).append('<div class="chart"></div>');
-
       d3.select('#'+this.id+' .chart').append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -101,7 +101,9 @@ define([
 
       var self = this;
       var data = this.model.get('data');
-      var $filter = $(_.template(MapControlFilterTemplate)({id: this.model.cid})).appendTo($(this.el)).find('input');
+      var template = _.template(MapControlFilterTemplate);
+      var filter = $(template({id: this.model.cid})).appendTo($(this.el + ' .filter-wrapper'))
+
       var extent = this.model.get('extent');
       var from_to = this.model.getFilter();
 
@@ -111,7 +113,7 @@ define([
         to_max = this.model.get('filter_range').max || null;
       }
 
-      $filter.ionRangeSlider({
+      filter.ionRangeSlider({
         type: 'double',
         min: extent[0],
         max: extent[1],
@@ -141,7 +143,10 @@ define([
             self.model.set('filter', [filterControl.from, filterControl.to]);
           }
         }
+
+      
       });
+      return this;
     },
 
     setCurrentLayerProperties: function(){
@@ -157,6 +162,7 @@ define([
     events: {
       'click .category' : 'toggleCategory',
       'click .show-layer' : 'showLayer',
+      'click .more-info': 'toggleMoreInfo',
       'click .chart' : 'chartClick'
     },
 
@@ -169,6 +175,10 @@ define([
     chartClick: function(){
       var chartData = this.model.distributionData(50);
       console.log(chartData);
+    },
+
+    toggleMoreInfo: function(){
+      this.$el.toggleClass('more-info')
     },
 
     $category: function(){

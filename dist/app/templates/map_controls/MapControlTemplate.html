@@ -1,0 +1,13 @@
+<div class="control-head">
+  <h3 class='show-layer'><%= obj.get('title') %></h3>
+  <% if (obj.get('description')) { %>
+    <span class='more-info'>More Info</span>
+  <% } %>
+</div>
+
+<div class="chart"></div>
+<div class='filter-wrapper'></div>
+
+<% if (obj.get('description')) { %>
+  <p class='description'><%= obj.get('description') %></p>
+<% } %>

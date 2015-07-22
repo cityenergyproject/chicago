@@ -32,6 +32,7 @@ define([
       var self = this;
       var url = "http://pelias.mapzen.com/search";
       var search = this.$el.find('input').val();
+      if (search===""){return;}
       $.ajax({
         url: url,
         data: {input: search, size: 1, lat: this.center[0], lon: this.center[1]},
@@ -42,9 +43,6 @@ define([
     },
 
     centerMapOn: function(location){ 
-      // location.features[0].geometry.coordinates
-      // this.leafletMap.setView(this.model.get('center'), parseInt(this.model.get('zoom')));
-      // debugger
       this.mapView.leafletMap.setView(location.features[0].geometry.coordinates.reverse());
     }
 
