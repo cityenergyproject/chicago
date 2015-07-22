@@ -167,8 +167,6 @@ define([
     },
 
     showLayer: function(event){
-      
-      // $(event.delegateTarget).addClass('current');
       Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.model.get('field_name'), {trigger: true});
     },
 
@@ -178,7 +176,8 @@ define([
     },
 
     toggleMoreInfo: function(){
-      this.$el.toggleClass('more-info')
+      this.$el.toggleClass('more-info');
+      return this;
     },
 
     $category: function(){

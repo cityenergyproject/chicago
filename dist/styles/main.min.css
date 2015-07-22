@@ -658,7 +658,7 @@ header {
   #buildings table th, #buildings table td {
     text-align: center; }
 
-#buildings th.metric .more-info .control-head .more-info:after, .more-info .control-head #buildings th.metric .more-info:after, #buildings th.metric.desc .title:after, #buildings th.metric.asc .title:after {
+#buildings th.metric.desc .title:after, #buildings th.metric.asc .title:after {
   content: "\A";
   border-style: solid;
   display: inline-block;

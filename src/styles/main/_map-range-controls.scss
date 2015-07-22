@@ -75,7 +75,6 @@
     border-color: transparent transparent transparent $orange;
   }
   .more-info & .more-info:after{
-    @extend %title:after;
     border-width: .4em .6em .4em 0;
     border-color: transparent $orange transparent transparent;
   }
