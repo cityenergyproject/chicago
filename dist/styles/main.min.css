@@ -603,6 +603,8 @@ header {
     font-weight: 300;
     float: right;
     font-size: .9em; }
+    .control-head .more-info .less {
+      display: none; }
   .control-head .more-info:after {
     content: "\A";
     border-style: solid;
@@ -610,6 +612,10 @@ header {
     margin-left: 5px;
     border-width: 0.4em 0 0.4em 0.6em;
     border-color: transparent transparent transparent #e66346; }
+  .more-info .control-head .more-info .more {
+    display: none; }
+  .more-info .control-head .more-info .less {
+    display: inline; }
   .more-info .control-head .more-info:after {
     border-width: 0.4em 0.6em 0.4em 0;
     border-color: transparent #e66346 transparent transparent; }

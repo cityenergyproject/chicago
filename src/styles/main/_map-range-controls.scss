@@ -64,6 +64,7 @@
   font-weight: 300;
   float: right;
   font-size: .9em;
+    .less {display: none;}
   }
 
   .more-info:after {
@@ -74,9 +75,13 @@
     border-width: .4em 0 .4em .6em;
     border-color: transparent transparent transparent $orange;
   }
-  .more-info & .more-info:after{
-    border-width: .4em .6em .4em 0;
-    border-color: transparent $orange transparent transparent;
+  .more-info & .more-info{
+    .more {display: none;}
+    .less {display: inline;}
+    &:after{
+      border-width: .4em .6em .4em 0;
+      border-color: transparent $orange transparent transparent;
+    }
   }
 
   
