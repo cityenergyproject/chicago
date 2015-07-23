@@ -26,6 +26,7 @@ define([
 
     events: {
       'change input' : 'search',
+      'search input' : 'fireChange'
     },
 
     search: function(){
@@ -73,6 +74,10 @@ define([
       if (this.marker){
         map.removeLayer(this.marker);
       }
+    },
+
+    fireChange: function(){
+      this.$el.find('input').trigger('change');
     }
 
   });
