@@ -95,6 +95,7 @@ define([
         if (metric===undefined){return false;}
         return metric.get('field_name') == field_name;
       });
+      this.metrics.push(undefined);
       if (this.sortedBy.field_name == field_name){
         this.sortedBy = {};
         // this.city.sortBuildingSetBy(field_name, order); //pass it nil or sort to something else or do nothing?

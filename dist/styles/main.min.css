@@ -206,7 +206,7 @@ input[type="search"], button, input[type="button"], input[type="reset"], input[t
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
   box-sizing: border-box;
-  padding: 0.3em 1em;
+  padding: 0.3em 0.8em;
   margin: 0.5em 1em; }
 
 button, input[type="button"], input[type="reset"], input[type="submit"],
@@ -664,20 +664,28 @@ header {
   #buildings table th, #buildings table td {
     text-align: center; }
 
+#buildings th.metric .title, #buildings th.metric .remove {
+  text-transform: uppercase;
+  font-size: .8em;
+  font-weight: 500; }
+
 #buildings th.metric.desc .title:after, #buildings th.metric.asc .title:after {
   content: "\A";
   border-style: solid;
   display: inline-block;
-  vertical-align: middle;
   margin-left: 5px; }
 
 #buildings th.metric.desc .title:after {
-  border-width: 10px 8px 0 8px;
+  border-width: 0.6em 0.4em 0 0.4em;
   border-color: #e66346 transparent transparent transparent; }
 
 #buildings th.metric.asc .title:after {
-  border-width: 0 8px 10px 8px;
+  border-width: 0 0.4em 0.6em 0.4em;
   border-color: transparent transparent #e66346 transparent; }
+
+#buildings th.metric .remove {
+  padding: 0.2em 0.3em;
+  margin-right: -.5em; }
 
 #buildings td.building_info {
   text-align: right; }

@@ -22,22 +22,30 @@
 }
 
 #buildings th.metric {
+  .title, .remove {
+    text-transform: uppercase;
+    font-size: .8em;
+    font-weight: 500;
+  }
   %title:after {
     content:"\A";
     border-style: solid;
     display: inline-block;
-    vertical-align: middle;
     margin-left: 5px;
   }
   &.desc .title:after{
     @extend %title:after;
-    border-width: 10px 8px 0 8px;
+    border-width: .6em .4em 0 .4em;
     border-color: $orange transparent transparent transparent;
   }
   &.asc .title:after{
     @extend %title:after;
-    border-width: 0 8px 10px 8px;
+    border-width: 0 .4em .6em .4em;
     border-color: transparent transparent $orange transparent;
+  }
+  .remove {
+    padding: .2em .3em;
+    margin-right: -.5em;
   }
 }
 
