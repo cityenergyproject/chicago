@@ -25,14 +25,17 @@ define([
     },
 
     events: {
-      'change input' : 'search'
+      'change input' : 'search',
     },
 
     search: function(){
       var self = this;
       var url = "http://pelias.mapzen.com/search";
       var search = this.$el.find('input').val();
-      if (search===""){return;}
+      if (search===""){
+        this.clearMarker();
+        return;
+      }
       $.ajax({
         url: url,
         data: {input: search, size: 1, lat: this.center[0], lon: this.center[1]},
@@ -43,7 +46,33 @@ define([
     },
 
     centerMapOn: function(location){ 
-      this.mapView.leafletMap.setView(location.features[0].geometry.coordinates.reverse());
+      var coordinates = location.features[0].geometry.coordinates.reverse();
+      this.placeMarker(coordinates);
+      this.mapView.leafletMap.setView(coordinates);
+    },
+    placeMarker: function(coordinates){
+      var map = this.mapView.leafletMap;
+      this.clearMarker();
+      
+      var icon = new L.Icon({
+          iconUrl: '/images/marker.svg',
+          iconRetinaUrl: '/images/marker.svg',
+          iconSize: [16, 28],
+          iconAnchor: [8, 28],
+          popupAnchor: [-3, -76],
+          shadowUrl: '',
+          shadowRetinaUrl: '',
+          shadowSize: [0, 0],
+          shadowAnchor: [22, 94]
+      });
+      this.marker = L.marker(coordinates, {icon: icon}).addTo(map);
+    },
+
+    clearMarker: function(){
+      var map = this.mapView.leafletMap;
+      if (this.marker){
+        map.removeLayer(this.marker);
+      }
     }
 
   });
