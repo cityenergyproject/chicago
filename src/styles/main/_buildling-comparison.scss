@@ -1,22 +1,24 @@
 #buildings {
   @include row($display: table);
   table {
+    margin: 0;
     thead tr {
       background-color: $orange;
     }
     th {
       padding: 0;
       color: white;
-      @include span-columns(2);
+      // @include span-columns(1 of 5);
     }
     tr {
       th:first-child, td:first-child {
-        @include span-columns(3);
+        width: $nav-col-fixed-width;
         text-align: right;
       } 
     }
     th, td {
       text-align: center;
+      padding: .3em;
     }
   }
 }
@@ -47,11 +49,19 @@
     padding: .2em .3em;
     margin-right: -.5em;
   }
+  button {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 #buildings td.building_info {
   text-align: right;
   span {
+    white-space: normal;
+    line-height: 1.2;
+    margin: .2em 0;
+
     display: none;
     &.building_type, &.name{
       display: block;

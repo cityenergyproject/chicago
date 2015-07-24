@@ -154,7 +154,7 @@ body {
   -webkit-font-smoothing: antialiased;
   color: #e66346;
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  font-size: 1em;
+  font-size: 14px;
   line-height: 1.5; }
 
 h1,
@@ -478,6 +478,9 @@ body {
   background-color: #f2f2f2;
   padding: 0;
   margin: 0; }
+  @media screen and (min-width: 75em) {
+    body {
+      font-size: 16px; } }
 
 header {
   height: 5em; }
@@ -495,12 +498,8 @@ header {
     display: table; }
 
 #search {
-  float: left;
-  display: block;
-  margin-right: 0%;
-  width: 25%; }
-  #search:last-child {
-    margin-right: 0; }
+  width: 22.5em;
+  float: left; }
   #search .search-control {
     float: left;
     display: block;
@@ -555,12 +554,8 @@ header {
 #map-controls {
   height: 100%;
   overflow: scroll;
-  float: left;
-  display: block;
-  margin-right: 0%;
-  width: 25%; }
-  #map-controls:last-child {
-    margin-right: 0; }
+  width: 22.5em;
+  float: left; }
   #map-controls .category {
     cursor: pointer; }
     #map-controls .category .map-control {
@@ -568,7 +563,8 @@ header {
     #map-controls .category.expand .map-control {
       display: block; }
     #map-controls .category h2 {
-      font-weight: 300; }
+      font-weight: 300;
+      margin-bottom: 0; }
     #map-controls .category h2, #map-controls .category .map-control {
       padding: 0.65em 0.5em;
       border-left: solid 1.5em transparent;
@@ -634,13 +630,9 @@ header {
     display: table; }
 
 #map-wrapper {
-  float: left;
-  display: block;
-  margin-right: 0%;
-  width: 75%;
-  height: 100%; }
-  #map-wrapper:last-child {
-    margin-right: 0; }
+  width: auto;
+  height: 100%;
+  overflow: hidden; }
 
 #map {
   height: 100%;
@@ -650,19 +642,19 @@ header {
   display: table;
   width: 100%;
   table-layout: fixed; }
-  #buildings table thead tr {
-    background-color: #e66346; }
-  #buildings table th {
-    padding: 0;
-    color: white;
-    display: table-cell;
-    width: 16.66667%; }
-  #buildings table tr th:first-child, #buildings table tr td:first-child {
-    display: table-cell;
-    width: 25%;
-    text-align: right; }
-  #buildings table th, #buildings table td {
-    text-align: center; }
+  #buildings table {
+    margin: 0; }
+    #buildings table thead tr {
+      background-color: #e66346; }
+    #buildings table th {
+      padding: 0;
+      color: white; }
+    #buildings table tr th:first-child, #buildings table tr td:first-child {
+      width: 22.5em;
+      text-align: right; }
+    #buildings table th, #buildings table td {
+      text-align: center;
+      padding: .3em; }
 
 #buildings th.metric .title, #buildings th.metric .remove {
   text-transform: uppercase;
@@ -687,9 +679,16 @@ header {
   padding: 0.2em 0.3em;
   margin-right: -.5em; }
 
+#buildings th.metric button {
+  margin-left: 0;
+  margin-right: 0; }
+
 #buildings td.building_info {
   text-align: right; }
   #buildings td.building_info span {
+    white-space: normal;
+    line-height: 1.2;
+    margin: .2em 0;
     display: none; }
     #buildings td.building_info span.building_type, #buildings td.building_info span.name {
       display: block; }

@@ -6,7 +6,8 @@
 }
 
 #search {
-  @include span-columns(3);
+  width: $nav-col-fixed-width;
+  float: left;
   .search-control {
     @include span-columns(1.5 of 3);
   }

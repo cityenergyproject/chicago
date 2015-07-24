@@ -79,7 +79,7 @@ define([
       var building_info_fields = this.city.get('building_info_fields');
 
       var template = _.template(TableBodyRowsTemplate);
-      $(body).html(template({buildings: building_set.slice(0,50), metrics: this.metrics, building_info_fields: building_info_fields}));
+      $(body).html(template({buildings: building_set, metrics: this.metrics, building_info_fields: building_info_fields}));
 
       return this;
     },

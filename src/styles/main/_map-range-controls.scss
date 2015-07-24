@@ -1,7 +1,8 @@
 #map-controls{
   height: 100%;
   overflow: scroll;
-  @include span-columns(3);
+  width: $nav-col-fixed-width;
+  float: left;
 
   .category {
     cursor: pointer;
@@ -13,6 +14,7 @@
     }
     h2{
       font-weight: 300;
+      margin-bottom: 0;
     }
 
     h2, .map-control {
@@ -23,10 +25,7 @@
         border-left-color: $base-font-color;
       }
     }
-
   }
-
-
 }
 
 .map-control {

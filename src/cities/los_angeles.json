@@ -69,7 +69,7 @@
             ]
         },
         {
-            "title": "Energy Star Score",
+            "title": "Energy Star",
             "field_name": "energy_star_score",
             "display_type": "range",
             "category": "Energy Efficiency",
@@ -81,7 +81,7 @@
             "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
         },
         {
-            "title": "Energy Use per Sq Ft",
+            "title": "Energy Use",
             "field_name": "weather_normalized_source_eui_kbtu_ft",
             "display_type": "range",
             "category": "Energy Efficiency",
@@ -94,7 +94,7 @@
             "description": "Weather Normalized Site Energy divided by property size in square feet"
         },
         {
-            "title": "Total GHG Emissions Intensity",
+            "title": "GHG Emissions",
             "field_name": "total_ghg_emissions_intensity_kgco2e_ft",
             "display_type": "range",
             "category": "Climate Emissions",
