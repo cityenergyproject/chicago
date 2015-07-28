@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "test",
+    "watch": "gulp watch",
     "start": "gulp connect"
   },
   "repository": {
