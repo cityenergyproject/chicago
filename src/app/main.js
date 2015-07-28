@@ -6,6 +6,9 @@ require.config({
     d3: '//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min',
     ionrangeslider: '../lib/range-slider/ion.rangeSlider',
     templates: '../templates'
+  },
+  shim: {
+    ionrangeslider: ['jquery']
   }
 });
 
