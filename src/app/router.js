@@ -23,19 +23,19 @@ define([
     },
 
     city: function(cityname){
-      CityController.load(cityname);
+      CityController.load(this, cityname);
     },
 
     layer: function(cityname, layername){
-      CityController.load(cityname, layername);
+      CityController.load(this, cityname, layername);
     }
 
   });
 
-  
+
 
   var CityController = {
-    load: function(cityname, layername){
+    load: function(router, cityname, layername){
 
       // should probably cache cities in collections? need some way of cleaning up if you switch btw
       if (!this.city || this.city.get('url_name') !== cityname){
@@ -44,7 +44,7 @@ define([
 
       layername = layername || '';
 
-      AppRouter.navigate(cityname + '/' + layername, {trigger: false, replace: true});
+      router.navigate(cityname + '/' + layername, {trigger: false, replace: true});
       this.render(layername);
 
       return this;
@@ -70,18 +70,15 @@ define([
       }
 
       //set current_layer before initializing new MapView in order to avoid triggering layer change with empty layer
-      this.map.set('current_layer', layername); 
+      this.map.set('current_layer', layername);
       this.mapView = this.mapView || new MapView({model: this.map});
 
       return this;
     }
-    
+
   };
 
-  var AppRouter = new Router();
-  Backbone.history.start();
-  
-  
+
   return Router;
 });
 
