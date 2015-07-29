@@ -10,23 +10,15 @@ define([
 ], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapCategoryControlTemplate){
 
   var MapCategoryControlView = Backbone.View.extend({
-    className: "map-category-control",
     $container: $('#map-category-controls'),
 
     initialize: function(opts){
       this.map = opts.map;
-      this.id = "control-"+this.model.cid;
-      this.el = "#"+this.id;
-      this.$el = $("<div id='"+this.id+"' class='map-category-control'></div>").appendTo(this.$container);
       this.delegateEvents(this.events);
-
       this.listenTo(this.model, 'dataReady', this.update);
     },
 
-    render: function(){ 
-      $(this.el).html(
-        "<button>"+this.model.get('title')+"</button>"
-      );
+    render: function(){
       this.update();
       return this;
     },
@@ -34,12 +26,21 @@ define([
     update: function(){
       if (this.model.get('data') === undefined) {return this;}
 
-      var displayed_categories = this.model.colorRampValues;
+      var displayed_categories = this.model.displayedCategories;
       displayed_categories.push({name: "Other", color: "#CCCCCC"});
 
       var template = _.template(MapCategoryControlTemplate);
-      $(template({id: this.model.cid, categories: displayed_categories}))
-      .appendTo($(this.el));
+      var compiled = template({
+        id: this.model.cid,
+        title: this.model.get("title"),
+        categories: displayed_categories
+      });
+
+      if (this.$el.children().length > 0) {
+        this.$el.replaceWith(compiled);
+      } else {
+        this.$el = this.$container.append(compiled);
+      }
 
       return this;
     },
@@ -55,7 +56,7 @@ define([
       }
       var checked = this.$el.find("input:checked").map(function(){return $(this).val();});
       if (_.contains(checked, "Other")){
-        
+
         this.model.set('filter', {exclude: unchecked.toArray()});
       } else {
         this.model.set('filter', {include: checked.toArray()});

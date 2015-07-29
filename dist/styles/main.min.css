@@ -205,9 +205,7 @@ input[type="search"], button, input[type="button"], input[type="reset"], input[t
   color: #fff;
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
-  box-sizing: border-box;
-  padding: 0.3em 0.8em;
-  margin: 0.5em 1em; }
+  box-sizing: border-box; }
 
 button, input[type="button"], input[type="reset"], input[type="submit"],
 .irs-from, .irs-to, .irs-single {
@@ -486,8 +484,6 @@ header {
   height: 5em; }
 
 #toolbar {
-  background-color: #e66346;
-  color: white;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -500,21 +496,8 @@ header {
 #search {
   width: 22.5em;
   float: left; }
-  #search .search-control {
-    float: left;
-    display: block;
-    margin-right: 0%;
+  #search input[type='search'] {
     width: 50%; }
-    #search .search-control:last-child {
-      margin-right: 0; }
-
-#year-select {
-  float: left;
-  display: block;
-  margin-right: 0%;
-  width: 16.66667%; }
-  #year-select:last-child {
-    margin-right: 0; }
 
 #map-category-controls {
   float: left;
@@ -525,31 +508,69 @@ header {
     margin-right: 0; }
   #map-category-controls .map-category-control {
     float: left;
-    display: block;
-    position: relative;
     margin-right: 1em; }
-    #map-category-controls .map-category-control .show-layer {
-      margin-left: 0;
-      margin-right: 0; }
-    #map-category-controls .map-category-control .categories {
-      position: absolute;
-      z-index: 99;
-      color: #e66346;
-      background-color: #d1d1d0;
-      width: 100%;
-      font-size: .8em; }
-      #map-category-controls .map-category-control .categories ul {
-        padding-left: 10px; }
-        #map-category-controls .map-category-control .categories ul li {
-          line-height: 1; }
-          #map-category-controls .map-category-control .categories ul li input {
-            vertical-align: middle;
-            margin: 1px;
-            float: left; }
-          #map-category-controls .map-category-control .categories ul li label {
-            font-weight: 500;
-            display: block;
-            margin-left: 1.5em; }
+
+#year-select {
+  float: right;
+  padding-right: 1em; }
+
+.toolbar {
+  background-color: #e66346;
+  color: white; }
+
+.search-wrapper {
+  padding: 0.5em 1em; }
+  .search-wrapper .address-search {
+    padding: 0.3em 0.8em;
+    margin-bottom: 0; }
+
+.map-category-control {
+  display: block;
+  position: relative; }
+  .map-category-control button {
+    margin: 0.5em 1em;
+    padding: 0.3em 0.8em; }
+  .map-category-control .categories {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    margin-top: 0.2em; }
+  .map-category-control ul {
+    padding: 0.5em 0; }
+  .map-category-control li {
+    margin: 0.25em 1em; }
+  .map-category-control .check {
+    float: left;
+    margin-top: 0.15em;
+    height: 1em;
+    width: 1em; }
+  .map-category-control .content {
+    margin-left: 1.4em; }
+
+.map-category-control .categories {
+  color: #e66346;
+  background-color: rgba(209, 209, 208, 0.9);
+  font-size: .8em; }
+
+.map-category-control li {
+  line-height: 1.2; }
+
+.map-category-control input[type=checkbox] {
+  display: none; }
+
+.map-category-control input[type=checkbox]:checked + label .check {
+  background: #e66346; }
+
+.map-category-control .check {
+  border: 0.2em solid #e66346; }
+
+.map-category-control label {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 #map-controls {
   height: 100%;
@@ -694,3 +715,45 @@ header {
       display: block; }
     #buildings td.building_info span.name {
       font-weight: 600; }
+
+.year-control {
+  border-bottom: 0.1em solid transparent; }
+  .year-control span {
+    display: inline-block;
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    .year-control span::after {
+      height: 0.5em;
+      width: 0.5em;
+      border-radius: 50%;
+      display: block;
+      content: " ";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-top: -0.25em;
+      margin-left: -0.25em; }
+  .year-control span + span {
+    margin-left: 0.75em; }
+
+.year-control {
+  cursor: default;
+  font-weight: 500;
+  border-bottom-color: rgba(197, 57, 27, 0.7);
+  text-align: center; }
+  .year-control .current-true {
+    color: white; }
+    .year-control .current-true::after {
+      background-color: white; }
+  .year-control .current-false {
+    cursor: pointer;
+    color: #db401e;
+    opacity: 0.85; }
+    .year-control .current-false::after {
+      opacity: 0.6;
+      background-color: #c5391b; }

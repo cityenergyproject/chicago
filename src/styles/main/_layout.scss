@@ -1,0 +1,39 @@
+body {
+  background-color: $base-background-color;
+  padding: 0;
+  margin: 0;
+  @include media($large-screen-up) {
+    font-size: 16px;
+  }
+}
+
+header{
+  height: $header-height;
+}
+
+#toolbar {
+  @include outer-container();
+  height: 3em;
+}
+
+#search {
+  width: $nav-col-fixed-width;
+  float: left;
+
+  input[type='search'] {
+    width: 50%;
+  }
+}
+
+#map-category-controls {
+  @include span-columns(7);
+  .map-category-control {
+    float: left;
+    margin-right: 1em;
+  }
+}
+
+#year-select{
+  float: right;
+  padding-right: 1em;
+}

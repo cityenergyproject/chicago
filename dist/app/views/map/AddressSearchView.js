@@ -9,9 +9,8 @@ define([
     $container: $('#search'),
 
     initialize: function(options){
-      this.mapView = options.mapView; 
+      this.mapView = options.mapView;
       this.center = this.mapView.model.get('center');
-      this.$el = $('<div id="address-search" class="search-control"></div>').appendTo(this.$container);
       this.delegateEvents(this.events);
 
       this.render();
@@ -19,7 +18,8 @@ define([
 
     render: function(){
       var searchTemplate = _.template(AddressSearchTemplate);
-      this.$el.html(searchTemplate());
+      this.$container.html(searchTemplate());
+      this.$el = this.$container.find("input");
 
       return this;
     },
@@ -32,7 +32,7 @@ define([
     search: function(){
       var self = this;
       var url = "http://pelias.mapzen.com/search";
-      var search = this.$el.find('input').val();
+      var search = this.$el.val();
       if (search===""){
         this.clearMarker();
         return;
@@ -46,7 +46,7 @@ define([
       })
     },
 
-    centerMapOn: function(location){ 
+    centerMapOn: function(location){
       var coordinates = location.features[0].geometry.coordinates.reverse();
       this.placeMarker(coordinates);
       this.mapView.leafletMap.setView(coordinates);
@@ -54,7 +54,7 @@ define([
     placeMarker: function(coordinates){
       var map = this.mapView.leafletMap;
       this.clearMarker();
-      
+
       var icon = new L.Icon({
           iconUrl: '/images/marker.svg',
           iconRetinaUrl: '/images/marker.svg',
@@ -77,7 +77,7 @@ define([
     },
 
     fireChange: function(){
-      this.$el.find('input').trigger('change');
+      this.$el.trigger('change');
     }
 
   });

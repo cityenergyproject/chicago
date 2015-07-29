@@ -1,19 +1,21 @@
-<div class='categories'>
-  <ul>
-  <% _.each(categories, function(category){ %>
-    <li>
-      
-      <input type="checkbox" class="category filter" 
-        id="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>" 
-        name="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>" 
-        value="<%= category.name %>"
-        checked="true"
-      />
-    
-      <label for="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>">
-        <%= category.name %>
-      </label>
-    </li>
-  <% }) %>
-  </ul>
+<div class='map-category-control'>
+  <button><%= title %></button>
+  <div class='categories'>
+    <ul>
+    <% _.each(categories, function(category){ %>
+      <li>
+        <input type="checkbox"
+          id="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>"
+          name="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>"
+          value="<%= category.name %>"
+          checked="true"
+        />
+        <label for="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>">
+          <div class="check"></div>
+          <div class="content"><%= category.name %></div>
+        </label>
+      </li>
+    <% }) %>
+    </ul>
+  </div>
 </div>

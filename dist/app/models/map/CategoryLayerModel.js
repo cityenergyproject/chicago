@@ -9,7 +9,7 @@ define([
   var CategoryLayerModel = Backbone.Model.extend({
 
     defaults : {
-        
+
         baseCSS : [
             '{marker-fill: #CCC;',
             'marker-fill-opacity: 0.9;',
@@ -30,12 +30,12 @@ define([
     },
 
     setDataFields: function(){
-      this.setColorRampValues();
+      this.setDisplayedCategories();
       this.trigger('dataReady');
     },
 
     getFilter: function(){
-      return this.get('filter');   
+      return this.get('filter');
     },
 
     filterSQL: function(){
@@ -57,7 +57,7 @@ define([
 
     cartoProperties: function(){
       var base_sql = "SELECT * FROM " + this.get('table_name');
-      
+
       var filtersSQL = this.collection.filtersSQL();
 
       if (filtersSQL.indexOf('NULLSET') > -1){return undefined;}
@@ -87,24 +87,12 @@ define([
 
     },
 
-    colorRamp: function(domain){ 
-      // todo: figure out how to use the nicer colorbrewer lib here
-      return d3.scale.category10().domain(domain);
-    },
-
-    setColorRampValues: function(){
+    setDisplayedCategories: function(){
       var self = this;
       var category_counts = this.distributionData();
-      var displayed_categories = _.reject(category_counts, function(category){
+      this.displayedCategories = _.reject(category_counts, function(category){
         return category.name == "Other";
       }).slice(0,this.get('categories_to_display'));
-
-      this.colorRampValues = displayed_categories
-        .map(function(category){
-          var names = _.pluck(displayed_categories,'name');
-          category.color = self.colorRamp(names)(category.name);
-          return category;
-        });
 
       return this;
     },

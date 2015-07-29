@@ -1,0 +1,58 @@
+.year-control {
+  border-bottom: 0.1em solid transparent;
+
+  span {
+    display: inline-block;
+    position: relative;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &::after {
+      height: 0.5em;
+      width: 0.5em;
+      border-radius: 50%;
+      display: block;
+      content: " ";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-top: -0.25em;
+      margin-left: -0.25em;
+    }
+  }
+
+  span + span {
+    margin-left: 0.75em;
+  }
+}
+
+.year-control {
+  cursor: default;
+  font-weight: 500;
+  border-bottom-color: rgba(darken($orange, 15), 0.7);
+  text-align: center;
+
+  .current-true {
+    color: white;
+
+    &::after {
+      background-color: white;
+    }
+  }
+
+  .current-false {
+    cursor: pointer;
+    color: darken($orange, 10);
+    opacity: 0.85;
+
+    &::after {
+      opacity: 0.6;
+      background-color: darken($orange, 15);
+    }
+  }
+}

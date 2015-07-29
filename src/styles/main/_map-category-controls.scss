@@ -1,40 +1,60 @@
-#map-category-controls {
-  @include span-columns(7);
-  .map-category-control{
-    float: left;
-    display: block;
-    position: relative;
-    margin-right: 1em;
-    .show-layer {
-      margin-left: 0;
-      margin-right: 0;
-    }
-    .categories {
-      position: absolute;
-      z-index: 99;
-      color: $base-font-color;
-      background-color: $medium-gray;
-      width: 100%;
-      font-size: .8em;
-      ul {
-        padding-left: 10px;
-        li {
-          line-height: 1;
-          input{
-            vertical-align: middle;
-            margin: 1px;
-            float: left;
-          }
-          
-          label {
-            font-weight: 500;
-            display: block;
-            margin-left: 1.5em
-            
-          }
+.map-category-control{
+  display: block;
+  position: relative;
 
-        }
-      }
-    }
+  button {
+    margin: 0.5em 1em;
+    padding: $base-spacing/4 .8em;
+  }
+
+  .categories {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    margin-top: 0.2em;
+  }
+
+  ul {
+    padding: 0.5em 0;
+  }
+
+  li { margin: 0.25em 1em; }
+
+  .check {
+    float: left;
+    margin-top: 0.15em;
+    height: 1em;
+    width: 1em;
+  }
+
+  .content {
+    margin-left: 1.4em;
+  }
+}
+
+.map-category-control{
+  .categories {
+    color: $base-font-color;
+    background-color: rgba($medium-gray, 0.9);
+    font-size: .8em;
+  }
+
+  li { line-height: 1.2; }
+  input[type=checkbox] { display: none; }
+  input[type=checkbox]:checked + label .check {
+    background: $orange;
+  }
+
+  .check {
+    border: 0.2em solid $orange;
+  }
+
+  label {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }

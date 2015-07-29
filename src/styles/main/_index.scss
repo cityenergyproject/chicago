@@ -1,17 +1,7 @@
-body {
-  background-color: $base-background-color;
-  padding: 0;
-  margin: 0;
-  @include media($large-screen-up) {
-    font-size: 16px;
-  }
-}
-header{
-  height: $header-height;
-}
-
+@import "layout";
 @import "toolbar";
 @import "map-category-controls";
 @import "map-range-controls";
 @import "map";
 @import "buildling-comparison";
+@import "year-control";

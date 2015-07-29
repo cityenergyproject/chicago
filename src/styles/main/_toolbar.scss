@@ -1,17 +1,13 @@
-#toolbar {
+.toolbar {
   background-color: $orange;
   color: $inverse-font-color;
-  @include outer-container();
-  height: 3em;
 }
 
-#search {
-  width: $nav-col-fixed-width;
-  float: left;
-  .search-control {
-    @include span-columns(1.5 of 3);
+.search-wrapper {
+  padding: .5em 1em;
+
+  .address-search {
+    padding: $base-spacing/4 .8em;
+    margin-bottom: 0;
   }
-}
-#year-select{
-  @include span-columns(2);  
 }
