@@ -31,9 +31,6 @@ define([
     },
 
     setDataFields: function(){
-// <<<<<<< HEAD
-//       this.setDisplayedCategories();
-// =======
       var data = this.get('data');
       if (_.every(data, function(d){return d===undefined;})){
         this.empty = true;
@@ -41,7 +38,6 @@ define([
         this.empty = false;
         this.setDisplayedCategories();
       }
-// >>>>>>> add year select
       this.trigger('dataReady');
     },
 

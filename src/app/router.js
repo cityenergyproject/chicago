@@ -46,12 +46,8 @@ define([
 
 
   var CityController = {
-// <<<<<<< HEAD
-    // load: function(router, cityname, layername){
-// =======
     load: function(router, cityname, year, layername){
       year = year || '';
-// >>>>>>> add year select
 
       if (!this.city || this.city.get('url_name') !== cityname){
         this.city = new CityModel({url_name: cityname, year: year});
@@ -61,11 +57,7 @@ define([
       
       layername = layername || '';
 
-// <<<<<<< HEAD
-//       router.navigate(cityname + '/' + layername, {trigger: false, replace: true});
-// =======
       router.navigate(cityname + '/' + year + '/' + layername, {trigger: false, replace: true});
-// >>>>>>> add year select
       this.render(layername);
 
       return this;

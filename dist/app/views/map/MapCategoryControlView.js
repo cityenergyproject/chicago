@@ -14,31 +14,11 @@ define([
 
     initialize: function(opts){
       this.map = opts.map;
-// <<<<<<< HEAD
       this.listenTo(this.model, 'dataReady', this.update);
     },
 
-    // render: function(){
-    //   this.update();
-    //   return this;
-    // },
-// =======
-      // this.id = "control-"+this.model.cid;
-
-      // this.listenTo(this.model, 'dataReady', this.render);
-    // },
-
     render: function(){
       if (this.model.empty){return this;}
-// >>>>>>> add year select
-
-      // if (this.$el.html()==""){
-      //   this.$el.appendTo(this.$container);
-      //   this.$el.attr('id', this.id)
-      //   $(this.el).html("<button>"+this.model.get('title')+"</button>");
-      // }
-
-// <<<<<<< HEAD
       var displayed_categories = this.model.displayedCategories;
       displayed_categories.push({name: "Other", color: "#CCCCCC"});
 
@@ -54,14 +34,6 @@ define([
       } else {
         this.$el = this.$container.append(compiled);
       }
-// =======
-//       var displayed_categories = this.model.colorRampValues;
-//       if (displayed_categories === undefined || displayed_categories[0].name === undefined) {return this;}
-//       displayed_categories.push({name: "Other", color: "#CCCCCC"});
-
-//       var template = _.template(MapCategoryControlTemplate);
-//       $(template({id: this.model.cid, categories: displayed_categories})).appendTo(this.$el);
-// >>>>>>> add year select
 
       return this;
     },
