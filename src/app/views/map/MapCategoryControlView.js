@@ -14,18 +14,11 @@ define([
 
     initialize: function(opts){
       this.map = opts.map;
-      this.delegateEvents(this.events);
       this.listenTo(this.model, 'dataReady', this.update);
     },
 
     render: function(){
-      this.update();
-      return this;
-    },
-
-    update: function(){
-      if (this.model.get('data') === undefined) {return this;}
-
+      if (this.model.empty){return this;}
       var displayed_categories = this.model.displayedCategories;
       displayed_categories.push({name: "Other", color: "#CCCCCC"});
 
@@ -63,8 +56,6 @@ define([
       }
 
     }
-
-
 
   });
 

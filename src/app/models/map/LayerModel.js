@@ -7,7 +7,6 @@ define([
   var LayerModel = Backbone.Model.extend({
 
     defaults : {
-        
         baseCSS : [
             '{marker-fill: #CCC;',
             'marker-fill-opacity: 0.9;',
@@ -23,21 +22,31 @@ define([
     },
 
     initialize: function(){
+      this.empty = true;
       this.setColorRampValues();
       this.on('change:data', this.setDataFields);
     },
 
     setDataFields: function(){
       var extent;
-      var data_extent = d3.extent(this.get('data'));
+      var data = this.get('data');
 
-      if (this.get('filter_range')!==undefined){
-        extent = [this.get('filter_range').min, this.get('filter_range').max];
-        if (extent[0]===undefined){extent[0] = data_extent[0];}
-        if (extent[1]===undefined){extent[1] = data_extent[1];}
-
+      if (_.every(data, function(d){return d===undefined;})){
+        this.empty = true;
+        data_extent = undefined;
       } else {
-        extent = data_extent;
+        this.empty = false;
+
+        var data_extent = d3.extent(data);
+
+        if (this.get('filter_range')!==undefined){
+          extent = [this.get('filter_range').min, this.get('filter_range').max];
+          if (extent[0]===undefined){extent[0] = data_extent[0];}
+          if (extent[1]===undefined){extent[1] = data_extent[1];}
+
+        } else {
+          extent = data_extent;
+        }
       }
 
       this.set({extent: extent});
@@ -106,7 +115,7 @@ define([
     },
 
     distributionData: function(slices){
-      if (this.get('data') === undefined) {return undefined;}
+      if (this.empty) {return undefined;}
       var self = this;
 
       var data = this.get('data');

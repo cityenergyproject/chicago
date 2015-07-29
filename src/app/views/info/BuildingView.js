@@ -26,6 +26,7 @@ define([
 
       this.listenTo(this.city, 'change:currentBuildingSet', this.renderTableBody);
       this.listenTo(this.map, 'change:current_layer', this.addMetric);
+      this.listenTo(this.city.layers, 'updateLayers', this.removeEmptyMetrics);
 
       return this;
     },
@@ -39,7 +40,14 @@ define([
 
     addMetric: function(){
       var newMetric = this.map.getCurrentLayer();
-      if (newMetric.get('display_type')==="category" || _.contains(this.metrics, newMetric)){return this;}
+      if (newMetric.get('display_type')==="category"){return this;}
+
+      var exists = _.find(this.metrics, function(metric){
+        if (metric===undefined){return false;}
+        return metric.get('field_name') == newMetric.get('field_name');
+      })
+
+      if (exists){return this;}
 
       var open_metric = _.indexOf(this.metrics, undefined)
       if (open_metric > -1){
@@ -117,20 +125,31 @@ define([
       
       this.city.sortBuildingSetBy(this.sortedBy);
 
-      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + field_name, {trigger: true});
+      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.map.get('city').get('year') + '/' + field_name, {trigger: true});
 
       return this;
       
     },
 
-
-
-
     changeCity: function(){
 
-      el.empty();
+      this.el.empty();
       alert('change city');
       // todo: other cleanup here
+    },
+
+    removeEmptyMetrics: function(){
+      var metrics = _.reject(this.metrics, function(metric){
+        if (metric===undefined){return false;}
+        return this.city.layers.findWhere({field_name: metric.get('field_name')}).empty
+      }, this);
+
+      for(var i = metrics.length; i < 5; i++) {
+        metrics.push(undefined);
+      }
+      this.metrics = metrics;
+      this.render();
+      return this;
     }
 
 

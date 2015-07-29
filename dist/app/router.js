@@ -14,8 +14,10 @@ define([
         "":"root",
         ":cityname":"city",
         ":cityname/":"city",
-        ":cityname/:layer":"layer",
-        ":cityname/:layer/":"layer"
+        ":cityname/:year":"year",
+        ":cityname/:year/":"year",
+        ":cityname/:year/:layer":"layer",
+        ":cityname/:year/:layer/":"layer"
     },
 
     root:function () {
@@ -26,8 +28,12 @@ define([
       CityController.load(this, cityname);
     },
 
-    layer: function(cityname, layername){
-      CityController.load(this, cityname, layername);
+    year: function(cityname, year){
+      CityController.load(this, cityname, year);
+    },
+
+    layer: function(cityname, year, layername){
+      CityController.load(this, cityname, year, layername);
     }
 
   });
@@ -35,16 +41,18 @@ define([
 
 
   var CityController = {
-    load: function(router, cityname, layername){
+    load: function(router, cityname, year, layername){
+      year = year || '';
 
-      // should probably cache cities in collections? need some way of cleaning up if you switch btw
       if (!this.city || this.city.get('url_name') !== cityname){
-        this.city = new CityModel({url_name: cityname});
+        this.city = new CityModel({url_name: cityname, year: year});
+      }else{
+        this.city.set('year', year);
       }
-
+      
       layername = layername || '';
 
-      router.navigate(cityname + '/' + layername, {trigger: false, replace: true});
+      router.navigate(cityname + '/' + year + '/' + layername, {trigger: false, replace: true});
       this.render(layername);
 
       return this;
