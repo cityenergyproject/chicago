@@ -490,7 +490,7 @@ body {
   background-color: #f2f2f2;
   padding: 0;
   margin: 0; }
-  @media screen and (min-width: 56.25em) {
+  @media screen and (min-width: 75em) {
     body {
       font-size: 16px; } }
 
@@ -509,14 +509,16 @@ header {
     display: table; }
 
 #search {
-  width: 22.5em;
+  width: 18.75em;
   float: left; }
+  @media screen and (min-width: 56.25em) {
+    #search {
+      width: 22.5em; } }
   #search input[type='search'] {
     width: 50%; }
 
 #map-category-controls {
-  display: block;
-  white-space: nowrap; }
+  display: block; }
   #map-category-controls .map-category-control + .map-category-control {
     margin-left: 1em; }
   #map-category-controls .map-category-control {
@@ -532,6 +534,15 @@ header {
   position: absolute;
   right: 1em;
   top: 0.5em; }
+
+#map-controls {
+  height: 100%;
+  overflow: scroll;
+  width: 18.75em;
+  float: left; }
+  @media screen and (min-width: 56.25em) {
+    #map-controls {
+      width: 22.5em; } }
 
 .toolbar {
   background-color: #e66346;
@@ -605,6 +616,7 @@ header {
   border: 0.2em solid #e66346; }
 
 .map-category-control label {
+  font-weight: 300;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -612,26 +624,21 @@ header {
   -ms-user-select: none;
   user-select: none; }
 
-#map-controls {
-  height: 100%;
-  overflow: scroll;
-  width: 22.5em;
-  float: left; }
-  #map-controls .category {
-    cursor: pointer; }
-    #map-controls .category .map-control {
-      display: none; }
-    #map-controls .category.expand .map-control {
-      display: block; }
-    #map-controls .category h2 {
-      font-weight: 300;
-      margin-bottom: 0; }
-    #map-controls .category h2, #map-controls .category .map-control {
-      padding: 0.65em 0.5em;
-      border-left: solid 1.5em transparent;
-      border-bottom: solid 1px #e66346; }
-      #map-controls .category h2.active, #map-controls .category h2.current, #map-controls .category .map-control.active, #map-controls .category .map-control.current {
-        border-left-color: #e66346; }
+#map-controls .category {
+  cursor: pointer; }
+  #map-controls .category .map-control {
+    display: none; }
+  #map-controls .category.expand .map-control {
+    display: block; }
+  #map-controls .category h2 {
+    font-weight: 300;
+    margin-bottom: 0; }
+  #map-controls .category h2, #map-controls .category .map-control {
+    padding: 0.65em 0.5em;
+    border-left: solid 1.5em transparent;
+    border-bottom: solid 1px #e66346; }
+    #map-controls .category h2.active, #map-controls .category h2.current, #map-controls .category .map-control.active, #map-controls .category .map-control.current {
+      border-left-color: #e66346; }
 
 .map-control {
   width: 100%; }
@@ -711,7 +718,7 @@ header {
       padding: 0;
       color: white; }
     #buildings table tr th:first-child, #buildings table tr td:first-child {
-      width: 22.5em;
+      width: 18.75em;
       text-align: right; }
     #buildings table th, #buildings table td {
       text-align: center;
