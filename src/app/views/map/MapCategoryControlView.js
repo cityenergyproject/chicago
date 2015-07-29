@@ -14,7 +14,7 @@ define([
 
     initialize: function(opts){
       this.map = opts.map;
-      this.listenTo(this.model, 'dataReady', this.update);
+      this.listenTo(this.model, 'dataReady', this.render);
     },
 
     render: function(){
