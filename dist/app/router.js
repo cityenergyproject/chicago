@@ -28,17 +28,12 @@ define([
       CityController.load(this, cityname);
     },
 
-// <<<<<<< HEAD
-//     layer: function(cityname, layername){
-//       CityController.load(this, cityname, layername);
-// =======
     year: function(cityname, year){
       CityController.load(this, cityname, year);
     },
 
     layer: function(cityname, year, layername){
       CityController.load(this, cityname, year, layername);
-// >>>>>>> add year select
     }
 
   });
