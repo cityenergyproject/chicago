@@ -1,16 +1,14 @@
 .year-control {
   border-bottom: 0.1em solid transparent;
-
-  span {
-    display: inline-block;
+  li {
     position: relative;
+    display: inline-block;
+  }
 
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  input {
+    display: none;
+  }
+  label {
 
     &::after {
       height: 0.5em;
@@ -26,26 +24,17 @@
     }
   }
 
-  span + span {
+  li + li {
     margin-left: 0.75em;
   }
 }
 
 .year-control {
-  cursor: default;
   font-weight: 500;
   border-bottom-color: rgba(darken($orange, 15), 0.7);
   text-align: center;
 
-  .current-true {
-    color: white;
-
-    &::after {
-      background-color: white;
-    }
-  }
-
-  .current-false {
+  input + label {
     cursor: pointer;
     color: darken($orange, 10);
     opacity: 0.85;
@@ -53,6 +42,17 @@
     &::after {
       opacity: 0.6;
       background-color: darken($orange, 15);
+    }
+  }
+
+  input:checked + label {
+    color: white;
+    opacity: 1;
+    cursor: default;
+
+    &::after {
+      opacity: 1;
+      background-color: white;
     }
   }
 }

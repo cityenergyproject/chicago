@@ -718,42 +718,40 @@ header {
 
 .year-control {
   border-bottom: 0.1em solid transparent; }
-  .year-control span {
-    display: inline-block;
+  .year-control li {
     position: relative;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; }
-    .year-control span::after {
-      height: 0.5em;
-      width: 0.5em;
-      border-radius: 50%;
-      display: block;
-      content: " ";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-top: -0.25em;
-      margin-left: -0.25em; }
-  .year-control span + span {
+    display: inline-block; }
+  .year-control input {
+    display: none; }
+  .year-control label::after {
+    height: 0.5em;
+    width: 0.5em;
+    border-radius: 50%;
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: -0.25em;
+    margin-left: -0.25em; }
+  .year-control li + li {
     margin-left: 0.75em; }
 
 .year-control {
-  cursor: default;
   font-weight: 500;
   border-bottom-color: rgba(197, 57, 27, 0.7);
   text-align: center; }
-  .year-control .current-true {
-    color: white; }
-    .year-control .current-true::after {
-      background-color: white; }
-  .year-control .current-false {
+  .year-control input + label {
     cursor: pointer;
     color: #db401e;
     opacity: 0.85; }
-    .year-control .current-false::after {
+    .year-control input + label::after {
       opacity: 0.6;
       background-color: #c5391b; }
+  .year-control input:checked + label {
+    color: white;
+    opacity: 1;
+    cursor: default; }
+    .year-control input:checked + label::after {
+      opacity: 1;
+      background-color: white; }

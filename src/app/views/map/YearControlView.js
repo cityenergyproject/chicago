@@ -27,11 +27,11 @@ define([
     },
 
     events: {
-      'click span' : 'selectYear'
+      'change input' : 'selectYear'
     },
 
     selectYear: function(event){
-      var year = $(event.target).html().trim();
+      var year = $(event.target).val();
       Backbone.history.navigate(this.city.get('url_name') + '/' + year + '/' + this.mapView.model.get('current_layer'), {trigger: true})
     }
 
