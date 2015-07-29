@@ -33,13 +33,14 @@ define([
         this.$el.replaceWith(compiled);
       } else {
         this.$el = this.$container.append(compiled);
+        this.delegateEvents();
       }
 
       return this;
     },
 
     events: {
-      'change input.category.filter' : 'toggleCategory'
+      'change .categories input' : 'toggleCategory'
     },
 
     toggleCategory: function(){

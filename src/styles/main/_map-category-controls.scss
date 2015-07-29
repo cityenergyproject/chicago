@@ -1,17 +1,26 @@
 .map-category-control{
   display: block;
   position: relative;
+  padding: 0.5em 0;
 
-  button {
-    margin: 0.5em 1em;
-    padding: $base-spacing/4 .8em;
+  .category-list-toggle {
+    line-height: 1;
+    box-sizing: border-box;
+    padding: $base-spacing/3 1.2em;
+    display: block;
+  }
+
+  input[type="checkbox"]:checked + .category-list-toggle + .categories {
+    display: block;
   }
 
   .categories {
+    display: none;
     position: absolute;
     z-index: 99;
-    width: 100%;
-    margin-top: 0.2em;
+    top: 3em;
+    left: 0;
+    right: 0;
   }
 
   ul {
@@ -33,13 +42,31 @@
 }
 
 .map-category-control{
+  .category-list-toggle {
+    -webkit-font-smoothing: antialiased;
+    background-color: $orange;
+    border: $base-border;
+    border-radius: $base-border-radius;
+    color: #fff;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-weight: normal;
+  }
+
+  input[type="checkbox"]:checked + .category-list-toggle {
+    background-color: white;
+    color: $orange;
+  }
+
   .categories {
     color: $base-font-color;
     background-color: rgba($medium-gray, 0.9);
-    font-size: .8em;
   }
 
-  li { line-height: 1.2; }
+  li { 
+    line-height: 1.2;
+    font-size: .8em;
+  }
   input[type=checkbox] { display: none; }
   input[type=checkbox]:checked + label .check {
     background: $orange;
