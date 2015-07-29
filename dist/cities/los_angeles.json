@@ -3,17 +3,14 @@
     "name": "Los Angeles",
     "cartoDbUser": "cityenergyproject",
     "table_name": "losangeles_20131415revised_20150711",
+    
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
         34.093041824023125,
         -118.30215454101562
     ],
     "zoom": 11,
-    "layer_categories": [
-        "Building Info",
-        "Energy Efficiency",
-        "Climate Emissions"
-    ],
+
     "building_info_fields": {
         "property_id": "property_id",
         "name": "property_name",
@@ -81,8 +78,21 @@
             "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
         },
         {
-            "title": "Energy Use",
+            "title": "Source Energy Use",
             "field_name": "weather_normalized_source_eui_kbtu_ft",
+            "display_type": "range",
+            "category": "Energy Efficiency",
+            "range_slice_count": 16,
+            "filter_range": {"max" : 300},
+            "color_range": [
+                "#1a9850",
+                "#d73027"
+            ],
+            "description": "Weather Normalized Site Energy divided by property size in square feet"
+        },
+        {
+            "title": "Site Energy Use",
+            "field_name": "weather_normalized_site_eui_kbtu_ft",
             "display_type": "range",
             "category": "Energy Efficiency",
             "range_slice_count": 16,
@@ -107,5 +117,13 @@
             "description": "Greenhouse Gas Emissions associated with onsite fuel combustion (e.g. combustion of natural gas or fuel oil) measured in kilograms divided by property square footage."
         }
 
-    ]
+    ],
+    "years": {
+        "2013": {
+            "table_name": "losangelestestdatasetcep_na_to_null_20150619",
+            "default_layer": "weather_normalized_site_eui_kbtu_ft"
+        },
+        
+        "2014":{}
+    }
 }

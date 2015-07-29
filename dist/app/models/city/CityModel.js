@@ -7,25 +7,34 @@ define([
   var CityModel = Backbone.Model.extend({
 
     initialize: function(){
-      var self = this;
+      this.listenTo(this, 'change:year', this.setupCity)
 
       this.layers = this.layers || new MapLayersCollection(null, {city: this});
-
       this.loadCityConfig(this.get('url_name'));
-      
     },
 
     loadCityConfig: function(url_name){
       this.fetch({ url: "/cities/" + url_name + ".json", 
         success: function(model, response, options) {
-          model.set(response);
+          model.defaults = response;
+          model.setupCity();
           model.trigger('cityLoaded');
         },
         error: function(model, response, options){
-          alert("Unable to find city config file");
+          alert("Unable to load city config file");
         }
       });
+      return this;
+    },
 
+    setupCity: function(){
+      this.set(this.defaults);
+      this.setYear();
+    },
+
+    setYear: function(){
+      var year_settings = this.get('years')[this.get('year')];
+      this.set(year_settings);
     },
 
     sortBuildingSetBy: function(sortedBy){

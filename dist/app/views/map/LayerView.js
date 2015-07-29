@@ -42,16 +42,19 @@ define([
       this.listenTo(this.model, 'dataReady', this.render);
       this.listenTo(this.model.collection, 'change:filter', this.render);
       this.listenTo(this.mapView.model, 'change:current_layer', this.showCurrentLayer);
-      
+      this.listenTo(this.mapView.model, 'yearChange', this.yearChange);
     },
 
     render: function(){
+      if (this.model.empty){
+        this.mapView.model.set({current_layer: ''})
+        return this.showCurrentLayer();
+      }
       var cartoProperties = this.model.cartoProperties();
       if (cartoProperties === undefined){
         this.leafletLayer.getSubLayer(0).hide();
       }else{
         this.leafletLayer.getSubLayer(0).set(cartoProperties).show();
-        console.log(this.model.cartoProperties());
       }
       return this;
     },
@@ -72,26 +75,31 @@ define([
     },
 
     showBuildingInfo: function(e, latlng, pos, data){
-      console.log(data);
-
       var building_info_fields = this.model.collection.city.get('building_info_fields');
       var mapped_data = _.mapObject(building_info_fields, function(value, key){
         return data[value];
       });
       var data_fields = _.map(this.model.collection.models, function(layer){
+        if (layer.empty) {return undefined;}
         return {
           field_name: layer.get('field_name'),
           title: layer.get('title'),
           value: this[layer.get('field_name')]
         }; 
       }, data);
-      mapped_data.data_fields = data_fields;
+      mapped_data.data_fields = _.compact(data_fields);
 
       template = _.template(BuildingInfoTemplate);
       info = L.popup()
         .setLatLng(latlng)
         .setContent(template(mapped_data))
         .openOn(this.leafletMap);
+    },
+
+    yearChange: function(){
+      this.stopListening(this.model, 'dataReady', this.render);
+      this.setCurrentLayer();
+      this.listenTo(this.model, 'dataReady', this.render);
     }
 
   });

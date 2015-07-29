@@ -26,11 +26,22 @@ define([
     },
 
     initialize: function(){
+      this.empty = true;
       this.on('change:data', this.setDataFields);
     },
 
     setDataFields: function(){
-      this.setDisplayedCategories();
+// <<<<<<< HEAD
+//       this.setDisplayedCategories();
+// =======
+      var data = this.get('data');
+      if (_.every(data, function(d){return d===undefined;})){
+        this.empty = true;
+      }else{
+        this.empty = false;
+        this.setDisplayedCategories();
+      }
+// >>>>>>> add year select
       this.trigger('dataReady');
     },
 
@@ -98,7 +109,7 @@ define([
     },
 
     distributionData: function(){
-      if (this.get('data') === undefined) {return undefined;}
+      if (this.empty) {return undefined;}
       var self = this;
 
       var data = this.get('data');

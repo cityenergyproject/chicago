@@ -15,16 +15,26 @@ define([
       this.city = params.city;
         
       this.cartoClient = new cartodb.SQL({ user: 'cityenergyproject' });
+      this.listenTo(this.city, 'cityLoaded', function(){
+        this.initWithCity();
+      })
+
+    },
+
+    initWithCity: function(){
+      this.update();
+
       this.listenTo(this.city, 'change:cartoDbUser', function(){
         this.cartoClient.options.user = this.city.get('cartoDbUser');
       });
 
       this.listenTo(this.city, 'change:map_layers', this.update);
+      this.listenTo(this.city, 'change:table_name', this.update);
       this.listenTo(this, 'change:filter', this.updateCurrentBuildingSet);
     },
 
     interactivity: function(){
-      return "cartodb_id, " + _.values(this.city.get('building_info_fields')).join(', ') + ", " + this.pluck('field_name').join(', ');
+      return "cartodb_id, " + _.values(this.city.get('building_info_fields')).join(', ');
     },
 
     filtersSQL: function(){
@@ -60,9 +70,10 @@ define([
         self.city.set('currentBuildingSet', data.rows);
 
         self.each(function(layer){
-          var data = this;
-          layer.set('data', _.pluck(data, layer.get('field_name')));
+          var data = _.pluck(this, layer.get('field_name'));
+          layer.set('data', data);
         }, data.rows);
+        self.trigger('updateLayers');
       });
     },
 
