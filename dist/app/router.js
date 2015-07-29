@@ -48,6 +48,7 @@ define([
         this.city = new CityModel({url_name: cityname, year: year});
       }else{
         this.city.set('year', year);
+        this.city.setupYear();
       }
       
       layername = layername || '';

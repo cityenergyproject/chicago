@@ -29,11 +29,17 @@ define([
 
     setupCity: function(){
       this.set(this.defaults);
-      this.setYear();
+      this.setupYear();
     },
 
-    setYear: function(){
-      var year_settings = this.get('years')[this.get('year')];
+    setupYear: function(){
+      var years = this.get('years')
+      if (this.get('year') === undefined || this.get('year')===""){
+        latest_year = _.chain(years).keys().sort().last().value();
+        this.set('year', latest_year, {silent: true});
+        Backbone.history.navigate(this.get('url_name') + '/' + this.get('year') + '/', {trigger: false});
+      }
+      var year_settings = years[this.get('year')];
       this.set(year_settings);
     },
 
