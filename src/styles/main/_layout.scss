@@ -27,10 +27,24 @@ header{
 }
 
 #map-category-controls {
-  @include span-columns(7);
+  display: block;
+  white-space: nowrap;
+
+  .map-category-control + .map-category-control {
+    margin-left: 1em;
+  }
+
   .map-category-control {
-    float: left;
-    margin-right: 1em;
+    display: none;
+
+    @include media($medium-screen-up) {
+      &:nth-child(1), &:nth-child(2){
+        display: inline-block;
+      }
+    }  
+    @include media($large-screen-up) {
+      display: inline-block;
+    }
   }
 }
 
