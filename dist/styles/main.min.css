@@ -550,6 +550,21 @@ header {
     .building-report tr th:first-child, .building-report tr td:first-child {
       width: 22.5em; } }
 
+header {
+  text-transform: uppercase;
+  background: #f2f2f2 url("/images/la.png") no-repeat 100% 100%; }
+  header h1 {
+    line-height: 2.5em;
+    font-size: 2em;
+    text-indent: 1em;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.1em; }
+    header h1 span {
+      font-weight: 100;
+      letter-spacing: normal;
+      text-transform: capitalize; }
+
 .toolbar {
   background-color: #e66346;
   color: white; }

@@ -43,7 +43,7 @@ header{
       &:nth-child(1), &:nth-child(2){
         display: inline-block;
       }
-    }  
+    }
     @include media($large-screen-up) {
       display: inline-block;
     }
