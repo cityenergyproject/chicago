@@ -10,15 +10,11 @@
       <% }) %>
     </td>
     <% _.each(metrics, function(metric){ %>
-      <% if (metric !== undefined) { %> 
-        <td class="<%= metric.get('field_name') %>">
+      <td class="<%= metric.get('field_name') %>">
+        <div class="metric-container">
           <%= building[metric.get('field_name')] || "N/A" %>
-      <% } else { %>
-        <td>
-      <% } %>
+        </div>
       </td>
-
     <% }) %>
-
   </tr>
 <% }) %>

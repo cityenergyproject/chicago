@@ -544,6 +544,12 @@ header {
     #map-controls {
       width: 22.5em; } }
 
+.building-report tr th:first-child, .building-report tr td:first-child {
+  width: 18.75em; }
+  @media screen and (min-width: 56.25em) {
+    .building-report tr th:first-child, .building-report tr td:first-child {
+      width: 22.5em; } }
+
 .toolbar {
   background-color: #e66346;
   color: white; }
@@ -706,62 +712,62 @@ header {
   height: 100%;
   width: 100%; }
 
-#buildings {
-  display: table;
-  width: 100%;
-  table-layout: fixed; }
-  #buildings table {
-    margin: 0; }
-    #buildings table thead tr {
-      background-color: #e66346; }
-    #buildings table th {
-      padding: 0;
-      color: white; }
-    #buildings table tr th:first-child, #buildings table tr td:first-child {
-      width: 18.75em;
-      text-align: right; }
-    #buildings table th, #buildings table td {
-      text-align: center;
-      padding: .3em; }
-
-#buildings th.metric .title, #buildings th.metric .remove {
-  text-transform: uppercase;
-  font-size: .8em;
-  font-weight: 500; }
-
-#buildings th.metric.desc .title:after, #buildings th.metric.asc .title:after {
-  content: "\A";
-  border-style: solid;
-  display: inline-block;
-  margin-left: 5px; }
-
-#buildings th.metric.desc .title:after {
-  border-width: 0.6em 0.4em 0 0.4em;
-  border-color: #e66346 transparent transparent transparent; }
-
-#buildings th.metric.asc .title:after {
-  border-width: 0 0.4em 0.6em 0.4em;
-  border-color: transparent transparent #e66346 transparent; }
-
-#buildings th.metric .remove {
-  padding: 0.2em 0.3em;
-  margin-right: -.5em; }
-
-#buildings th.metric button {
-  margin-left: 0;
-  margin-right: 0; }
-
-#buildings td.building_info {
-  text-align: right; }
-  #buildings td.building_info span {
-    white-space: normal;
-    line-height: 1.2;
-    margin: .2em 0;
-    display: none; }
-    #buildings td.building_info span.building_type, #buildings td.building_info span.name {
-      display: block; }
-    #buildings td.building_info span.name {
-      font-weight: 600; }
+.building-report {
+  margin: 0; }
+  .building-report thead tr {
+    background-color: #e66346; }
+  .building-report th {
+    padding: 0;
+    color: white; }
+  .building-report tr th:first-child, .building-report tr td:first-child {
+    text-align: right; }
+  .building-report th {
+    text-align: left; }
+  .building-report th + th {
+    width: 10em;
+    overflow-x: hidden; }
+  .building-report th:last-child {
+    width: 100%; }
+  .building-report .metric-container {
+    text-align: center;
+    display: inline-block;
+    padding: 0.3em 1em;
+    width: 10em; }
+    .building-report .metric-container button {
+      width: 100%;
+      overflow-x: ellipsis; }
+  .building-report th.metric .title, .building-report th.metric .remove {
+    text-transform: uppercase;
+    font-size: .8em;
+    font-weight: 500; }
+  .building-report th.metric.desc .title:after, .building-report th.metric.asc .title:after {
+    content: "\A";
+    border-style: solid;
+    display: inline-block;
+    margin-left: 5px; }
+  .building-report th.metric.desc .title:after {
+    border-width: 0.6em 0.4em 0 0.4em;
+    border-color: #e66346 transparent transparent transparent; }
+  .building-report th.metric.asc .title:after {
+    border-width: 0 0.4em 0.6em 0.4em;
+    border-color: transparent transparent #e66346 transparent; }
+  .building-report th.metric .remove {
+    padding: 0.2em 0.3em;
+    margin-right: -.5em; }
+  .building-report th.metric button {
+    margin-left: 0;
+    margin-right: 0; }
+  .building-report td.building_info {
+    text-align: right; }
+    .building-report td.building_info span {
+      white-space: normal;
+      line-height: 1.2;
+      margin: .2em 0;
+      display: none; }
+      .building-report td.building_info span.building_type, .building-report td.building_info span.name {
+        display: block; }
+      .building-report td.building_info span.name {
+        font-weight: 600; }
 
 .year-control {
   border-bottom: 0.1em solid transparent; }

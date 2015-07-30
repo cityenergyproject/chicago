@@ -8,7 +8,7 @@ define([
 
   var BuildingView = Backbone.View.extend({
     el: "#buildings",
-    metrics: [undefined,undefined,undefined,undefined,undefined],
+    metrics: [],
     sortedBy: {},
 
     initialize: function(options){
@@ -32,7 +32,7 @@ define([
     },
 
     render: function(){ 
-      this.$el.html("<table></table");
+      this.$el.html('<table class="building-report"></table>');
       this.renderTableHead();
       this.renderTableBody();
       return this;
@@ -43,19 +43,13 @@ define([
       if (newMetric.get('display_type')==="category"){return this;}
 
       var exists = _.find(this.metrics, function(metric){
-        if (metric===undefined){return false;}
         return metric.get('field_name') == newMetric.get('field_name');
       })
 
       if (exists){return this;}
 
-      var open_metric = _.indexOf(this.metrics, undefined)
-      if (open_metric > -1){
-        this.metrics[open_metric] = newMetric;
-      } else {
-        this.metrics[4] = newMetric;
-      }
-      
+      this.metrics.push(newMetric);
+
       this.render();
       return this;
     },
@@ -100,13 +94,10 @@ define([
     removeMetric: function(event){
       var field_name = $(event.target).attr('data-field');
       this.metrics = _.reject(this.metrics, function(metric){
-        if (metric===undefined){return false;}
         return metric.get('field_name') == field_name;
       });
-      this.metrics.push(undefined);
       if (this.sortedBy.field_name == field_name){
         this.sortedBy = {};
-        // this.city.sortBuildingSetBy(field_name, order); //pass it nil or sort to something else or do nothing?
       }
       event.stopPropagation();
       this.render();
@@ -140,13 +131,9 @@ define([
 
     removeEmptyMetrics: function(){
       var metrics = _.reject(this.metrics, function(metric){
-        if (metric===undefined){return false;}
         return this.city.layers.findWhere({field_name: metric.get('field_name')}).empty
       }, this);
 
-      for(var i = metrics.length; i < 5; i++) {
-        metrics.push(undefined);
-      }
       this.metrics = metrics;
       this.render();
       return this;

@@ -1,19 +1,17 @@
 <thead><tr>
   <th>Building Comparison</th>
   <% _.each(metrics, function(metric){ %>
-    <% if (metric !== undefined) { %> 
       <th 
         
         class="metric <%= sortedBy.field_name == metric.get('field_name') ? sortedBy.order : '' %>" 
         data-field="<%= metric.get('field_name') %>"
         >
+        <div class="metric-container">
         <button>
           <span class='title'><%= metric.get('title') %></span>
           <span class='remove' data-field="<%= metric.get('field_name') %>">X</span>
         </button>
-    <% } else { %>
-      <th>
-    <% } %>
+      </div>
     </th>
 
   <% }) %>

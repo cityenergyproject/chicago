@@ -1,73 +1,89 @@
-#buildings {
-  @include row($display: table);
-  table {
-    margin: 0;
-    thead tr {
-      background-color: $orange;
-    }
-    th {
-      padding: 0;
-      color: white;
-      // @include span-columns(1 of 5);
-    }
-    tr {
-      th:first-child, td:first-child {
-        width: $nav-col-fixed-width;
-        text-align: right;
-      } 
-    }
-    th, td {
-      text-align: center;
-      padding: .3em;
-    }
+.building-report {
+  margin: 0;
+  thead tr {
+    background-color: $orange;
   }
-}
+  th {
+    padding: 0;
+    color: white;
+  }
+  tr {
+    th:first-child, td:first-child {
+      
+      text-align: right;
+    } 
+  }
+  th {
+    text-align: left;
+  }
 
-#buildings th.metric {
-  .title, .remove {
-    text-transform: uppercase;
-    font-size: .8em;
-    font-weight: 500;
+  th + th {
+    width: 10em;
+    overflow-x: hidden;
   }
-  %title:after {
-    content:"\A";
-    border-style: solid;
+
+  th:last-child {
+    width: 100%;
+  }
+
+  .metric-container {
+    text-align: center;
     display: inline-block;
-    margin-left: 5px;
-  }
-  &.desc .title:after{
-    @extend %title:after;
-    border-width: .6em .4em 0 .4em;
-    border-color: $orange transparent transparent transparent;
-  }
-  &.asc .title:after{
-    @extend %title:after;
-    border-width: 0 .4em .6em .4em;
-    border-color: transparent transparent $orange transparent;
-  }
-  .remove {
-    padding: .2em .3em;
-    margin-right: -.5em;
-  }
-  button {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
+    padding: 0.3em 1em;
+    width: 10em;
 
-#buildings td.building_info {
-  text-align: right;
-  span {
-    white-space: normal;
-    line-height: 1.2;
-    margin: .2em 0;
-
-    display: none;
-    &.building_type, &.name{
-      display: block;
+    button {
+      width: 100%;
+      overflow-x: ellipsis;
     }
-    &.name{
-      font-weight: 600;
+  }
+  
+  th.metric {
+    .title, .remove {
+      text-transform: uppercase;
+      font-size: .8em;
+      font-weight: 500;
+    }
+    %title:after {
+      content:"\A";
+      border-style: solid;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    &.desc .title:after{
+      @extend %title:after;
+      border-width: .6em .4em 0 .4em;
+      border-color: $orange transparent transparent transparent;
+    }
+    &.asc .title:after{
+      @extend %title:after;
+      border-width: 0 .4em .6em .4em;
+      border-color: transparent transparent $orange transparent;
+    }
+    .remove {
+      padding: .2em .3em;
+      margin-right: -.5em;
+    }
+    button {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  td.building_info {
+    text-align: right;
+    span {
+      white-space: normal;
+      line-height: 1.2;
+      margin: .2em 0;
+
+      display: none;
+      &.building_type, &.name{
+        display: block;
+      }
+      &.name{
+        font-weight: 600;
+      }
     }
   }
 }

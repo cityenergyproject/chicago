@@ -61,6 +61,21 @@
       });
     </script>
 
+    <hr />
+
+    <div><table class="table-head-container"></table></div>
+    <script>
+      $.get("app/templates/building_comparison/TableHeadTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          metrics: [
+            {get: function(a) { return a; }}
+          ],
+          sortedBy: {field_name: 'wat', order: 'ascending'}
+        });
+        $(".table-head-container").html(evaluatedTemplate);
+      });
+    </script>
+
     <hr/>
   </div>
   </body>
