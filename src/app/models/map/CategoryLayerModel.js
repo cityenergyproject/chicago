@@ -84,7 +84,6 @@ define([
       var dataCSS = [];
       var self = this;
 
-      // may want to put a linear option in LayerModel, will need to rework this if so
       if (this.get('data')){
         dataCSS = this.colorRampValues.map(function(value){
           return "#" + table_name + "[" + field_name + "='" + value.name + "']{marker-fill:" + value.color + ";}";
@@ -97,9 +96,17 @@ define([
     setDisplayedCategories: function(){
       var self = this;
       var category_counts = this.distributionData();
-      this.displayedCategories = _.reject(category_counts, function(category){
+      var displayedCategories = _.reject(category_counts, function(category){
         return category.name == "Other";
       }).slice(0,this.get('categories_to_display'));
+
+      this.displayedCategories = _.sortBy(displayedCategories, function(category){
+        if (isNaN(category.name)){
+          return category.name;
+        }else{
+          return parseInt(category.name);
+        }
+      });
 
       return this;
     },
