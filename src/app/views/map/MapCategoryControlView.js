@@ -32,7 +32,7 @@ define([
       if (this.$el.children().length > 0) {
         this.$el.replaceWith(compiled);
       } else {
-        this.$el = this.$container.append(compiled);
+        this.$el = $(compiled).appendTo(this.$container);
         this.delegateEvents();
       }
 
