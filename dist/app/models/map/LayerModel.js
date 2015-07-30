@@ -93,10 +93,14 @@ define([
 
     },
 
-    colorRamp: function(){ 
+    colorRamp: function(){
+      var range = this.get('color_range');
+      var slices = this.get('range_slice_count');
+      var domain = _.range(0, slices, slices/(range.length-1)).concat(slices);
+
       return d3.scale.linear()
-        .range(this.get('color_range')) //figure out how to do scales with more than 2 colors
-        .domain([0, this.get('range_slice_count')]);
+        .range(range) 
+        .domain(domain);
     },
 
     setColorRampValues: function(){
