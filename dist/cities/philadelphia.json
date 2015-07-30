@@ -9,12 +9,6 @@
         -75.165222
     ],
     "zoom": 11,
-    "layer_categories": [
-        "Building Info",
-        "Energy Use",
-        "Climate Emissions",
-        "Water"
-    ],
 
     "building_info_fields": {
         "property_id": "portfolio_manager_id",
@@ -151,5 +145,8 @@
                 "#d73027"
             ]
         }
-    ]
+    ],
+    "years": {
+        "2014":{}
+    }
 }
