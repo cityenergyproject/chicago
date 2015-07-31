@@ -497,6 +497,12 @@ body {
 header {
   height: 6em; }
 
+.iframed header {
+  display: none; }
+
+.iframed .main-container {
+  top: 3em; }
+
 #toolbar {
   max-width: 100%;
   margin-left: auto;

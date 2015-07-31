@@ -9,8 +9,16 @@ body {
   }
 }
 
-header{
+header {
   height: $header-height;
+}
+
+.iframed header {
+  display: none;
+}
+
+.iframed .main-container {
+  top: 3em;
 }
 
 #toolbar {

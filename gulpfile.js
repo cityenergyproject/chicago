@@ -21,7 +21,7 @@ var gulp = require('gulp'),
     del = require('del');
 
 gulp.task('fileinclude', function() {
-  return  gulp.src(['src/index.html', 'src/styles.html'])
+  return  gulp.src(['src/index.html', 'src/styles.html', 'src/iframe.html'])
     // .pipe(fileinclude())
     .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Index Copied' }));
