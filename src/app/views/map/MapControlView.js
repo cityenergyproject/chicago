@@ -156,7 +156,7 @@ define([
     },
 
     events: {
-      'click .show-layer' : 'showLayer',
+      'click' : 'showLayer',
       'click .more-info': 'toggleMoreInfo',
     },
 
