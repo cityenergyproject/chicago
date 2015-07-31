@@ -10,8 +10,10 @@ define([
   'views/map/MapControlView',
   'views/map/MapCategoryControlView',
   'views/map/YearControlView',
-  'text!/app/templates/map_controls/MapControlCategoryTemplate.html'
-], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,AddressSearchView,MapControlView,MapCategoryControlView,YearControlView, MapControlCategoryTemplate){
+  'text!/app/templates/map_controls/MapControlCategoryTemplate.html',
+  'text!/app/templates/layout/HeaderTemplate.html',
+
+], function($, _, Backbone,CityModel,MapModel,LayerModel,LayerView,AddressSearchView,MapControlView,MapCategoryControlView,YearControlView, MapControlCategoryTemplate, HeaderTemplate){
 
   var MapView = Backbone.View.extend({
     el: $("#map"),
@@ -26,7 +28,8 @@ define([
 
     initWithCity: function(){
       document.title = this.model.get('title');
-      $('#title').html(this.model.get('title'));
+      var template = _.template(HeaderTemplate);
+      $('#title').html(template({title: this.model.get('title'), url_name: this.model.get('url_name')}))
 
       if (!this.leafletMap){
         this.leafletMap = new L.Map(this.el, {
@@ -45,7 +48,7 @@ define([
       return this;
     },
 
-    render: function(){ 
+    render: function(){
       this.renderMapControls();
       return this;
     },

@@ -495,7 +495,7 @@ body {
       font-size: 16px; } }
 
 header {
-  height: 5em; }
+  height: 6em; }
 
 #toolbar {
   max-width: 100%;
@@ -550,20 +550,18 @@ header {
     .building-report tr th:first-child, .building-report tr td:first-child {
       width: 22.5em; } }
 
+header h1 {
+  line-height: 3em;
+  font-size: 2em; }
+
 header {
-  text-transform: uppercase;
-  background: #f2f2f2 url("/images/la.png") no-repeat 100% 100%; }
+  background-color: #f2f2f2; }
   header h1 {
-    line-height: 2.5em;
-    font-size: 2em;
     text-indent: 1em;
-    margin: 0;
-    padding: 0;
-    letter-spacing: 0.1em; }
-    header h1 span {
-      font-weight: 100;
-      letter-spacing: normal;
-      text-transform: capitalize; }
+    letter-spacing: 0.1em;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    text-transform: uppercase; }
 
 .toolbar {
   background-color: #e66346;
@@ -707,7 +705,7 @@ header {
 
 .main-container {
   position: absolute;
-  top: 8em;
+  top: 9em;
   bottom: 5em;
   width: 100%;
   max-width: 100%;

@@ -1,19 +1,18 @@
 header {
-  text-transform: uppercase;
-  background: #f2f2f2 url("/images/la.png") no-repeat 100% 100%;
+  h1 {
+    line-height: $header-height / 2;
+    font-size: 2em;
+  }
+}
+
+header {
+  background-color: #f2f2f2;
 
   h1 {
-    line-height: 2.5em;
-    font-size: 2em;
     text-indent: 1em;
-    margin: 0;
-    padding: 0;
     letter-spacing: 0.1em;
-
-    span {
-      font-weight: 100;
-      letter-spacing: normal;
-      text-transform: capitalize;
-    }
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    text-transform: uppercase;
   }
 }

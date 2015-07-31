@@ -2,6 +2,8 @@ body {
   background-color: $base-background-color;
   padding: 0;
   margin: 0;
+
+
   @include media($xlarge-screen-up) {
     font-size: 16px;
   }
@@ -18,6 +20,7 @@ header{
 }
 
 #search {
+
   width: $nav-col-fixed-width;
   float: left;
   @include media($large-screen-up) {
@@ -61,6 +64,7 @@ header{
   overflow: scroll;
   width: $nav-col-fixed-width;
   float: left;
+
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
   }

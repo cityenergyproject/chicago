@@ -6,8 +6,8 @@ define([
   var MapModel = Backbone.Model.extend({
 
     defaults : {
-        title : 'City Energy',
-        current_layer: ''   
+        title : '',
+        current_layer: ''
     },
 
     initialize: function(){
@@ -26,19 +26,20 @@ define([
     },
 
     cityChange: function(){
-      this.set({title: this.get('title') + "- " + this.get('city').get('name')});
+      this.set({url_name: this.get('city').get('url_name')});
+      this.set({title: this.get('city').get('name')});
       this.set({center : this.get('city').get('center')});
       this.set({zoom: this.get('city').get('zoom')});
 
       this.getCurrentLayer();
 
       this.trigger('cityChange');
-      
+
       return this;
     },
 
     yearChange: function(){
-      
+
       this.trigger('yearChange');
       this.getCurrentLayer();
 
