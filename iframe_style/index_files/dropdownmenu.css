@@ -1,0 +1,131 @@
+/************************************************
+Dropdown Menu
+************************************************/
+
+/***HTML Drop Down Menu****/
+div#dropdownmenu{height: 70px;}
+
+#dropdownmenu ul{ /* remove bullets and list indents */
+	list-style-type:none;
+	margin: 0;
+	padding: 0;
+	float:left;
+	line-height: 14px;
+	font-size: 12px;
+}
+
+#dropdownmenu ul ul{background: url(_gfx/nav/mainnav_bottom.png) 0 bottom no-repeat;padding-bottom: 5px;left: 8px;margin-top: -4px;}
+
+#dropdownmenu ul.dropdownrootitem3ul ul{left: 7px;}
+#dropdownmenu ul.dropdownrootitem4ul ul, #dropdownmenu ul.dropdownrootitem5ul ul{left: 9px;}
+
+#dropdownmenu ul ul li
+{
+	background: url(_gfx/nav/mainnav_strip.png) 0 0 repeat-y;
+	padding: 0 4px;
+}
+
+#dropdownmenu ul ul li:first-child
+{
+	background: url(_gfx/nav/mainnav_top_root.png) 0 0 no-repeat;
+	padding-top: 4px;
+}
+
+#dropdownmenu ul ul ul li:first-child
+{
+	background: url(_gfx/nav/mainnav_top.png) 0 0 no-repeat;
+	padding-top: 4px;
+}
+
+#dropdownmenu ul ul a
+{
+	display: block;
+	padding: 6px 13px 5px 7px;
+	width:179px;
+	color: #ffffff;
+	text-decoration:none;
+	font-weight: normal;
+	border-top: 1px solid #72a3dc;
+	line-height: 14px;
+	font-size: 12px;
+}
+
+#dropdownmenu ul ul li:first-child>a, #dropdownmenu ul ul ul li:first-child>a{border-top: 0px;/*padding-top: 10px;*/}
+
+a.dropdownitemhaschildlevel1
+{
+	background-image:url(_gfx/nav/arrow_right_dropdown.gif) !important;
+	background-position: 97% 50% !important;
+	background-repeat:no-repeat  !important;
+}
+
+#dropdownmenu ul ul a:hover{
+	background: #044f9a url(_gfx/nav/mainnav_over.gif) 0 0 repeat-x !important;
+	color:#ffffff;
+	text-decoration:none;
+	padding: 6px 13px 4px 7px;
+	border-bottom: 1px solid #ffffff;
+}
+
+/*#dropdownmenu ul ul li:first-child>a:hover, #dropdownmenu ul ul ul li:first-child>a:hover{background-position: 0 4px;}*/
+
+#dropdownmenu ul ul
+{
+	position: absolute;
+	width:207px;
+}
+
+#dropdownmenu ul ul ul{
+	top: 30%;
+	left: 90% !important; /*to position them to the right of their containing block */
+}
+
+/*Determine hide/show behavior of sub-menus*/
+div#dropdownmenu ul ul,
+div#dropdownmenu ul li:hover ul ul,
+div#dropdownmenu ul ul li:hover ul ul,
+div#dropdownmenu ul li.over ul ul,
+div#dropdownmenu ul ul li.over ul ul
+{display: none;}
+
+div#dropdownmenu ul li:hover ul,
+div#dropdownmenu ul ul li:hover ul,
+div#dropdownmenu ul ul ul li:hover ul,
+div#dropdownmenu ul li.over ul,
+div#dropdownmenu ul ul li.over ul,
+div#dropdownmenu ul ul ul li.over ul
+{display: block;}
+
+#dropdownmenu ul li ul li:hover ul,
+#dropdownmenu ul li ul li.over ul,
+#dropdownmenu ul li ul li:hover ul li,
+#dropdownmenu ul li ul li.over ul li,
+#dropdownmenu ul li ul li:hover ul li a,
+#dropdownmenu ul li ul li.over ul li a
+{display:block;}
+/*Determine hide/show behavior of sub-menus*/
+
+/*Control Z-Index*/
+
+#dropdownmenu  li  {
+	/* make the list elements a containing block for the nested lists */
+	position: relative;
+	z-index: 20;
+}
+
+#dropdownmenu  ul  ul{z-index:100;}
+
+#dropdownmenu ul ul ul {z-index:110;}
+
+#dropdownmenu ul li ul li:hover, #dropdownmenu ul li ul li.over{z-index:205;}
+
+#dropdownmenu ul li ul li, #dropdownmenu ul li ul li{z-index:200;}
+
+#dropdownmenu ul li ul li:hover ul li, #dropdownmenu ul li ul li.over ul li{z-index:300;}
+
+#dropdownmenu ul li ul li ul li{z-index:400;}
+
+/*Nero - 11/05/2008 IE7 fix for google translate...*/
+#dropdownmenu > ul > li{float:left;}
+
+#dropdownmenu li li{line-height:0px;}

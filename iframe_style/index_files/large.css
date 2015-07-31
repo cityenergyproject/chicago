@@ -1,0 +1,47 @@
+body,select,input,textarea, table, .survey_container span, .survey_container TABLE tr, .survey_container TABLE, .sr_topic label, .sr_topic span, .sr_descriptioncat, .sr_topic p, .sr_topic li, .sr_topic td
+{font-size: 18px!important;line-height: 23px!important;}
+
+.contentheader h2, .contentheader_banner h2{font-size: 20px !important;}
+
+ .subtitle{font-size: 20px !important;}
+
+.tableData th, .listtable th, .righttable th{font-size: 17px !important;}
+
+.depthome_right ul li{line-height: 22px !important;}
+
+.depthome_right .events_box .box_item_date{font-size: 17px !important;}
+
+/** blog styles**/
+
+.blog_news_box .box_item_date{font-size: 17px!important;}
+
+.blog_news_box .box_list ul li{line-height: 19px !important;}
+
+/******** Calendar Styles ************/
+
+td.calendar_nextprev a{font-size: 17px !important;}
+
+.content .calendar_eventtime, .content .calendar_eventlink{font-size: 16px!important;}
+
+.content .calendar_day,
+.content .calendar_today,
+.content .calendar_weekendday,
+.content .calendar_othermonthday 
+{
+	font-size: 23px !important;
+	line-height: 25px !important;
+}
+
+/**** homepage ***/
+
+.headline ul li, .headline2 ul li{line-height: 20px !important;}
+
+/*** do not update**/
+.leftnav a, a.dropdownitemlevel1, a.dropdownitemhaschildlevel1, a.dropdownitemlevel2{font-size: 140%!important; line-height: 117% !important;}
+
+.depthome_right ul li, .blog_right .blog_box td, .blog_right .blog_box, .blog_news_box .box_list ul li a, .content .calendar_title td, .home_news ul li, .headline ul li, .headline2 ul li{font-size: 140% !important;}
+
+.content .calendar_eventtime, .content .calendar_eventlink{line-height: 109%!important;}
+
+
+.blog_right .blog_box td, .blog_right .blog_box{font-size: 17px!important;}

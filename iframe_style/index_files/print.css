@@ -1,0 +1,252 @@
+/********************************************
+This is the print style sheet,
+which defines which items will not be visible
+or have different formatting on printed pages.
+Customized for each project.
+*********************************************/
+html,body
+{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+	min-width: 0;
+	border: 0px;
+}
+
+body,td,th,p,select,input,a,em,strong,li,ul,span,table, div, .content li, .content a, .content div, .content span, .content p, .content li a
+{
+	font-family: Georgia,Times,serif !important;
+	font-size: 11pt !important;
+	line-height: 18pt !important;
+	color: #000 !important;
+	background-image: none !important;
+	background-color: transparent !important;
+	text-align:left;
+	text-decoration:none !important;
+}
+  
+table, table.tableData, table.tableData td, table.tableData .tableDataHdr_2, table.tableData .tableDataHdr_2 a
+{
+    width:auto !important;
+    height:auto !important;
+    border:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+	color: #000000 !important;
+}
+
+/* Hide the following things */
+.skipnav,
+.header,
+.breadcrumb_wrapper,
+.last_updated,
+.downloadmessage,
+.footer_wrapper,
+.leftnav,
+.leftnav_wrapper,
+.toolbox,
+.adminSpan,
+#dropdownmenu,
+.filter,
+.depthome_right,
+.important_alert_wrapper,
+.title_right,
+.blog_news_box,
+.mainSpan_wrapper .contact_box
+{display:none !important;}
+
+.banner_holder, .banner_holder img, .deptbanner{float: none!important;margin:0px !important;	position: static;}
+
+.contentheader, .contentheader_banner, .title, .title_left
+{
+	border:0px;
+	padding:0px;
+	margin:0px;	
+	width: auto!important;
+	float: none;
+}
+
+div, span
+{
+    padding:0 !important;
+    margin:0 !important;
+}
+
+.contentheader h1, .contentheader_banner h1
+{
+	font-size: 16pt !important;
+	line-height: 22pt !important;
+	width: auto !important;
+}
+
+ .content .component_title span
+ {
+ 	font-size: 14pt !important;
+	line-height: 18pt !important;
+	font-weight: bold;
+ }
+
+.contentheader h2, .contentheader_banner h2, .content .subtitle, .component_subtitle, .component_subtitle span, h3, .survey_title
+{
+    font-size: 12pt !important;
+	line-height: 18pt !important;
+	font-weight: bold;
+}
+
+.contentheader h1,
+.contentheader h2, .contentheader_banner h1, .contentheader_banner h2
+{
+	font-family: Georgia,Times,serif !important;
+	font-weight:bold;
+	color:#000 !important;
+    margin:0px 0 5px 0!important;
+    padding:0;
+	width: auto!important;
+	border: 0;
+	letter-spacing: 0 !important;
+}
+
+.component_listitem_header_wider{width: 200px;}
+
+.component_listitem_header{width: 150px;}
+
+.blog_box_list .subtitle
+{
+	font-weight: bold !important;
+	color: #000000 !important;
+	float: none;
+	margin: 0 !important;
+	padding: 20px 0 0 0!important;
+	clear: both;
+}
+
+#FrontEndForm,
+.dropshadow,
+.mainSpan,
+.mainSpan_wrapper,
+.mainSpan_wrapper_noleftnav,
+.mainSpan_wrapper_home,
+.header_wrapper,
+.container,
+.width_container,
+.content_wrapper,
+.content,
+.home_columns,
+.component_content,
+.depthome_left,
+.blog_left,
+.blog_right,
+.blog_box,
+.blog_box_list
+{
+	float: none !important;
+	width: auto !important;
+	width: 600px; /* narrower for IE6 */
+	height:auto !important;
+	min-height: 0px !important;
+	min-width: 0px !important;
+	border:0;
+	overflow:visible !important;
+	position: static;
+	display: block;
+	margin:0px !important;
+	padding:0px !important;
+}
+
+.blog_right
+{
+	clear: both;
+	padding-top: 20px !important;
+}
+
+/** home styles**/
+
+/*hide these*/
+.box_bottomlink, .home_buttons, .social_icons
+{display:none !important;}
+
+/*use to strip styles*/
+.home_news,  .home_columns, .home_middle, .home_left, .tabs-container ul, .home_weather,  .home_events, .home_events .box_list, .home_news .box_list, .home_right, .home_spotlight, .home_spotlight .box_content, .tabs-container, .tab, #callanything2, #callanything, #callanything3, ul.callanythinglayout, ul.callanythinglayout li, ul.callanythinglayout li a
+{
+	width: auto !important;
+	height: auto!important;
+	padding: 0!important;
+	border: 0px !important;
+	margin: 0 !important;
+	position: static !important;
+	overflow: visible!important;
+	min-height: 0px !important;
+	min-width: 0px !important;
+	float: none !important;
+	display: block !important;
+	clear: both!important;
+	font-weight: normal !important;
+}
+.home_news li, .home_events li{clear: both;}
+.home_news, .home_events, .home_weather{padding-bottom: 20px !important;}
+
+.tabs-container .datebox, .home_news .box_item_date {margin-right: 15px !important;}
+.tabs-container .datebox span, .home_news .box_item_date span{display: block !important;text-align: center !important;}
+
+/**to show hidden titles*/
+#mainSpan_wrapper_Screen .home_news .box_title, #mainSpan_wrapper_Screen .home_events .box_title, #mainSpan_wrapper_Screen .home_spotlight .box_title, ul.callanythinglayout li a
+{
+	text-indent: 0px;
+	border: 0px;
+	font-size: 15pt!important;
+	line-height: 18pt!important;
+	color: #000000;
+	padding: 15px 0 10px 0 !important;
+	height: auto;
+	font-family: Georgia,Times,serif !important;
+	font-weight: bold;
+	display: block;
+}
+
+#mainSpan_wrapper_Screen .home_events ul li a, #mainSpan_wrapper_Screen .home_events ul li,  #mainSpan_wrapper_Screen .home_events .box_item_date, #mainSpan_wrapper_Screen .home_news ul li a,  #mainSpan_wrapper_Screen .home_news ul li, #mainSpan_wrapper_Screen .home_news ul li span.box_item_summary
+{
+	padding: 0 0 20px 0 !important;
+	border: 0px;
+	color: #000000 !important;
+	font-size: 11pt !important;
+	line-height: 16pt !important;
+	font-family: Georgia,Times,serif !important;
+	text-align: left;
+	font-weight: normal;
+	height: auto;
+	width: auto;
+	float: none;
+	display: block;
+}
+
+ #mainSpan_wrapper_Screen .home_events .box_item_date, #mainSpan_wrapper_Screen .home_events ul li a, #mainSpan_wrapper_Screen .home_news ul li a
+{
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.home_news ul li a, .home_events ul li a {font-weight: bold !important;}
+ 
+/* This is the print stylesheet to hide the Flash headlines from the browser... regular browser text headlines will now print as normal */
+.sIFR-flash, .sIFR-flash object, .sIFR-flash embed {
+	display: none !important;
+	height: 0;
+	width: 0;
+	position: absolute;
+	overflow: hidden;
+}
+
+span.sIFR-alternate 
+{
+	visibility: visible !important;
+	display: block !important;
+	position: static !important;
+	left: auto !important;
+	top: auto !important;
+	height: auto;
+	width: auto;
+	font-size: 16pt !important;
+	line-height:18pt !important;
+}
+
