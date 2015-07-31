@@ -12,12 +12,13 @@
     "zoom": 11,
 
     "building_info_fields": {
-        "property_id": "property_id",
-        "name": "property_name",
-        "address": "address_1",
-        "city": "city",
-        "postal_code": "postal_code",
-        "building_type": "primary_property_type___self_selected"
+        "*name": "property_name",
+        "*building_type": "primary_property_type___self_selected",
+        "ID": "property_id",
+        "DISTRICT": "councildistrict2012",
+        "*address": "address_1"
+        
+        
     },
     "default_layer": "weather_normalized_source_eui_kbtu_ft",
     "map_layers": [

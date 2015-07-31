@@ -808,3 +808,23 @@ header {
     .year-control input:checked + label::after {
       opacity: 1;
       background-color: white; }
+
+#map a.leaflet-popup-close-button {
+  display: none; }
+
+#map .leaflet-popup-content-wrapper {
+  box-shadow: none;
+  border-radius: 0;
+  background-color: #ddd; }
+
+#map .leaflet-popup-tip {
+  background-color: #ddd; }
+
+.leaflet-popup-content .building-info {
+  line-height: 1; }
+  .leaflet-popup-content .building-info li + li {
+    padding-top: .5em; }
+  .leaflet-popup-content .building-info li:first-child {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: .3em; }

@@ -79,15 +79,7 @@ define([
       var mapped_data = _.mapObject(building_info_fields, function(value, key){
         return data[value];
       });
-      var data_fields = _.map(this.model.collection.models, function(layer){
-        if (layer.empty) {return undefined;}
-        return {
-          field_name: layer.get('field_name'),
-          title: layer.get('title'),
-          value: this[layer.get('field_name')]
-        }; 
-      }, data);
-      mapped_data.data_fields = _.compact(data_fields);
+      
 
       template = _.template(BuildingInfoTemplate);
       info = L.popup()

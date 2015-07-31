@@ -1,0 +1,25 @@
+#map {
+  a.leaflet-popup-close-button {
+    display: none
+  }
+  .leaflet-popup-content-wrapper{
+    box-shadow: none;
+    border-radius: 0;
+    background-color: $light-gray;
+  }
+  .leaflet-popup-tip{
+    background-color: $light-gray;
+  }
+}
+
+.leaflet-popup-content .building-info{
+  line-height: 1;
+  li + li {
+    padding-top: .5em;
+  }
+  li:first-child{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: .3em;
+  }
+}
