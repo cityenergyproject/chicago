@@ -2,7 +2,11 @@ body {
   background-color: $base-background-color;
   padding: 0;
   margin: 0;
+  font-size: 12px;
 
+  @include media($medium-screen-up) {
+    font-size: 14px;
+  }
 
   @include media($xlarge-screen-up) {
     font-size: 16px;
@@ -27,10 +31,16 @@ header {
   position: relative;
 }
 
-#search {
+.iframed #toolbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000001;
+}
 
+#search {
   width: $nav-col-fixed-width;
   float: left;
+
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
   }
@@ -50,11 +60,12 @@ header {
   .map-category-control {
     display: none;
 
-    @include media($medium-screen-up) {
+    @include media($small-screen-up) {
       &:nth-child(1), &:nth-child(2){
         display: inline-block;
       }
     }
+
     @include media($large-screen-up) {
       display: inline-block;
     }
@@ -79,12 +90,17 @@ header {
 }
 
 .building-report {
-  tr {
-    th:first-child, td:first-child {
+  th, td {
+    width 20%;
+  }
+
+  th:first-child, td:first-child {
+    @include media($medium-screen-up) {
       width: $nav-col-fixed-width;
-      @include media($large-screen-up) {
-        width: $large-nav-col-fixed-width;
-      }
+    }
+
+    @include media($large-screen-up) {
+      width: $large-nav-col-fixed-width;
     }
   }
 }

@@ -79,9 +79,13 @@
       $.get("app/templates/building_comparison/TableHeadTemplate.html", function(templateBody){
         var evaluatedTemplate = _.template(templateBody)({
           metrics: [
-            {get: function(a) { return a; }}
+            {get: function() { return 'tacos'; }},
+            {get: function() { return 'some very long string'; }},
+            {get: function() { return 'cats'; }},
+            {get: function() { return 'whatever'; }},
+            {get: function() { return 'the end'; }}
           ],
-          sortedBy: {field_name: 'wat', order: 'ascending'}
+          sortedBy: {field_name: 'cats', order: 'asc'}
         });
         $(".table-head-container").html(evaluatedTemplate);
       });

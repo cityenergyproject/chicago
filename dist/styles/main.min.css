@@ -489,7 +489,11 @@ html {
 body {
   background-color: #f2f2f2;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  font-size: 12px; }
+  @media screen and (min-width: 43.75em) {
+    body {
+      font-size: 14px; } }
   @media screen and (min-width: 75em) {
     body {
       font-size: 16px; } }
@@ -514,6 +518,11 @@ header {
     content: "";
     display: table; }
 
+.iframed #toolbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000001; }
+
 #search {
   width: 18.75em;
   float: left; }
@@ -529,7 +538,7 @@ header {
     margin-left: 1em; }
   #map-category-controls .map-category-control {
     display: none; }
-    @media screen and (min-width: 37.5em) {
+    @media screen and (min-width: 35em) {
       #map-category-controls .map-category-control:nth-child(1), #map-category-controls .map-category-control:nth-child(2) {
         display: inline-block; } }
     @media screen and (min-width: 56.25em) {
@@ -550,10 +559,13 @@ header {
     #map-controls {
       width: 22.5em; } }
 
-.building-report tr th:first-child, .building-report tr td:first-child {
-  width: 18.75em; }
+.building-report th:first-child, .building-report td:first-child {
+  width: 6em; }
+  @media screen and (min-width: 43.75em) {
+    .building-report th:first-child, .building-report td:first-child {
+      width: 18.75em; } }
   @media screen and (min-width: 56.25em) {
-    .building-report tr th:first-child, .building-report tr td:first-child {
+    .building-report th:first-child, .building-report td:first-child {
       width: 22.5em; } }
 
 header h1 {

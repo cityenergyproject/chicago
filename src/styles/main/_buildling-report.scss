@@ -9,16 +9,15 @@
   }
   tr {
     th:first-child, td:first-child {
-      
+
       text-align: right;
-    } 
+    }
   }
   th {
     text-align: left;
   }
 
   th + th {
-    width: 10em;
     overflow-x: hidden;
   }
 
@@ -30,14 +29,13 @@
     text-align: center;
     display: inline-block;
     padding: 0.3em 1em;
-    width: 10em;
 
     button {
       width: 100%;
       overflow-x: ellipsis;
     }
   }
-  
+
   th.metric {
     .title, .remove {
       text-transform: uppercase;
