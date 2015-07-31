@@ -632,8 +632,6 @@ header {
 
 #map-controls .category {
   cursor: pointer; }
-  #map-controls .category .map-control {
-    display: none; }
   #map-controls .category.expand .map-control {
     display: block; }
   #map-controls .category h2 {
@@ -649,7 +647,9 @@ header {
 .map-control {
   width: 100%; }
   .map-control .chart {
-    padding: 0 10px; }
+    padding: 0 10px;
+    height: 75px;
+    margin-bottom: .3em; }
   .map-control .filter-wrapper {
     padding: 0 15px 0 10px; }
   .map-control .description {

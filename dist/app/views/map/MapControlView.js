@@ -6,17 +6,18 @@ define([
   'models/city/CityModel',
   'models/map/MapModel',
   'models/map/LayerModel',
+  'views/charts/HistogramView',
   'text!/app/templates/map_controls/MapControlCategoryTemplate.html',
   'text!/app/templates/map_controls/MapControlFilterTemplate.html',
   'text!/app/templates/map_controls/MapControlTemplate.html'
-], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,MapControlCategoryTemplate, MapControlFilterTemplate, MapControlTemplate){
+], function($, _, Backbone,Ion,CityModel,MapModel,LayerModel,HistogramView, MapControlCategoryTemplate, MapControlFilterTemplate, MapControlTemplate){
 
   var MapControlView = Backbone.View.extend({
     className: "map-control",
     $container: $('#map-controls'),
 
-    initialize: function(opts){
-      this.map = opts.map;
+    initialize: function(options){
+      this.map = options.map;
       this.id = "control-"+this.model.cid;
 
       this.listenTo(this.model, 'dataReady', this.render);
@@ -44,51 +45,15 @@ define([
     },
 
     renderChart: function(){
-      // pull this out into a DistributionChartView
-
        // return if no data, but we are listening for it and will render then
       if (this.model.empty) {return this;}
 
       // lets not render charts for layers that don't have categories
       if (this.model.get('category') === undefined) {return this;}
 
+      var container = $("#"+this.$el.attr('id') + " .chart");
       var slices = 18;
-      var chartData = this.model.distributionData(slices);
-      var counts = _.pluck(chartData, 'count');
-
-      var padding = 30;
-      var width = this.$el.parent().innerWidth() - padding*2;
-      var height = 75
-
-      var yScale = d3.scale.linear()
-        .domain([0, d3.max(counts)])
-        .range([0, height]);
- 
-      var xScale = d3.scale.ordinal()
-        .domain(d3.range(0, slices))
-        .rangeBands([0, width]);
-
-      d3.select('#'+this.id+' .chart').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .style('background', 'transparent')
-        .selectAll('rect').data(chartData)
-        .enter().append('rect')
-          .style({'fill': function(d){
-            return d.color;
-            } 
-          })
-          .attr('width', xScale.rangeBand() - xScale.rangeBand()/3)
-          .attr('stroke-width', xScale.rangeBand()/6)
-          .attr('height', function (data) {
-              return yScale(data.count);
-          })
-          .attr('x', function (data, i) {
-              return xScale(i);
-          })
-          .attr('y', function (data) {
-              return height - yScale(data.count);
-          });
+      var histogram = new HistogramView({distribution_data: this.model.distributionData(slices), $container: container, slices: slices}).render()
 
       return this;
     },

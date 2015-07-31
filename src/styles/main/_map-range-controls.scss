@@ -3,7 +3,7 @@
   .category {
     cursor: pointer;
     .map-control {
-      display: none;
+      // display: none;
     }
     &.expand .map-control {
       display: block;
@@ -29,6 +29,8 @@
    
   .chart {
     padding: 0 10px;
+    height: 75px;
+    margin-bottom: .3em;
   }
   .filter-wrapper {
     padding: 0 15px 0 10px;
