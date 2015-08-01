@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "watch": "gulp watch",
-    "start": "gulp connect"
+    "start": "gulp connect",
+    "copy-lib": "gulp copy-lib"
   },
   "repository": {
     "type": "git",

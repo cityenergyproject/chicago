@@ -44,10 +44,6 @@ header {
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
   }
-
-  input[type='search'] {
-    width: 50%;
-  }
 }
 
 #map-category-controls {
@@ -89,12 +85,18 @@ header {
   }
 }
 
-.building-report {
-  th, td {
-    width 20%;
+#buildings {
+  h2 {
+    font-size: 1.1em;
+
+    @include media($medium-screen-up) {
+      font-size: 1.5em;
+    }
   }
 
-  th:first-child, td:first-child {
+  th:first-child {
+    width: $nav-col-fixed-width / 2;
+
     @include media($medium-screen-up) {
       width: $nav-col-fixed-width;
     }

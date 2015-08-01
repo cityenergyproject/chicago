@@ -6,23 +6,19 @@
 // Load plugins
 var gulp = require('gulp'),
     mainBowerFiles = require('main-bower-files');
-    // fileinclude = require('gulp-file-include'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
-    // uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
-    // cache = require('gulp-cache'),
     connect     = require('gulp-connect'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
 gulp.task('fileinclude', function() {
   return  gulp.src(['src/index.html', 'src/styles.html', 'src/iframe.html'])
-    // .pipe(fileinclude())
     .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Index Copied' }));
 });
@@ -39,7 +35,6 @@ gulp.task('styles', function() {
     .pipe(sass({includePaths: require('node-neat').includePaths}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(rename({ suffix: '.min' }))
-    // .pipe(minifycss())
     .pipe(gulp.dest('dist/styles'))
     .pipe(notify({ message: 'Styles task complete' }));
 });
@@ -65,7 +60,6 @@ gulp.task('cities_config', function() {
 // Images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
-    // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/images'))
     .pipe(notify({ message: 'Images task complete' }));
 });

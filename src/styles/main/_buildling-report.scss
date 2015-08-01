@@ -1,87 +1,101 @@
 .building-report {
   margin: 0;
-  thead tr {
-    background-color: $orange;
-  }
-  th {
-    padding: 0;
-    color: white;
-  }
-  tr {
-    th:first-child, td:first-child {
 
-      text-align: right;
-    }
+  h2 {
+    margin: 0;
+    line-height: 1em;
+    display: inline;
   }
+
+  input {
+    display: none;
+  }
+
+  th:first-child {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: 0 1em;
+  }
+
   th {
-    text-align: left;
+    max-width: 11em;
+    padding: 0.5em;
   }
 
   th + th {
-    overflow-x: hidden;
+    padding-left: 0.25;
   }
 
   th:last-child {
-    width: 100%;
+    padding-left: 0.25;
   }
 
-  .metric-container {
-    text-align: center;
-    display: inline-block;
-    padding: 0.3em 1em;
-
-    button {
-      width: 100%;
-      overflow-x: ellipsis;
-    }
+  th, label {
+    font-weight: 400;
   }
 
-  th.metric {
-    .title, .remove {
-      text-transform: uppercase;
-      font-size: .8em;
-      font-weight: 500;
-    }
-    %title:after {
-      content:"\A";
-      border-style: solid;
-      display: inline-block;
-      margin-left: 5px;
-    }
-    &.desc .title:after{
-      @extend %title:after;
-      border-width: .6em .4em 0 .4em;
-      border-color: $orange transparent transparent transparent;
-    }
-    &.asc .title:after{
-      @extend %title:after;
-      border-width: 0 .4em .6em .4em;
-      border-color: transparent transparent $orange transparent;
-    }
-    .remove {
-      padding: .2em .3em;
-      margin-right: -.5em;
-    }
-    button {
-      margin-left: 0;
-      margin-right: 0;
-    }
+  label {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.5em 1.75em 0.5em 1em;
+    max-width: 10em;
+    position: relative;
+    line-height: 1;
   }
 
-  td.building_info {
+  .sorted label {
+    padding-right: 2.5em;
+  }
+
+  label span {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    padding-bottom: 0.133333333em;
+  }
+
+  input:checked + label {
+    display: block;
+  }
+
+  .sorted.asc .asc,
+  .sorted.desc .desc {
+    display: block;
+  }
+
+  .remove {
+    padding: 0 0.25em;
+  }
+
+  label .asc, label .desc {
+    display: none;
+    right: 1em;
+  }
+}
+
+.building-report {
+  thead {
+    background-color: $orange;
+    color: #fff;
+  }
+
+  th:first-child {
     text-align: right;
-    span {
-      white-space: normal;
-      line-height: 1.2;
-      margin: .2em 0;
+  }
 
-      display: none;
-      &.building_type, &.name{
-        display: block;
-      }
-      &.name{
-        font-weight: 600;
-      }
-    }
+  th, label {
+    text-transform: uppercase;
+  }
+
+  label {
+    background: #fff;
+    border-radius: 1em;
+    color: $orange;
+    cursor: pointer;
+    @extend %disable-user-select;
   }
 }

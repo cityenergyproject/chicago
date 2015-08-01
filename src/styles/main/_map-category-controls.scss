@@ -63,7 +63,7 @@
     background-color: rgba($medium-gray, 0.9);
   }
 
-  li { 
+  li {
     line-height: 1.2;
     font-size: .8em;
   }
@@ -78,11 +78,6 @@
 
   label {
     font-weight: 300;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    @extend %disable-user-select;
   }
 }

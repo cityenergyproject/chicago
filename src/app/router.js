@@ -6,8 +6,8 @@ define([
   'views/map/MapView',
   'models/city/CityModel',
   'models/map/MapModel',
-  'views/info/BuildingView',
-], function($, _, Backbone, MapView, CityModel, MapModel, BuildingView) {
+  'views/building_comparison/BuildingComparisonView',
+], function($, _, Backbone, MapView, CityModel, MapModel, BuildingComparisonView) {
 
   var Router = Backbone.Router.extend({
     routes:{
@@ -50,7 +50,7 @@ define([
         this.city.set('year', year);
         this.city.setupYear();
       }
-      
+
       layername = layername || '';
 
       router.navigate(cityname + '/' + year + '/' + layername, {trigger: false, replace: true});
@@ -68,7 +68,7 @@ define([
     },
 
     initializeBuildingView: function(){
-      this.buildingView = this.buildingView || new BuildingView({map: this.map, mapView: this.mapView});
+      this.buildingComparisonView = this.buildingComparisonView || new BuildingComparisonView({map: this.map, mapView: this.mapView});
     },
 
     initializeMap: function(layername){

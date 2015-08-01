@@ -6,13 +6,13 @@ define([
   'text!/app/templates/building_comparison/TableBodyRowsTemplate.html'
 ], function($, _, Backbone,TableHeadTemplate,TableBodyRowsTemplate){
 
-  var BuildingView = Backbone.View.extend({
+  var BuildingComparisonView = Backbone.View.extend({
     el: "#buildings",
     metrics: [],
     sortedBy: {},
 
     initialize: function(options){
-      this.map = options.map;    
+      this.map = options.map;
       this.mapView = options.mapView;
 
       this.listenTo(this.map, 'cityChange', this.initWithCity);
@@ -20,7 +20,7 @@ define([
 
     initWithCity: function(){
       this.city = this.map.get('city');
-      
+
       this.addMetric();
       this.render();
 
@@ -31,7 +31,7 @@ define([
       return this;
     },
 
-    render: function(){ 
+    render: function(){
       this.$el.html('<table class="building-report"></table>');
       this.renderTableHead();
       this.renderTableBody();
@@ -57,11 +57,15 @@ define([
 
     renderTableHead: function(){
       var $table = this.$el.find('table');
+      var currentLayer = this.map.get('current_layer');
       var template = _.template(TableHeadTemplate);
+      var rendered = template({
+        metrics: this.metrics,
+        sortedBy: this.sortedBy,
+        currentLayer: currentLayer
+      });
 
-      $(template({metrics: this.metrics, sortedBy: this.sortedBy}))
-      .appendTo($table);
-
+      $table.append(rendered);
     },
 
     renderTableBody: function(){
@@ -77,7 +81,7 @@ define([
       if (body.length===0){
         body = $('<tbody></tbody>').appendTo($table);
       }
-      
+
       var building_info_fields = this.city.get('building_info_fields');
 
       var template = _.template(TableBodyRowsTemplate);
@@ -88,45 +92,53 @@ define([
 
     events: {
       'click .remove' : 'removeMetric',
-      'click .metric' : 'sortByMetric'
+      'click label' : 'sortByMetric',
+      'change input' : 'changeActiveMetric'
     },
 
     removeMetric: function(event){
-      var field_name = $(event.target).attr('data-field');
-      this.metrics = _.reject(this.metrics, function(metric){
+      var $target = $(event.target);
+      var $parent = $target.closest('th');
+      var field_name = $parent.find('input').val();
+      var potentialMetrics = _.reject(this.metrics, function(metric){
         return metric.get('field_name') == field_name;
       });
+      event.stopPropogation();
+      if (potentialMetrics.length == 0) { return false; }
+      this.metrics = potentialMetrics;
+
       if (this.sortedBy.field_name == field_name){
         this.sortedBy = {};
       }
-      event.stopPropagation();
       this.render();
     },
 
-    sortByMetric: function(event){
-      
-      var $target = $(event.currentTarget);
+    changeActiveMetric: function(event) {
+      var $target = $(event.target);
+      var field_name = $target.val();
+      var url = this.map.get('city').get('url_name') + '/' + this.map.get('city').get('year') + '/' + field_name;
+      Backbone.history.navigate(url, {trigger: true});
+    },
 
-      var order = $target.hasClass('desc') ? 'asc' : 'desc';
-      var field_name = $target.attr('data-field');
+    sortByMetric: function(event){
+      var $target = $(event.target);
+      var $parent = $target.closest('th');
+      var field_name = $parent.find('input').val();
+      var order = $parent.hasClass('desc') ? 'asc' : 'desc';
 
       this.sortedBy = {field_name: field_name, order: order};
-      $('.metric').removeClass('asc desc');
-      $target.addClass(order);
-      
+
+      this.$el.find('th').removeClass('sorted asc desc');
+      $parent.addClass('sorted ' + order);
+
       this.city.sortBuildingSetBy(this.sortedBy);
 
-      Backbone.history.navigate(this.map.get('city').get('url_name') + '/' + this.map.get('city').get('year') + '/' + field_name, {trigger: true});
-
       return this;
-      
     },
 
     changeCity: function(){
-
       this.el.empty();
       alert('change city');
-      // todo: other cleanup here
     },
 
     removeEmptyMetrics: function(){
@@ -138,11 +150,8 @@ define([
       this.render();
       return this;
     }
-
-
-
   });
 
-  return BuildingView;
+  return BuildingComparisonView;
 
 });

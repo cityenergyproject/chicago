@@ -34,6 +34,10 @@
   border-bottom-color: rgba(darken($orange, 15), 0.7);
   text-align: center;
 
+  label {
+    @extend %disable-user-select;
+  }
+
   input + label {
     cursor: pointer;
     color: darken($orange, 10);
