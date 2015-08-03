@@ -11,9 +11,9 @@ define([
     defaults : {
     },
 
-    initialize: function(models, params){  
+    initialize: function(models, params){
       this.city = params.city;
-        
+
       this.cartoClient = new cartodb.SQL({ user: 'cityenergyproject' });
       this.listenTo(this.city, 'cityLoaded', function(){
         this.initWithCity();
@@ -34,7 +34,7 @@ define([
     },
 
     interactivity: function(){
-      return "cartodb_id, " + _.values(this.city.get('building_info_fields')).join(', ');
+      return 'cartodb_id, ' + _(this.city.get('popup_fields')).pluck('field').join(', ');
     },
 
     filtersSQL: function(){

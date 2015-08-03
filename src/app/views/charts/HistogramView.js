@@ -27,7 +27,7 @@ define([
       var yScale = d3.scale.linear()
         .domain([0, d3.max(counts)])
         .range([0, height]);
- 
+
       var xScale = d3.scale.ordinal()
         .domain(d3.range(0, this.slices))
         .rangeBands([0, width]);

@@ -1,8 +1,8 @@
 <div class="building-info">
   <ul>
-    <%_.each(obj, function (value, key) {%>
-      <li><%= key[0]=="*" ? "":key %> <%= value %></li>
+    <%_.each(labels, function (label) {%>
+      <li><%= label.label %> <%= label.value %></li>
     <%})%>
   </ul>
-  
+
 </div>

@@ -66,7 +66,7 @@ define([
 
     cartoProperties: function(){
       var base_sql = "SELECT * FROM " + this.get('table_name');
-      
+
       var filtersSQL = this.collection.filtersSQL();
       var sql = base_sql + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
       return {
@@ -89,8 +89,8 @@ define([
           return "#" + table_name + "[" + field_name + ">=" + self.colorMap().invertExtent(color)[1] + "]{marker-fill:" + color + ";}";
         });
       }
-      return '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
-
+      result = '#' + table_name + baseCSS.join(['\n']) +'\n' + dataCSS.join(['\n']);
+      return result;
     },
 
     colorRamp: function(){
@@ -99,7 +99,7 @@ define([
       var domain = _.range(0, slices, slices/(range.length-1)).concat(slices);
 
       return d3.scale.linear()
-        .range(range) 
+        .range(range)
         .domain(domain);
     },
 
@@ -144,7 +144,7 @@ define([
         } else {
           bin = binMap(value);
         }
-        
+
         var color = self.colorMap()(value);
 
         if (counts[bin]!==undefined){

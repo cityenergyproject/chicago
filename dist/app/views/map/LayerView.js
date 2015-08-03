@@ -10,7 +10,7 @@ define([
   var LayerView = Backbone.View.extend({
     model: LayerModel,
 
-    initialize: function(options){ 
+    initialize: function(options){
       this.mapView = options.mapView;
       this.leafletMap = options.mapView.leafletMap;
 
@@ -75,16 +75,17 @@ define([
     },
 
     showBuildingInfo: function(e, latlng, pos, data){
-      var building_info_fields = this.model.collection.city.get('building_info_fields');
-      var mapped_data = _.mapObject(building_info_fields, function(value, key){
-        return data[value];
-      });
-      
+      var popupFields = this.model.collection.city.get('popup_fields');
+      var populatedLabels = _.reduce(popupFields, function(labels, field){
+        labels.push({label: field.label, value: data[field.field]});
+        return labels;
+      }, []);
 
       template = _.template(BuildingInfoTemplate);
+
       info = L.popup()
         .setLatLng(latlng)
-        .setContent(template(mapped_data))
+        .setContent(template({labels: populatedLabels}))
         .openOn(this.leafletMap);
     },
 

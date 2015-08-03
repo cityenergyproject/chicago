@@ -82,10 +82,11 @@ define([
         body = $('<tbody></tbody>').appendTo($table);
       }
 
-      var building_info_fields = this.city.get('building_info_fields');
+      var property_name = this.city.get('property_name'),
+          building_type = this.city.get('building_type');
 
       var template = _.template(TableBodyRowsTemplate);
-      $(body).html(template({buildings: building_set, metrics: this.metrics, building_info_fields: building_info_fields}));
+      $(body).html(template({buildings: building_set, metrics: this.metrics, building_info_fields: [property_name, building_type]}));
 
       return this;
     },

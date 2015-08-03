@@ -1,8 +1,6 @@
 {
     "url_name": "los_angeles",
     "name": "City of Los Angeles",
-    "cartoDbUser": "cityenergyproject",
-    "table_name": "losangeles_20131415revised_20150711",
 
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
@@ -11,14 +9,23 @@
     ],
     "zoom": 11,
 
+    "cartoDbUser": "cityenergyproject",
+    "table_name": "losangeles_20131415revised_20150711",
+    "property_name": "property_name",
+    "building_type": "primary_property_type___self_selected",
+    "popup_fields": [
+        {"field": "property_name", "label": ""},
+        {"field": "primary_property_type___self_selected", "label": ""},
+        {"field": "property_id", "label": "Property ID: "},
+        {"field": "councildistrict2012", "label": "Council District: "},
+        {"field": "address_1", "label": ""}
+    ],
     "building_info_fields": {
         "*name": "property_name",
         "*building_type": "primary_property_type___self_selected",
         "ID": "property_id",
         "DISTRICT": "councildistrict2012",
         "*address": "address_1"
-
-
     },
     "default_layer": "weather_normalized_source_eui_kbtu_ft",
     "map_layers": [
