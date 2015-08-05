@@ -82,6 +82,11 @@
 
   td:first-child div {
     line-height: 1;
+    display: none;
+  }
+
+  td:first-child div:first-child, td:first-child div:first-child + div {
+    display: block;
   }
 
   td:first-child div + div {

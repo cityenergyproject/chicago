@@ -801,7 +801,10 @@ header {
     display: none;
     right: 1em; }
   .building-report td:first-child div {
-    line-height: 1; }
+    line-height: 1;
+    display: none; }
+  .building-report td:first-child div:first-child, .building-report td:first-child div:first-child + div {
+    display: block; }
   .building-report td:first-child div + div {
     margin-top: .25em; }
   .building-report .metric-container {
