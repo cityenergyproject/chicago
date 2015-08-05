@@ -103,7 +103,6 @@ define([
       var potentialMetrics = _.reject(this.metrics, function(metric){
         return metric.get('field_name') == field_name;
       });
-      event.stopPropogation();
       if (potentialMetrics.length == 0) { return false; }
       this.metrics = potentialMetrics;
 
