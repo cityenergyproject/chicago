@@ -4,9 +4,9 @@
   <tr>
     <td class='building_info'>
       <% _.each(building_info_fields, function(value, key){ %>
-        <span class="<%= key %>" data-field="<%= value %>">
+        <div class="<%= key %>" data-field="<%= value %>">
           <%= building[value] %>
-        </span>
+        </div>
       <% }) %>
     </td>
     <% _.each(metrics, function(metric){ %>
