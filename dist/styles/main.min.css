@@ -761,12 +761,14 @@ header {
     overflow-x: hidden;
     text-overflow: ellipsis;
     padding: 0 1em; }
-  .building-report th {
+  .building-report td:first-child {
+    padding: 0.75em 1em; }
+  .building-report th, .building-report td {
     max-width: 11em;
     padding: 0.5em; }
-  .building-report th + th {
+  .building-report th + th, .building-report td + td {
     padding-left: 0.25; }
-  .building-report th:last-child {
+  .building-report th:last-child, .building-report td:last-child {
     padding-left: 0.25; }
   .building-report th, .building-report label {
     font-weight: 400; }
@@ -798,12 +800,25 @@ header {
   .building-report label .asc, .building-report label .desc {
     display: none;
     right: 1em; }
+  .building-report td:first-child div {
+    line-height: 1; }
+  .building-report td:first-child div + div {
+    margin-top: .25em; }
+  .building-report .metric-container {
+    padding: 0.5em 1.75em 0.5em 1em;
+    max-width: 10em; }
+  .building-report .metric-container span {
+    font-size: 1.25em; }
 
 .building-report thead {
   background-color: #e66346;
   color: #fff; }
 
-.building-report th:first-child {
+.building-report tbody {
+  color: #e66346;
+  background-color: #fff; }
+
+.building-report th:first-child, .building-report td:first-child {
   text-align: right; }
 
 .building-report th, .building-report label {
@@ -814,6 +829,15 @@ header {
   border-radius: 1em;
   color: #e66346;
   cursor: pointer; }
+
+.building-report td:first-child div:first-child {
+  font-weight: bold;
+  text-transform: uppercase; }
+
+.building-report .metric-container {
+  font-weight: bold;
+  text-align: center;
+  color: #d1d1d0; }
 
 .year-control {
   border-bottom: 0.1em solid transparent; }

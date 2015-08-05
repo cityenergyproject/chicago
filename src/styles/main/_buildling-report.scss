@@ -17,16 +17,20 @@
     padding: 0 1em;
   }
 
-  th {
+  td:first-child {
+    padding: 0.75em 1em;
+  }
+
+  th, td {
     max-width: 11em;
     padding: 0.5em;
   }
 
-  th + th {
+  th + th, td + td {
     padding-left: 0.25;
   }
 
-  th:last-child {
+  th:last-child, td:last-child {
     padding-left: 0.25;
   }
 
@@ -75,6 +79,23 @@
     display: none;
     right: 1em;
   }
+
+  td:first-child div {
+    line-height: 1;
+  }
+
+  td:first-child div + div {
+    margin-top: .25em;
+  }
+
+  .metric-container {
+    padding: 0.5em 1.75em 0.5em 1em;
+    max-width: 10em;
+  }
+
+  .metric-container span {
+    font-size: 1.25em;
+  }
 }
 
 .building-report {
@@ -83,7 +104,12 @@
     color: #fff;
   }
 
-  th:first-child {
+  tbody {
+    color: $orange;
+    background-color: #fff;
+  }
+
+  th:first-child, td:first-child {
     text-align: right;
   }
 
@@ -97,5 +123,16 @@
     color: $orange;
     cursor: pointer;
     @extend %disable-user-select;
+  }
+
+  td:first-child div:first-child {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .metric-container {
+    font-weight: bold;
+    text-align: center;
+    color: $medium-gray;
   }
 }
