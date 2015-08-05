@@ -2,9 +2,28 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'models/building_comparator',
   'text!/app/templates/building_comparison/TableHeadTemplate.html',
   'text!/app/templates/building_comparison/TableBodyRowsTemplate.html'
-], function($, _, Backbone,TableHeadTemplate,TableBodyRowsTemplate){
+], function($, _, Backbone, BuildingComparator, TableHeadTemplate,TableBodyRowsTemplate){
+
+  var ReportTranslator = function(buildingFields, metrics, buildings) {
+    this.fields = buildingFields;
+    this.metrics = metrics;
+    this.buildings = buildings;
+  };
+
+  ReportTranslator.prototype.toBuildingRow = function(building) {
+    var result = {
+      fields: _.values(building.pick(this.fields)),
+      metrics: building.pick(this.metrics)
+    };
+    return result;
+  };
+
+  ReportTranslator.prototype.toBuildingReport = function() {
+    return this.buildings.map(this.toBuildingRow, this);
+  };
 
   var BuildingComparisonView = Backbone.View.extend({
     el: "#buildings",
@@ -14,79 +33,72 @@ define([
     initialize: function(options){
       this.map = options.map;
       this.mapView = options.mapView;
-
       this.listenTo(this.map, 'cityChange', this.initWithCity);
     },
 
     initWithCity: function(){
       this.city = this.map.get('city');
-
-      this.addMetric();
       this.render();
+      this.buildings = this.city.asBuildings();
+      this.listenTo(this.buildings, 'sync', this.renderTableBody, this);
+      this.listenTo(this.buildings, 'sort', this.renderTableBody, this);
+      this.buildings.fetch();
 
-      this.listenTo(this.city, 'change:currentBuildingSet', this.renderTableBody);
-      this.listenTo(this.map, 'change:current_layer', this.addMetric);
-      this.listenTo(this.city.layers, 'updateLayers', this.removeEmptyMetrics);
+      // this.addMetric();
+
+      // this.listenTo(this.map, 'change:current_layer', this.addMetric);
+      // this.listenTo(this.city.layers, 'updateLayers', this.removeEmptyMetrics);
 
       return this;
     },
 
     render: function(){
-      this.$el.html('<table class="building-report"></table>');
+      this.$el.html('<table class="building-report"><thead></thead><tbody></tbody></table>');
       this.renderTableHead();
-      this.renderTableBody();
       return this;
     },
 
-    addMetric: function(){
-      var newMetric = this.map.getCurrentLayer();
-      if (newMetric.get('display_type')==="category"){return this;}
+    // addMetric: function(){
+    //   var newMetric = this.map.getCurrentLayer();
+    //   if (newMetric.get('display_type')==="category"){return this;}
 
-      var exists = _.find(this.metrics, function(metric){
-        return metric.get('field_name') == newMetric.get('field_name');
-      })
+    //   var exists = _.find(this.metrics, function(metric){
+    //     return metric.get('field_name') == newMetric.get('field_name');
+    //   })
 
-      if (exists){return this;}
+    //   if (exists){return this;}
 
-      this.metrics.push(newMetric);
+    //   this.metrics.push(newMetric);
 
-      this.render();
-      return this;
-    },
+    //   this.render();
+    //   return this;
+    // },
 
 
     renderTableHead: function(){
-      var $table = this.$el.find('table');
-      var currentLayer = this.map.get('current_layer');
-      var template = _.template(TableHeadTemplate);
-      var rendered = template({
+      var $head = this.$el.find('thead'),
+          currentLayer = this.map.get('current_layer'),
+          template = _.template(TableHeadTemplate);
+
+      $head.replaceWith(template({
         metrics: this.metrics,
         sortedBy: this.sortedBy,
         currentLayer: currentLayer
-      });
-
-      $table.append(rendered);
+      }));
     },
 
     renderTableBody: function(){
-      var building_set = this.city.get('currentBuildingSet');
-      if (building_set===undefined || building_set.length===0) {return this;}
-      if (!_.isEmpty(this.sortedBy) && this.sortedBy != building_set.sortedBy){
-        this.city.sortBuildingSetBy(this.sortedBy);
-        return this;
-      }
-
-      var $table = this.$el.find('table');
-      var body = $table.find('tbody');
-      if (body.length===0){
-        body = $('<tbody></tbody>').appendTo($table);
-      }
-
-      var property_name = this.city.get('property_name'),
-          building_type = this.city.get('building_type');
+      var results = this.buildings, // result set from sql
+          $body = this.$el.find('tbody'),
+          currentLayer = this.map.get('current_layer'),
+          property_name = this.city.get('property_name'),
+          building_type = this.city.get('building_type'),
+          buildingFields = [property_name, building_type],
+          metrics = _.map(this.metrics, function(m) { return m.get('field_name'); });
 
       var template = _.template(TableBodyRowsTemplate);
-      $(body).html(template({buildings: building_set, metrics: this.metrics, building_info_fields: [property_name, building_type]}));
+      var report = new ReportTranslator(buildingFields, metrics, results).toBuildingReport();
+      $body.replaceWith(template({buildings: report}));
 
       return this;
     },
@@ -126,19 +138,14 @@ define([
       var field_name = $parent.find('input').val();
       var order = $parent.hasClass('desc') ? 'asc' : 'desc';
 
-      this.sortedBy = {field_name: field_name, order: order};
-
       this.$el.find('th').removeClass('sorted asc desc');
       $parent.addClass('sorted ' + order);
 
-      this.city.sortBuildingSetBy(this.sortedBy);
+      var comparator = new BuildingComparator(field_name, order == 'asc')
+      this.buildings.comparator = _.bind(comparator.compare, comparator);
+      this.buildings.sort();
 
       return this;
-    },
-
-    changeCity: function(){
-      this.el.empty();
-      alert('change city');
     },
 
     removeEmptyMetrics: function(){

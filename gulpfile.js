@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
+    jasmine = require('gulp-jasmine'),
     connect     = require('gulp-connect'),
     livereload = require('gulp-livereload'),
     del = require('del');
@@ -82,7 +83,7 @@ gulp.task('copy-lib', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates', 'cities_config');
+    gulp.start('fileinclude', 'styles', 'scripts', 'images', 'templates', 'cities_config', 'copy-lib');
 });
 
 gulp.task('connect', function() {
@@ -121,4 +122,9 @@ gulp.task('watch', function() {
   // Watch any files in dist/, reload on change
   gulp.watch(['dist/**']).on('change', livereload.changed);
 
+});
+
+gulp.task('test', function () {
+  return gulp.src('spec/**/*_spec.js')
+             .pipe(jasmine());
 });

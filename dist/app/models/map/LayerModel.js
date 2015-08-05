@@ -3,7 +3,6 @@ define([
   'backbone',
   'd3',
 ], function(_, Backbone, d3) {
-
   var LayerModel = Backbone.Model.extend({
 
     defaults : {

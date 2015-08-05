@@ -1,20 +1,18 @@
-<!-- {buildings, metrics, building_info_fields} from BuildingView -->
-
+<tbody>
 <% _.each(buildings, function(building){ %>
   <tr>
     <td class='building_info'>
-      <% _.each(building_info_fields, function(value, key){ %>
-        <div class="<%= key %>" data-field="<%= value %>">
-          <%= building[value] %>
-        </div>
+      <% _.each(building.fields, function(value){ %>
+        <div><%= value %></div>
       <% }) %>
     </td>
-    <% _.each(metrics, function(metric){ %>
-      <td class="<%= metric.get('field_name') %>">
+    <% _.each(building.metrics, function(value, field){ %>
+      <td class="<%= field %>">
         <div class="metric-container">
-          <%= building[metric.get('field_name')] || "N/A" %>
+          <span><%= value || "N/A" %></span>
         </div>
       </td>
     <% }) %>
   </tr>
 <% }) %>
+</tbody>

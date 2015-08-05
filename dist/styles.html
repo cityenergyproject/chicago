@@ -75,7 +75,10 @@
 
     <hr />
 
-    <div><table class="building-report table-head-container"></table></div>
+    <div>
+      <table class="building-report table-head-container"></table>
+      <table class="building-report table-body-container"></table>
+    </div>
     <script>
       $.get("app/templates/building_comparison/TableHeadTemplate.html", function(templateBody){
         var evaluatedTemplate = _.template(templateBody)({
@@ -89,6 +92,23 @@
           currentLayer: 'a very long string goes here'
         });
         $(".table-head-container").html(evaluatedTemplate);
+      });
+
+      $.get("app/templates/building_comparison/TableBodyRowsTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          buildings: [
+            {
+              fields: ['cookies', 'engineer'],
+              metrics: {
+                tacos: 'something',
+                cheese: 'okay',
+                dingus: 'huh',
+                ending: 'lame'
+              }
+            }
+          ]
+        });
+        $(".table-body-container").html(evaluatedTemplate);
       });
     </script>
   </div>

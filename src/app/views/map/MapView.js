@@ -41,7 +41,7 @@ define([
         this.leafletMap.zoomControl.setPosition('topright');
       }
 
-      this.currentLayerView = this.currentLayerView || new LayerView({mapView: this});
+      this.currentLayerView = this.currentLayerView || new LayerView({mapView: this, city: this.model.get('city')});
       this.addressSearchView = this.addressSearchView || new AddressSearchView({mapView: this});
       this.yearControlView = this.yearControlView || new YearControlView({mapView: this});
       this.render();
@@ -66,14 +66,6 @@ define([
 
       return this;
     },
-
-    changeCity: function(){
-      console.log("change city");
-      $('#map-controls').empty();
-      this.leafletMap.setView(this.model.get('center'), parseInt(this.model.get('zoom')));
-      // other cleanup here
-    },
-
     yearChange: function(){
       $('#map-controls').empty();
       $('#map-category-controls').empty();

@@ -2,56 +2,26 @@ define([
   'underscore',
   'backbone',
   'models/map/LayerModel',
-  'models/map/CategoryLayerModel'
+  'models/map/CategoryLayerModel',
 ], function(_, Backbone, LayerModel, CategoryLayerModel) {
 
   var MapLayersCollection = Backbone.Collection.extend({
     model: LayerModel,
 
-    defaults : {
-    },
-
     initialize: function(models, params){
       this.city = params.city;
-
-      this.cartoClient = new cartodb.SQL({ user: 'cityenergyproject' });
-      this.listenTo(this.city, 'cityLoaded', function(){
-        this.initWithCity();
-      })
-
+      this.listenTo(this.city, 'cityLoaded', this.initWithCity, this);
     },
 
     initWithCity: function(){
-      this.update();
-
-      this.listenTo(this.city, 'change:cartoDbUser', function(){
-        this.cartoClient.options.user = this.city.get('cartoDbUser');
-      });
-
-      this.listenTo(this.city, 'change:map_layers', this.update);
-      this.listenTo(this.city, 'change:table_name', this.update);
-      this.listenTo(this, 'change:filter', this.updateCurrentBuildingSet);
+      this.listenTo(this.collection, 'reset', this.onBuildings, this);
     },
-
-    interactivity: function(){
-      return 'cartodb_id, ' + _(this.city.get('popup_fields')).pluck('field').join(', ');
-    },
-
-    filtersSQL: function(){
-      var sql = this.map(function(layer){
-        if(layer.get('filter')===undefined){return "";}
-        return layer.filterSQL();
-      });
-      return _.compact(sql).join(' AND ');
-    },
-
-    update: function(){
-      this.reset(null);
-
-      this.dataSQLBase = "SELECT * FROM " + this.city.get('table_name');
-
+    onBuildings: function(buildings){
       var layers = this.city.get('map_layers').map(function(layer){
-        _.extend(layer, {table_name: this.city.get('table_name')});
+        _.extend(layer, {
+          table_name: this.city.get('table_name'),
+          data: _.pluck(buildings, layer.field_name)
+        });
         if (layer.display_type=='category'){
           return new CategoryLayerModel(layer);
         }else{
@@ -59,36 +29,14 @@ define([
         }
       }, this);
       this.add(layers);
-      this.fetch();
+      this.trigger('updateLayers');
+      this.listenTo(this.city, 'change:map_layers', this.update);
+      this.listenTo(this.city, 'change:table_name', this.update);
+      this.listenTo(this, 'change:filter', this.updateCurrentBuildingSet);
     },
 
-    fetch: function(){
-      var self = this;
-
-      this.cartoClient.execute(this.dataSQLBase)
-      .done(function(data) {
-        self.city.set('currentBuildingSet', data.rows);
-
-        self.each(function(layer){
-          var data = _.pluck(this, layer.get('field_name'));
-          layer.set('data', data);
-        }, data.rows);
-        self.trigger('updateLayers');
-      });
-    },
-
-
-    updateCurrentBuildingSet: function(){
-      var self = this;
-      var filtersSQL = this.filtersSQL();
-      var sql = this.dataSQLBase + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
-
-      this.cartoClient.execute(sql)
-      .done(function(data) {
-        var currentBuildingSet = data.rows;
-        currentBuildingSet.__proto__.sortedBy = {};
-        self.city.set('currentBuildingSet', currentBuildingSet);
-      });
+    interactivity: function(){
+      return 'cartodb_id, ' + _(this.city.get('popup_fields')).pluck('field').join(', ');
 
     }
 

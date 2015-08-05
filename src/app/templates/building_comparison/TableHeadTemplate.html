@@ -1,9 +1,11 @@
-<thead><tr>
-  <th><h2>Building Comparison</h2></th>
-  <% _.each(metrics, function(metric){ %>
+<thead>
+  <tr>
+    <th><h2>Building Comparison</h2></th>
+    <% _.each(metrics, function(metric){ %>
     <th <%= sortedBy.field_name == metric.get('field_name') ? 'class="sorted ' + sortedBy.order + '"' : '' %>>
       <input type="radio" name="comparison-sort" id="comparison-sort-<%= metric.get('field_name') %>" value="<%= metric.get('field_name')%>" <%= currentLayer == metric.get('field_name') ? 'checked="checked"' : '' %>>
       <label for="comparison-sort-<%= metric.get('field_name') %>"><%= metric.get('title') %><span class="asc">&#9652;</span><span class="desc">&#9662;</span><span class="remove">&times;</span></label>
     </th>
-  <% }) %>
-</tr></thead>
+    <% }) %>
+  </tr>
+</thead>

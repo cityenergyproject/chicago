@@ -72,7 +72,6 @@ define([
       var sql = base_sql + ((filtersSQL == '') ? "" : " WHERE " + filtersSQL);
       return {
           sql: sql,
-          cartocss: this.cartoCSS(),
           interactivity: this.collection.interactivity()
         };
     },
@@ -93,25 +92,7 @@ define([
 
     },
 
-    setDisplayedCategories: function(){
-      var self = this;
-      var category_counts = this.distributionData();
-      var displayedCategories = _.reject(category_counts, function(category){
-        return category.name == "Other";
-      }).slice(0,this.get('categories_to_display'));
-
-      this.displayedCategories = _.sortBy(displayedCategories, function(category){
-        if (isNaN(category.name)){
-          return category.name;
-        }else{
-          return parseInt(category.name);
-        }
-      });
-
-      return this;
-    },
-
-    distributionData: function(){
+    setOtherCategories: function(){
       if (this.empty) {return undefined;}
       var self = this;
 
@@ -127,7 +108,20 @@ define([
         category.count += 1;
 
       });
-      return _.sortBy(categories, 'count').reverse();
+      var category_counts =  _.sortBy(categories, 'count').reverse();
+      var displayedCategories = _.reject(category_counts, function(category){
+        return category.name == "Other";
+      }).slice(0,this.get('categories_to_display'));
+
+      this.displayedCategories = _.sortBy(displayedCategories, function(category){
+        if (isNaN(category.name)){
+          return category.name;
+        }else{
+          return parseInt(category.name);
+        }
+      });
+
+      return this;
     },
 
   });

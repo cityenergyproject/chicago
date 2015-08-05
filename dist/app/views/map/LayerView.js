@@ -4,73 +4,98 @@ define([
   'backbone',
   'models/map/MapModel',
   'models/map/LayerModel',
+  'collections/CityBuildings',
+  'models/building_color_bucket_calculator',
   'text!/app/templates/map/BuildingInfoTemplate.html'
-], function($, _, Backbone,MapModel,LayerModel,BuildingInfoTemplate){
+], function($, _, Backbone, MapModel, LayerModel, CityBuildings, BuildingColorBucketCalculator, BuildingInfoTemplate){
+
+  var baseCartoCSS = [
+    '{marker-fill: #CCC;' +
+    'marker-fill-opacity: 0.9;' +
+    'marker-line-color: #FFF;' +
+    'marker-line-width: 0.5;' +
+    'marker-line-opacity: 1;' +
+    'marker-placement: point;' +
+    'marker-multi-policy: largest;' +
+    'marker-type: ellipse;' +
+    'marker-allow-overlap: true;' +
+    'marker-clip: false;}'
+  ];
+
+  var CartoStyleSheet = function(tableName, bucketCalculator) {
+    this.tableName = tableName;
+    this.bucketCalculator = bucketCalculator;
+  }
+
+  CartoStyleSheet.prototype.toCartoCSS = function(){
+    var bucketCSS = this.bucketCalculator.toCartoCSS(),
+        styles = baseCartoCSS.concat(bucketCSS),
+        tableName = this.tableName;
+    styles = _.reject(styles, function(s) { return !s; });
+    styles = _.map(styles, function(s) { return "#" + tableName + " " + s; });
+    return styles.join("\n");
+  };
 
   var LayerView = Backbone.View.extend({
     model: LayerModel,
 
     initialize: function(options){
+      this.city = options.city;
+      this.allBuildings = new CityBuildings(null, {city: options.city});
+      this.listenTo(this.allBuildings, 'sync', this.onBuildings, this);
+      this.allBuildings.fetch();
+
       this.mapView = options.mapView;
       this.leafletMap = options.mapView.leafletMap;
 
-      this.setCurrentLayer();
-
-      var newLayer = cartodb.createLayer(this.leafletMap, {
-        user_name: 'cityenergyproject',
-        type: 'cartodb',
-        sublayers: [this.model.cartoProperties()]
-      })
-      .addTo(this.leafletMap)
-      .on('done', function(layer) {
-        this.leafletLayer = layer;
-        sub = layer.getSubLayer(0);
-        sub.setInteraction(true);
-        sub.on('featureClick', function(e, latlng, pos, data) {
-          this.showBuildingInfo(e, latlng, pos, data);
-        }, this)
-        .on('featureOver', function(e, latlng, pos, data) {
-          $('#map').css('cursor', "help");
-        })
-        .on('featureOut', function(e, latlng, pos, data) {
-          $('#map').css('cursor', "auto");
-        });
-
-      }, this);
-      // this.el = layer // need to consider what el really is here
-
-      this.listenTo(this.model, 'dataReady', this.render);
       this.listenTo(this.model.collection, 'change:filter', this.render);
       this.listenTo(this.mapView.model, 'change:current_layer', this.showCurrentLayer);
       this.listenTo(this.mapView.model, 'yearChange', this.yearChange);
     },
 
+    toCartoSublayer: function(){
+      var buildings = this.allBuildings,
+          currentLayer = this.mapView.model.get('current_layer'),
+          fieldName = currentLayer,
+          city = this.city,
+          cityLayer = _.findWhere(city.get('map_layers'), {field_name: fieldName}),
+          buckets = cityLayer.range_slice_count
+          colorStops = cityLayer.color_range;
+      var calculator = new BuildingColorBucketCalculator(buildings, fieldName, buckets, colorStops);
+      var stylesheet = new CartoStyleSheet(this.allBuildings.table_name, calculator);
+
+      return {
+        sql: this.allBuildings.toSql(),
+        cartocss: stylesheet.toCartoCSS()
+      }
+    },
+
+    onBuildings: function(){
+      var newLayer = cartodb.createLayer(this.leafletMap, {
+        user_name: 'cityenergyproject',
+        type: 'cartodb',
+        sublayers: [this.toCartoSublayer()]
+      }).addTo(this.leafletMap).on('done', this.onCartoLoad, this);
+    },
+
+    onCartoLoad: function(layer) {
+      var sub = layer.getSubLayer(0);
+
+      this.leafletLayer = layer;
+      sub.setInteraction(true);
+      sub.on('featureClick', function(e, latlng, pos, data) {
+        this.showBuildingInfo(e, latlng, pos, data);
+      }, this)
+      .on('featureOver', function(e, latlng, pos, data) {
+        $('#map').css('cursor', "help");
+      })
+      .on('featureOut', function(e, latlng, pos, data) {
+        $('#map').css('cursor', "auto");
+      });
+    },
+
     render: function(){
-      if (this.model.empty){
-        this.mapView.model.set({current_layer: ''})
-        return this.showCurrentLayer();
-      }
-      var cartoProperties = this.model.cartoProperties();
-      if (cartoProperties === undefined){
-        this.leafletLayer.getSubLayer(0).hide();
-      }else{
-        this.leafletLayer.getSubLayer(0).set(cartoProperties).show();
-      }
-      return this;
-    },
-
-    showCurrentLayer: function(){
-      this.setCurrentLayer().render();
-    },
-
-    setCurrentLayer: function(){
-      var current_layer = this.mapView.model.getCurrentLayer();
-      if (current_layer===undefined){
-        alert("City has no data for " + this.mapView.model.get('current_layer'));
-        // maybe reset route?
-      }else{
-        this.model = current_layer;
-      }
+      this.leafletLayer.getSubLayer(0).set(this.toCartoSublayer()).show();
       return this;
     },
 
@@ -87,14 +112,7 @@ define([
         .setLatLng(latlng)
         .setContent(template({labels: populatedLabels}))
         .openOn(this.leafletMap);
-    },
-
-    yearChange: function(){
-      this.stopListening(this.model, 'dataReady', this.render);
-      this.setCurrentLayer();
-      this.listenTo(this.model, 'dataReady', this.render);
     }
-
   });
 
   return LayerView;
