@@ -24,7 +24,7 @@ define([
       this.listenTo(this.map, 'change:current_layer', this.setCurrentLayerProperties);
     },
 
-    render: function(){ 
+    render: function(){
       if (this.model.empty){return this;}
 
       if (this.$el.html()==""){
@@ -97,7 +97,7 @@ define([
           } else {
             return num;
           }
-          
+
         },
         onFinish: function(filterControl){
           if (filterControl.from == filterControl.min && filterControl.to == filterControl.max){
@@ -130,7 +130,7 @@ define([
     },
 
     toggleMoreInfo: function(){
-      this.$el.toggleClass('more-info');
+      this.$el.toggleClass('show-more-info');
       return this;
     },
 
@@ -139,8 +139,8 @@ define([
 
       var category_id = "#category-"+category_name.toLowerCase().replace(/\s/g, "-");
       var c = this.$container.find( $(category_id) );
-      
-      if (c.length > 0){return c;} 
+
+      if (c.length > 0){return c;}
 
       // create a new category
       var new_category = _.template(MapControlCategoryTemplate)({category: category_name});

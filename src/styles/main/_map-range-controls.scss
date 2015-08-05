@@ -1,85 +1,170 @@
-#map-controls{
+#map-controls {
+  background-color: $base-background-color;
 
-  .category {
-    cursor: pointer;
-    .map-control {
-      // display: none;
-    }
-    &.expand .map-control {
-      display: block;
-    }
-    h2{
-      font-weight: 300;
-      margin-bottom: 0;
-    }
+  .category, .category.expand h2 {
+    box-shadow: inset 0 -1px $base-font-color;
+  }
 
-    h2, .map-control {
-      padding: .65em .5em;
-      border-left: solid 1.5em transparent;
-      border-bottom: solid 1px $base-font-color;
-      &.active, &.current {
-        border-left-color: $base-font-color;
-      }
-    }
+  h2 {
+    font-weight: 300;
+    margin-bottom: 0;
+    text-indent: 2em;
+    padding: 0.75em 0;
   }
-}
 
-.map-control {
-  @include fill-parent;
-   
-  .chart {
-    padding: 0 10px;
-    height: 75px;
-    margin-bottom: .3em;
+  h3 {
+    margin: 0;
+    font-size: inherit;
   }
-  .filter-wrapper {
-    padding: 0 15px 0 10px;
-  }
-  
-  .description {
-    font-size: .9em;
+
+  .map-control {
+    padding: 1em;
+    padding-left: 2em;
     display: none;
-  } 
-  &.more-info .description {
+    @include linear-gradient(to right, #dedede, #d0d0d0);
+    color: #fff;
+  }
+
+  .map-control + .map-control {
+    border-top: 1px solid $base-background-color;
+  }
+
+  .map-control.current {
+    box-shadow: inset 1em 0 $base-font-color;
+  }
+
+  .map-control:last-child {
+    box-shadow: inset 0 -1px $base-font-color;
+  }
+
+  .map-control.current:last-child {
+    box-shadow: inset 1em -1px $base-font-color;
+  }
+
+  .map-control.current {
+    color: $base-font-color;
+  }
+
+  .chart {
+    margin-top: 0.75em;
+    margin-bottom: 0.25em;
+  }
+
+  .control-head {
+    margin-bottom: .5em;
+    line-height: 1.2em;
+    font-size: .9em;
+    height: 1.2em;
+    position: relative;
+  }
+
+  .more-info {
+    @extend %disable-user-select;
+    font-weight: 100;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.9em;
+  }
+
+  .description {
+    font-size: 0.9em;
+    display: none;
+  }
+
+  .map-control.show-more-info .more,
+  .more-info .less {
+    display: none;
+  }
+
+  .map-control.show-more-info .less,
+  .map-control.show-more-info .description {
+    display: block;
+  }
+
+  .category.expand .map-control {
     display: block;
   }
 }
 
-.control-head {
-  margin-bottom: .5em;
-  line-height: 1.2em;
-  font-size: .9em;
-  height: 1.2em;
-  .show-layer {
-    float: left;
-    margin: 0;
-    font-size: inherit;
-    font-weight: 500;
+#map-controls {
+  .category-header {
+    position: relative;
   }
+
+  h2, .map-control {
+    @extend %disable-user-select;
+  }
+
+  h2:after, .category-header:after {
+    content: "\A";
+    display: block;
+    position: absolute;
+    bottom: -0.825em;
+    right: 0;
+    z-index: 10000;
+    border: 1em solid transparent;
+    border-bottom-width: 0;
+    border-top-width: 0.9em;
+  }
+
+  .category-header:after {
+    bottom: -0.775em;
+    border-top-color: $base-background-color;
+  }
+
+  h2:after {
+    border-top-color: $base-font-color;
+  }
+
+  h3 {
+    font-weight: bold;
+  }
+
+  .category {
+    cursor: pointer;
+  }
+
   .more-info {
-  text-transform: uppercase;
-  font-weight: 300;
-  float: right;
-  font-size: .9em;
-    .less {display: none;}
+    @extend %disable-user-select;
+    text-transform: uppercase;
   }
 
-  .more-info:after {
-    content:"\A";
+  .more-info .more,
+  .more-info .less {
+    padding-right: 0.9em;
+  }
+
+  .more-info .more:after,
+  .more-info .less:after {
+    content: "\A";
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -0.333333em;
     border-style: solid;
-    display: inline-block;
-    margin-left: 5px;
-    border-width: .4em 0 .4em .6em;
-    border-color: transparent transparent transparent $orange;
-  }
-  .more-info & .more-info{
-    .more {display: none;}
-    .less {display: inline;}
-    &:after{
-      border-width: .4em .6em .4em 0;
-      border-color: transparent $orange transparent transparent;
-    }
   }
 
-  
+  .more-info .more:after {
+    border-width: 0.4em 0 0.4em 0.6em;
+    border-color: transparent transparent transparent #fff;
+  }
+
+  .more-info .less:after {
+    border-width: 0.4em 0.6em 0.4em 0;
+    border-color: transparent #fff transparent transparent;
+  }
+
+  .current .more-info .more:after {
+    border-color: transparent transparent transparent $base-font-color;
+  }
+
+  .current .more-info .less:after {
+    border-color: transparent $base-font-color transparent transparent;
+  }
+
+  .map-control:not(.current) rect {
+    fill: #fff !important;
+  }
 }

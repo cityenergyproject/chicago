@@ -40,7 +40,7 @@ define([
         .enter().append('rect')
           .style({'fill': function(d){
             return d.color;
-            } 
+            }
           })
           .attr('width', xScale.rangeBand() - xScale.rangeBand()/3)
           .attr('stroke-width', xScale.rangeBand()/6)

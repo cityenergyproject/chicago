@@ -76,13 +76,33 @@ header {
 
 #map-controls {
   height: 100%;
-  overflow: scroll;
-  width: $nav-col-fixed-width;
+  overflow: hidden;
   float: left;
+  width: $nav-col-fixed-width;
+
+  .chart {
+    height: 2.5em;
+  }
+
+  .irs {
+    height: 21px;
+  }
 
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
   }
+
+  .chart, .filter-wrapper {
+    width: $nav-col-fixed-width - 4em;
+
+    @include media($large-screen-up) {
+      width: $large-nav-col-fixed-width - 4em;
+    }
+  }
+}
+
+.iframed #map-controls {
+  overflow-y: scroll;
 }
 
 #buildings {
