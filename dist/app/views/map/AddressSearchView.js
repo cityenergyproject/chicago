@@ -20,13 +20,13 @@ define([
       var searchTemplate = _.template(AddressSearchTemplate);
       this.$container.html(searchTemplate());
       this.$el = this.$container.find("input");
-
+      this.delegateEvents(this.events);
       return this;
     },
 
     events: {
-      'change input' : 'search',
-      'search input' : 'fireChange'
+      'change' : 'search',
+      'search' : 'fireChange'
     },
 
     search: function(){
