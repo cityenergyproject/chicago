@@ -32,5 +32,5 @@ define([
     return this.getComparator(a, b)(a, b, ascending);
   };
 
-  return BuildingComparator
+  return BuildingComparator;
 });

@@ -39,133 +39,135 @@ describe("BuildingComparator", function(){
     field = 'strawberry';
   });
 
-  describe("when the values are numerical", function(){
-    beforeEach(function(){
-      a = {get: function(arg) { return '1.1'; }};
-      b = {get: function(arg) { return '2.123123'; }};
-      ascending = true;
-      field = 'strawberry';
-    });
-
-    describe("when the values are equal", function(){
+  describe("#compare", function(){
+    describe("when the values are numerical", function(){
       beforeEach(function(){
-        b = {get: function(arg) { return '1.1'; }};
-        subject = new BuildingComparator(a, b, 'strawberry', ascending);
+        a = {get: function(arg) { return '1.1'; }};
+        b = {get: function(arg) { return '2.123123'; }};
+        ascending = true;
+        field = 'strawberry';
       });
 
-      it("returns 0 to say that they are equal", function(){
-        expect(subject.compare()).toEqual(0);
-      });
-    });
-
-    describe("when the first value is smaller", function(){
-      describe("when sorting in ascending order", function(){
+      describe("when the values are equal", function(){
         beforeEach(function(){
+          b = {get: function(arg) { return '1.1'; }};
           subject = new BuildingComparator(a, b, 'strawberry', ascending);
         });
 
-        it("returns -1 to say that the first one comes first", function(){
-          expect(subject.compare()).toEqual(-1);
+        it("returns 0 to say that they are equal", function(){
+          expect(subject.compare()).toEqual(0);
         });
       });
 
-      describe("when sorting in descending order", function(){
-        beforeEach(function(){
-          ascending = false;
-          subject = new BuildingComparator(a, b, 'strawberry', ascending);
+      describe("when the first value is smaller", function(){
+        describe("when sorting in ascending order", function(){
+          beforeEach(function(){
+            subject = new BuildingComparator(a, b, 'strawberry', ascending);
+          });
+
+          it("returns -1 to say that the first one comes first", function(){
+            expect(subject.compare()).toEqual(-1);
+          });
         });
 
-        it("returns 1 to say that the second one comes first", function(){
-          expect(subject.compare()).toEqual(1);
+        describe("when sorting in descending order", function(){
+          beforeEach(function(){
+            ascending = false;
+            subject = new BuildingComparator(a, b, 'strawberry', ascending);
+          });
+
+          it("returns 1 to say that the second one comes first", function(){
+            expect(subject.compare()).toEqual(1);
+          });
+        });
+      });
+
+      describe("when the second value is smaller", function(){
+        describe("when sorting in ascending order", function(){
+          beforeEach(function(){
+            subject = new BuildingComparator(b, a, 'strawberry', ascending);
+          });
+
+          it("returns 1 to say that the second one comes first", function(){
+            expect(subject.compare()).toEqual(1);
+          });
+        });
+
+        describe("when sorting in descending order", function(){
+          beforeEach(function(){
+            ascending = false;
+            subject = new BuildingComparator(b, a, 'strawberry', ascending);
+          });
+
+          it("returns -1 to say that the first one comes first", function(){
+            expect(subject.compare()).toEqual(-1);
+          });
         });
       });
     });
 
-    describe("when the second value is smaller", function(){
-      describe("when sorting in ascending order", function(){
-        beforeEach(function(){
-          subject = new BuildingComparator(b, a, 'strawberry', ascending);
-        });
-
-        it("returns 1 to say that the second one comes first", function(){
-          expect(subject.compare()).toEqual(1);
-        });
-      });
-
-      describe("when sorting in descending order", function(){
-        beforeEach(function(){
-          ascending = false;
-          subject = new BuildingComparator(b, a, 'strawberry', ascending);
-        });
-
-        it("returns -1 to say that the first one comes first", function(){
-          expect(subject.compare()).toEqual(-1);
-        });
-      });
-    });
-  });
-
-  describe("when the values are strings", function(){
-    beforeEach(function(){
-      a = {get: function(arg) { return 'normal'; }};
-      b = {get: function(arg) { return 'rotten'; }};
-      ascending = true;
-      field = 'strawberry';
-    });
-
-    describe("when the values are equal", function(){
+    describe("when the values are strings", function(){
       beforeEach(function(){
-        b = {get: function(arg) { return 'normal'; }};
-        subject = new BuildingComparator(a, b, 'strawberry', ascending);
+        a = {get: function(arg) { return 'normal'; }};
+        b = {get: function(arg) { return 'rotten'; }};
+        ascending = true;
+        field = 'strawberry';
       });
 
-      it("returns 0 to say that they are equal", function(){
-        expect(subject.compare()).toEqual(0);
-      });
-    });
-
-    describe("when the first value is smaller", function(){
-      describe("when sorting in ascending order", function(){
+      describe("when the values are equal", function(){
         beforeEach(function(){
+          b = {get: function(arg) { return 'normal'; }};
           subject = new BuildingComparator(a, b, 'strawberry', ascending);
         });
 
-        it("returns a negative value to say that the first one comes first", function(){
-          expect(subject.compare()).toBeLessThan(0);
+        it("returns 0 to say that they are equal", function(){
+          expect(subject.compare()).toEqual(0);
         });
       });
 
-      describe("when sorting in descending order", function(){
-        beforeEach(function(){
-          ascending = false;
-          subject = new BuildingComparator(a, b, 'strawberry', ascending);
+      describe("when the first value is smaller", function(){
+        describe("when sorting in ascending order", function(){
+          beforeEach(function(){
+            subject = new BuildingComparator(a, b, 'strawberry', ascending);
+          });
+
+          it("returns a negative value to say that the first one comes first", function(){
+            expect(subject.compare()).toBeLessThan(0);
+          });
         });
 
-        it("returns a positive value to say that the second one comes first", function(){
-          expect(subject.compare()).toBeGreaterThan(0);
+        describe("when sorting in descending order", function(){
+          beforeEach(function(){
+            ascending = false;
+            subject = new BuildingComparator(a, b, 'strawberry', ascending);
+          });
+
+          it("returns a positive value to say that the second one comes first", function(){
+            expect(subject.compare()).toBeGreaterThan(0);
+          });
         });
       });
-    });
 
-    describe("when the second value is smaller", function(){
-      describe("when sorting in ascending order", function(){
-        beforeEach(function(){
-          subject = new BuildingComparator(b, a, 'strawberry', ascending);
+      describe("when the second value is smaller", function(){
+        describe("when sorting in ascending order", function(){
+          beforeEach(function(){
+            subject = new BuildingComparator(b, a, 'strawberry', ascending);
+          });
+
+          it("returns a positive value to say that the second one comes first", function(){
+            expect(subject.compare()).toBeGreaterThan(0);
+          });
         });
 
-        it("returns a positive value to say that the second one comes first", function(){
-          expect(subject.compare()).toBeGreaterThan(0);
-        });
-      });
+        describe("when sorting in descending order", function(){
+          beforeEach(function(){
+            ascending = false;
+            subject = new BuildingComparator(b, a, 'strawberry', ascending);
+          });
 
-      describe("when sorting in descending order", function(){
-        beforeEach(function(){
-          ascending = false;
-          subject = new BuildingComparator(b, a, 'strawberry', ascending);
-        });
-
-        it("returns a negative value to say that the first one comes first", function(){
-          expect(subject.compare()).toBeLessThan(0);
+          it("returns a negative value to say that the first one comes first", function(){
+            expect(subject.compare()).toBeLessThan(0);
+          });
         });
       });
     });
