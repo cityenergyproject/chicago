@@ -94,6 +94,7 @@ header {
 
 #map-controls {
   height: 100%;
+  overflow-y: scroll;
   overflow: hidden;
   float: left;
   width: $nav-col-fixed-width;
@@ -117,10 +118,6 @@ header {
       width: $large-nav-col-fixed-width - 4em;
     }
   }
-}
-
-.iframed #map-controls {
-  overflow-y: scroll;
 }
 
 #buildings {

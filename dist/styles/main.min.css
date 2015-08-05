@@ -552,6 +552,7 @@ header {
 
 #map-controls {
   height: 100%;
+  overflow-y: scroll;
   overflow: hidden;
   float: left;
   width: 18.75em; }
@@ -567,9 +568,6 @@ header {
     @media screen and (min-width: 56.25em) {
       #map-controls .chart, #map-controls .filter-wrapper {
         width: 18.5em; } }
-
-.iframed #map-controls {
-  overflow-y: scroll; }
 
 #buildings h2 {
   font-size: 1.1em; }
