@@ -38,7 +38,7 @@ input,
 label,
 select {
   display: block;
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em; }
 
 label {
@@ -57,7 +57,7 @@ textarea {
   border-radius: 1em;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
   margin-bottom: 0.6em;
   padding: 0.3em;
@@ -146,20 +146,6 @@ td,
 th {
   vertical-align: middle; }
 
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  src: local("Ubuntu"), url(http://fonts.gstatic.com/s/ubuntu/v7/zvCUQcxqeoKhyOlbifSAaevvDin1pK8aKteLpeZ5c0A.woff2) format("woff2");
-  unicode-range: U0-0FF, U131, U152-153, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2212, U2215, UE0FF, UEFFD, UF000; }
-
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 300;
-  src: local("Ubuntu Light"), local("Ubuntu-Light"), url(http://fonts.gstatic.com/s/ubuntu/v7/_aijTyevf54tkVDLy-dlnJBw1xU1rKptJj_0jans920.woff2) format("woff2");
-  unicode-range: U0-0FF, U131, U152-153, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2212, U2215, UE0FF, UEFFD, UF000; }
-
 body {
   -webkit-font-feature-settings: "kern", "liga", "pnum";
   -moz-font-feature-settings: "kern", "liga", "pnum";
@@ -167,7 +153,7 @@ body {
   font-feature-settings: "kern", "liga", "pnum";
   -webkit-font-smoothing: antialiased;
   color: #e66346;
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 14px;
   line-height: 1.5; }
 
@@ -177,7 +163,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
   line-height: 1.2;
   margin: 0 0 0.6em; }
@@ -217,7 +203,7 @@ input[type="search"], button, input[type="button"], input[type="reset"], input[t
   border: 1px solid white;
   border-radius: 1em;
   color: #fff;
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
   box-sizing: border-box; }
 
@@ -226,7 +212,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"],
   background-color: white;
   color: #e66346; }
 
-.map-category-control label, .building-report label, .year-control label {
+.map-category-control label, #map-controls .more-info, #map-controls h2, #map-controls .map-control, .building-report label, .year-control label {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -558,12 +544,24 @@ header {
 
 #map-controls {
   height: 100%;
-  overflow: scroll;
-  width: 18.75em;
-  float: left; }
+  overflow: hidden;
+  float: left;
+  width: 18.75em; }
+  #map-controls .chart {
+    height: 2.5em; }
+  #map-controls .irs {
+    height: 21px; }
   @media screen and (min-width: 56.25em) {
     #map-controls {
       width: 22.5em; } }
+  #map-controls .chart, #map-controls .filter-wrapper {
+    width: 14.75em; }
+    @media screen and (min-width: 56.25em) {
+      #map-controls .chart, #map-controls .filter-wrapper {
+        width: 18.5em; } }
+
+.iframed #map-controls {
+  overflow-y: scroll; }
 
 #buildings h2 {
   font-size: 1.1em; }
@@ -624,14 +622,18 @@ header {
   .map-category-control ul {
     padding: 0.5em 0; }
   .map-category-control li {
-    margin: 0.25em 1em; }
+    margin: 0.25em 1em;
+    clear: both; }
+  .map-category-control .content {
+    padding-left: 1.5em;
+    position: relative; }
   .map-category-control .check {
-    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
     margin-top: 0.15em;
     height: 1em;
     width: 1em; }
-  .map-category-control .content {
-    margin-left: 1.4em; }
 
 .map-category-control .category-list-toggle {
   -webkit-font-smoothing: antialiased;
@@ -639,7 +641,7 @@ header {
   border: 1px solid white;
   border-radius: 1em;
   color: #fff;
-  font-family: "Ubuntu" "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 1em;
   font-weight: normal; }
 
@@ -662,70 +664,129 @@ header {
   background: #e66346; }
 
 .map-category-control .check {
-  border: 0.2em solid #e66346; }
+  box-shadow: inset 0 0 0 1px #e66346; }
 
 .map-category-control label {
   font-weight: 300; }
 
-#map-controls .category {
-  cursor: pointer; }
+#map-controls {
+  background-color: #f2f2f2; }
+  #map-controls .category, #map-controls .category.expand h2 {
+    box-shadow: inset 0 -1px #e66346; }
+  #map-controls h2 {
+    font-weight: 300;
+    margin-bottom: 0;
+    text-indent: 2em;
+    padding: 0.75em 0; }
+  #map-controls h3 {
+    margin: 0;
+    font-size: inherit; }
+  #map-controls .map-control {
+    padding: 1em;
+    padding-left: 2em;
+    display: none;
+    background-color: #dedede;
+    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
+    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0, , , , , , , , );
+    background-image: linear-gradient(to right,#dedede, #d0d0d0, , , , , , , , );
+    color: #fff; }
+  #map-controls .map-control + .map-control {
+    border-top: 1px solid #f2f2f2; }
+  #map-controls .map-control.current {
+    box-shadow: inset 1em 0 #e66346; }
+  #map-controls .map-control:last-child {
+    box-shadow: inset 0 -1px #e66346; }
+  #map-controls .map-control.current:last-child {
+    box-shadow: inset 1em -1px #e66346; }
+  #map-controls .map-control.current {
+    color: #e66346; }
+  #map-controls .chart {
+    margin-top: 0.75em;
+    margin-bottom: 0.25em; }
+  #map-controls .control-head {
+    margin-bottom: .5em;
+    line-height: 1.2em;
+    font-size: .9em;
+    height: 1.2em;
+    position: relative; }
+  #map-controls .more-info {
+    font-weight: 100;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.9em; }
+  #map-controls .description {
+    font-size: 0.9em;
+    display: none; }
+  #map-controls .map-control.show-more-info .more,
+  #map-controls .more-info .less {
+    display: none; }
+  #map-controls .map-control.show-more-info .less,
+  #map-controls .map-control.show-more-info .description {
+    display: block; }
   #map-controls .category.expand .map-control {
     display: block; }
-  #map-controls .category h2 {
-    font-weight: 300;
-    margin-bottom: 0; }
-  #map-controls .category h2, #map-controls .category .map-control {
-    padding: 0.65em 0.5em;
-    border-left: solid 1.5em transparent;
-    border-bottom: solid 1px #e66346; }
-    #map-controls .category h2.active, #map-controls .category h2.current, #map-controls .category .map-control.active, #map-controls .category .map-control.current {
-      border-left-color: #e66346; }
 
-.map-control {
-  width: 100%; }
-  .map-control .chart {
-    padding: 0 10px;
-    height: 75px;
-    margin-bottom: .3em; }
-  .map-control .filter-wrapper {
-    padding: 0 15px 0 10px; }
-  .map-control .description {
-    font-size: .9em;
-    display: none; }
-  .map-control.more-info .description {
-    display: block; }
+#map-controls .category-header {
+  position: relative; }
 
-.control-head {
-  margin-bottom: .5em;
-  line-height: 1.2em;
-  font-size: .9em;
-  height: 1.2em; }
-  .control-head .show-layer {
-    float: left;
-    margin: 0;
-    font-size: inherit;
-    font-weight: 500; }
-  .control-head .more-info {
-    text-transform: uppercase;
-    font-weight: 300;
-    float: right;
-    font-size: .9em; }
-    .control-head .more-info .less {
-      display: none; }
-  .control-head .more-info:after {
-    content: "\A";
-    border-style: solid;
-    display: inline-block;
-    margin-left: 5px;
-    border-width: 0.4em 0 0.4em 0.6em;
-    border-color: transparent transparent transparent #e66346; }
-  .more-info .control-head .more-info .more {
-    display: none; }
-  .more-info .control-head .more-info .less {
-    display: inline; }
-  .more-info .control-head .more-info:after {
-    border-width: 0.4em 0.6em 0.4em 0;
-    border-color: transparent #e66346 transparent transparent; }
+#map-controls h2:after, #map-controls .category-header:after {
+  content: "\A";
+  display: block;
+  position: absolute;
+  bottom: -0.825em;
+  right: 0;
+  z-index: 10000;
+  border: 1em solid transparent;
+  border-bottom-width: 0;
+  border-top-width: 0.9em; }
+
+#map-controls .category-header:after {
+  bottom: -0.775em;
+  border-top-color: #f2f2f2; }
+
+#map-controls h2:after {
+  border-top-color: #e66346; }
+
+#map-controls h3 {
+  font-weight: bold; }
+
+#map-controls .category {
+  cursor: pointer; }
+
+#map-controls .more-info {
+  text-transform: uppercase; }
+
+#map-controls .more-info .more,
+#map-controls .more-info .less {
+  padding-right: 0.9em; }
+
+#map-controls .more-info .more:after,
+#map-controls .more-info .less:after {
+  content: "\A";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -0.333333em;
+  border-style: solid; }
+
+#map-controls .more-info .more:after {
+  border-width: 0.4em 0 0.4em 0.6em;
+  border-color: transparent transparent transparent #fff; }
+
+#map-controls .more-info .less:after {
+  border-width: 0.4em 0.6em 0.4em 0;
+  border-color: transparent #fff transparent transparent; }
+
+#map-controls .current .more-info .more:after {
+  border-color: transparent transparent transparent #e66346; }
+
+#map-controls .current .more-info .less:after {
+  border-color: transparent #e66346 transparent transparent; }
+
+#map-controls .map-control:not(.current) rect {
+  fill: #fff !important; }
 
 .main-container {
   position: absolute;
