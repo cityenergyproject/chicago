@@ -4,10 +4,9 @@ define([
   'backbone',
   'models/map/MapModel',
   'models/map/LayerModel',
-  'collections/CityBuildings',
   'models/building_color_bucket_calculator',
   'text!/app/templates/map/BuildingInfoTemplate.html'
-], function($, _, Backbone, MapModel, LayerModel, CityBuildings, BuildingColorBucketCalculator, BuildingInfoTemplate){
+], function($, _, Backbone, MapModel, LayerModel, BuildingColorBucketCalculator, BuildingInfoTemplate){
 
   var baseCartoCSS = [
     '{marker-fill: #CCC;' +
@@ -41,41 +40,37 @@ define([
 
     initialize: function(options){
       this.city = options.city;
-      this.allBuildings = new CityBuildings(null, {city: options.city});
-      this.listenTo(this.allBuildings, 'sync', this.onBuildings, this);
-      this.allBuildings.fetch();
+      this.state = options.state;
+      this.allBuildings = options.allBuildings;
 
       this.mapView = options.mapView;
       this.leafletMap = options.mapView.leafletMap;
 
       this.listenTo(this.model.collection, 'change:filter', this.render);
-      this.listenTo(this.mapView.model, 'change:current_layer', this.showCurrentLayer);
       this.listenTo(this.mapView.model, 'yearChange', this.yearChange);
-    },
 
-    toCartoSublayer: function(){
-      var buildings = this.allBuildings,
-          currentLayer = this.mapView.model.get('current_layer'),
-          fieldName = currentLayer,
-          city = this.city,
-          cityLayer = _.findWhere(city.get('map_layers'), {field_name: fieldName}),
-          buckets = cityLayer.range_slice_count
-          colorStops = cityLayer.color_range;
-      var calculator = new BuildingColorBucketCalculator(buildings, fieldName, buckets, colorStops);
-      var stylesheet = new CartoStyleSheet(this.allBuildings.table_name, calculator);
-
-      return {
-        sql: this.allBuildings.toSql(),
-        cartocss: stylesheet.toCartoCSS()
-      }
-    },
-
-    onBuildings: function(){
-      var newLayer = cartodb.createLayer(this.leafletMap, {
+      cartodb.createLayer(this.leafletMap, {
         user_name: 'cityenergyproject',
         type: 'cartodb',
         sublayers: [this.toCartoSublayer()]
       }).addTo(this.leafletMap).on('done', this.onCartoLoad, this);
+    },
+
+    toCartoSublayer: function(){
+      var buildings = this.allBuildings,
+          city = this.city,
+          state = this.state,
+          fieldName = state.get('layer'),
+          cityLayer = _.findWhere(city.get('map_layers'), {field_name: fieldName}),
+          buckets = cityLayer.range_slice_count
+          colorStops = cityLayer.color_range;
+      var calculator = new BuildingColorBucketCalculator(buildings, fieldName, buckets, colorStops);
+      var stylesheet = new CartoStyleSheet(buildings.table_name, calculator);
+
+      return {
+        sql: buildings.toSql(state.categories(), state.filters()),
+        cartocss: stylesheet.toCartoCSS()
+      }
     },
 
     onCartoLoad: function(layer) {

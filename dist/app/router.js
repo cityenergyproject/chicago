@@ -42,6 +42,8 @@ define([
 
   var CityController = {
     load: function(router, cityname, year, layername){
+      this.state = this.state || new Backbone.Model.extend({});
+
       year = year || '';
 
       if (!this.city || this.city.get('url_name') !== cityname){
@@ -60,10 +62,9 @@ define([
     },
 
     render: function(layername){
-
       this.initializeMap(layername);
       this.initializeBuildingView();
-
+      this.state.set({layer: layername});
       return this;
     },
 
@@ -78,9 +79,7 @@ define([
         this.map = new MapModel({city: this.city});
       }
 
-      //set current_layer before initializing new MapView in order to avoid triggering layer change with empty layer
-      this.map.set('current_layer', layername);
-      this.mapView = this.mapView || new MapView({model: this.map});
+      this.mapView = this.mapView || new MapView({model: this.map, state: this.state});
 
       return this;
     }
