@@ -26,7 +26,6 @@ header {
 }
 
 #toolbar {
-  @include outer-container();
   height: 3em;
   position: relative;
 }
@@ -38,16 +37,35 @@ header {
 }
 
 #search {
+  position: absolute;
+  top: 0;
+  height: 3em;
+  left: 0;
   width: $nav-col-fixed-width;
-  float: left;
 
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
   }
+
+  .address-search {
+    width: $nav-col-fixed-width - 4em;
+
+    @include media($large-screen-up) {
+      width: $large-nav-col-fixed-width - 4em;
+    }
+  }
 }
 
 #map-category-controls {
-  display: block;
+  position: absolute;
+  top: 0;
+  height: 3em;
+  left: $nav-col-fixed-width;
+  right: 0;
+
+  @include media($large-screen-up) {
+    left: $large-nav-col-fixed-width;
+  }
 
   .map-category-control + .map-category-control {
     margin-left: 1em;

@@ -47,9 +47,8 @@
   }
 }
 
-.map-category-control{
+.map-category-control {
   .category-list-toggle {
-    -webkit-font-smoothing: antialiased;
     background-color: $orange;
     border: $base-border;
     border-radius: $base-border-radius;
@@ -71,8 +70,9 @@
 
   li {
     line-height: 1.2;
-    font-size: .8em;
+    font-size: 0.8em;
   }
+
   input[type=checkbox] { display: none; }
   input[type=checkbox]:checked + label .check {
     background: $orange;
@@ -83,6 +83,7 @@
   }
 
   label {
+    cursor: pointer;
     font-weight: 300;
     @extend %disable-user-select;
   }

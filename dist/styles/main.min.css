@@ -502,15 +502,8 @@ header {
   top: 3em; }
 
 #toolbar {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
   height: 3em;
   position: relative; }
-  #toolbar::after {
-    clear: both;
-    content: "";
-    display: table; }
 
 .iframed #toolbar {
   position: fixed;
@@ -518,14 +511,29 @@ header {
   z-index: 1000001; }
 
 #search {
-  width: 18.75em;
-  float: left; }
+  position: absolute;
+  top: 0;
+  height: 3em;
+  left: 0;
+  width: 18.75em; }
   @media screen and (min-width: 56.25em) {
     #search {
       width: 22.5em; } }
+  #search .address-search {
+    width: 14.75em; }
+    @media screen and (min-width: 56.25em) {
+      #search .address-search {
+        width: 18.5em; } }
 
 #map-category-controls {
-  display: block; }
+  position: absolute;
+  top: 0;
+  height: 3em;
+  left: 18.75em;
+  right: 0; }
+  @media screen and (min-width: 56.25em) {
+    #map-category-controls {
+      left: 22.5em; } }
   #map-category-controls .map-category-control + .map-category-control {
     margin-left: 1em; }
   #map-category-controls .map-category-control {
@@ -596,10 +604,18 @@ header {
   color: white; }
 
 .search-wrapper {
-  padding: 0.5em 1em; }
+  padding: 0.3em 1em;
+  border: 1px solid white;
+  border-radius: 1em;
+  margin: 0.5em 1em; }
+  .search-wrapper .address-search:focus {
+    border-color: inherit;
+    box-shadow: none; }
   .search-wrapper .address-search {
-    padding: 0.3em 0.8em;
-    margin-bottom: 0; }
+    padding: 0;
+    margin: 0;
+    border: 0 none;
+    display: block; }
 
 .map-category-control {
   display: block;
@@ -636,7 +652,6 @@ header {
     width: 1em; }
 
 .map-category-control .category-list-toggle {
-  -webkit-font-smoothing: antialiased;
   background-color: #e66346;
   border: 1px solid white;
   border-radius: 1em;
@@ -655,7 +670,7 @@ header {
 
 .map-category-control li {
   line-height: 1.2;
-  font-size: .8em; }
+  font-size: 0.8em; }
 
 .map-category-control input[type=checkbox] {
   display: none; }
@@ -667,6 +682,7 @@ header {
   box-shadow: inset 0 0 0 1px #e66346; }
 
 .map-category-control label {
+  cursor: pointer;
   font-weight: 300; }
 
 #map-controls {
@@ -813,30 +829,23 @@ header {
 .building-report {
   margin: 0; }
   .building-report h2 {
-    margin: 0;
-    line-height: 1em;
-    display: inline; }
+    line-height: 1em; }
   .building-report input {
     display: none; }
   .building-report th:first-child {
     overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: 0 1em; }
-  .building-report td:first-child {
-    padding: 0.75em 1em; }
-  .building-report th, .building-report td {
-    max-width: 11em;
-    padding: 0.5em; }
+    text-overflow: ellipsis; }
+  .building-report td:first-child div, .building-report h2 {
+    margin: 0 1rem 0 0.5rem; }
   .building-report th + th, .building-report td + td {
-    padding-left: 0.25; }
-  .building-report th:last-child, .building-report td:last-child {
-    padding-left: 0.25; }
+    max-width: 11em; }
   .building-report th, .building-report label {
     font-weight: 400; }
   .building-report label {
     overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0 0.25em;
     padding: 0.5em 1.75em 0.5em 1em;
     max-width: 10em;
     position: relative;
