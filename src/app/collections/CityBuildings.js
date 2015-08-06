@@ -4,11 +4,11 @@ define([
 ], function(_, Backbone) {
 
   var urlTemplate = _.template(
-    "https://<%= user_name %>.cartodb.com/api/v2/sql"
+    "https://<%= cartoDbUser %>.cartodb.com/api/v2/sql"
   );
 
   var CityBuildingQuery = function(table_name, categories, ranges) {
-    this.table_name = table_name;
+    this.tableName = table_name;
     this.categories = categories;
     this.ranges = ranges;
   };
@@ -27,7 +27,7 @@ define([
   };
 
   CityBuildingQuery.prototype.toSql = function() {
-    var table = this.table_name;
+    var table = this.tableName;
     var rangeSql = this.toRangeSql();
     var categorySql = this.toCategorySql();
     var filterSql = rangeSql.concat(categorySql).join(' AND ');
@@ -37,8 +37,8 @@ define([
 
   var CityBuildings = Backbone.Collection.extend({
     initialize: function(models, options){
-      this.table_name = options.city.get('table_name');
-      this.user_name = options.city.get('cartoDbUser');
+      this.tableName = options.tableName;
+      this.cartoDbUser = options.cartoDbUser;
     },
     url: function() {
       return urlTemplate(this);
@@ -52,7 +52,7 @@ define([
       return data.rows;
     },
     toSql: function(categories, range){
-      return new CityBuildingQuery(this.table_name, categories, range).toSql()
+      return new CityBuildingQuery(this.tableName, categories, range).toSql()
     }
   });
 

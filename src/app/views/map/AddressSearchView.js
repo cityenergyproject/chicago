@@ -10,9 +10,15 @@ define([
 
     initialize: function(options){
       this.mapView = options.mapView;
-      this.center = this.mapView.model.get('center');
-      this.delegateEvents(this.events);
+      this.state = options.state;
+      this.listenTo(this.state, 'change:city', this.onCityChange);
+    },
 
+    onCityChange: function(){
+      this.listenTo(this.state.get('city'), 'sync', this.onCitySync);
+    },
+
+    onCitySync: function(){
       this.render();
     },
 
@@ -33,13 +39,14 @@ define([
       var self = this;
       var url = "http://pelias.mapzen.com/search";
       var search = this.$el.val();
+      var center = this.state.get('city').get('center');
       if (search===""){
         this.clearMarker();
         return;
       }
       $.ajax({
         url: url,
-        data: {input: search, size: 1, lat: this.center[0], lon: this.center[1]},
+        data: {input: search, size: 1, lat: center[0], lon: center[1]},
         success: function(response){
           self.centerMapOn(response);
         }
