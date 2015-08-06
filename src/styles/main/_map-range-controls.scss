@@ -62,12 +62,13 @@
     @extend %disable-user-select;
     font-weight: 100;
     position: absolute;
-    right: 0;
+    right: 0.25em;
     top: 0;
     font-size: 0.9em;
   }
 
   .description {
+    margin-top: 1em;
     font-size: 0.9em;
     display: none;
   }
