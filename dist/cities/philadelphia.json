@@ -2,7 +2,6 @@
     "url_name": "philadelphia",
     "cartoDbUser": "cityenergyproject",
     "name": "Philadelphia",
-    "table_name": "philadelphia_propertiesreported_csv",
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
         39.952584,
@@ -17,7 +16,6 @@
         "postal_code": "postal_code",
         "building_type": "primary_property_type___epa_calculated"
     },
-    "default_layer": "site_eui_kbtu_ft",
     "map_layers": [
         {
             "title": "Building Type",
@@ -117,6 +115,9 @@
         }
     ],
     "years": {
-        "2014":{}
+        "2014": {
+            "table_name": "philadelphia_propertiesreported_csv",
+            "default_layer": "site_eui_kbtu_ft"
+        }
     }
 }

@@ -66,6 +66,7 @@ define([
           allBuildings = this.allBuildings,
           state = this.state;
 
+      $('#map-category-controls').empty();
       var layers = city.get('map_layers');
       var views = _.map(layers, function(layer){
         var View = {

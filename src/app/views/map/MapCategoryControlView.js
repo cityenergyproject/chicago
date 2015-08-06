@@ -19,19 +19,19 @@ define([
     },
 
     render: function(){
+      var counts = this.allBuildings.countBy(this.layer.field_name);
       var template = _.template(MapCategoryControlTemplate);
+
+      if (_.keys(counts)[0] == "undefined") { return this; }
+
       var compiled = template({
         id: this.layer.field_name,
         title: this.layer.title,
-        categories: this.allBuildings.countBy(this.layer.field_name)
+        categories: counts
       });
 
-      if (this.$el.children().length > 0) {
-        this.$el.replaceWith(compiled);
-      } else {
-        this.$el = $(compiled).appendTo(this.$container);
-        this.delegateEvents();
-      }
+      this.$el = $(compiled).appendTo(this.$container);
+      this.delegateEvents();
 
       return this;
     },

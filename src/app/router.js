@@ -88,7 +88,7 @@ define([
           layerToSet = stateLayer || yearDefaultLayer;
       this.state.set({
         year: yearToSet,
-        layer: layerToSet,
+        layer: yearDefaultLayer,
         tableName: yearValues.table_name,
         cartoDbUser: results.cartoDbUser
       });

@@ -40,25 +40,23 @@ define([
       this.leafletMap = options.leafletMap;
       this.allBuildings = new CityBuildings(null, {});
 
-      this.listenTo(this.state, 'change', this.onStateChange);
+      this.listenTo(this.state, 'change:layer', this.onStateChange);
+      this.listenTo(this.state, 'change:tableName', this.onStateChange);
       this.listenTo(this.allBuildings, 'sync', this.render);
       this.onStateChange();
     },
 
     onFeatureClick: function(e, latlng, pos, data){
-      console.log(arguments)
-      var popupFields = this.state.get('city').get('popup_fields');
-      var populatedLabels = _.reduce(popupFields, function(labels, field){
-        labels.push({label: field.label, value: data[field.field]});
-        return labels;
-      }, []);
-
-      template = _.template(BuildingInfoTemplate);
-
-      info = L.popup()
-        .setLatLng(latlng)
-        .setContent(template({labels: populatedLabels}))
-        .openOn(this.leafletMap);
+      var template = _.template(BuildingInfoTemplate),
+          popupFields = this.state.get('city').get('popup_fields');
+          populatedLabels = _.reduce(popupFields, function(labels, field){
+            labels.push({label: field.label, value: data[field.field]});
+            return labels;
+          }, []);
+      L.popup()
+       .setLatLng(latlng)
+       .setContent(template({labels: populatedLabels}))
+       .openOn(this.leafletMap);
     },
     onFeatureOver: function(){
       $('#map').css('cursor', "help");
@@ -83,7 +81,6 @@ define([
           colorStops = cityLayer.color_range,
           calculator = new BuildingColorBucketCalculator(buildings, fieldName, buckets, colorStops),
           stylesheet = new CartoStyleSheet(buildings.tableName, calculator);
-          console.log(popupFields)
       return {
         sql: buildings.toSql(state.categories(), state.filters()),
         cartocss: stylesheet.toCartoCSS(),
@@ -96,7 +93,6 @@ define([
         this.cartoLayer.getSubLayer(0).set(this.toCartoSublayer()).show();
         return this;
       }
-
       cartodb.createLayer(this.leafletMap, {
         user_name: 'cityenergyproject',
         type: 'cartodb',
@@ -104,7 +100,6 @@ define([
       }).addTo(this.leafletMap).on('done', this.onCartoLoad, this);
       return this;
     },
-
     onCartoLoad: function(layer) {
       var sub = layer.getSubLayer(0);
       this.cartoLayer = layer;
@@ -113,7 +108,6 @@ define([
       sub.on('featureOver', this.onFeatureOver, this);
       sub.on('featureOut', this.onFeatureOut, this);
     }
-
   });
 
   return LayerView;
