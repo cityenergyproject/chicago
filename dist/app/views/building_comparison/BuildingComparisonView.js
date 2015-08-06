@@ -31,23 +31,27 @@ define([
     sortedBy: {},
 
     initialize: function(options){
-      this.map = options.map;
-      this.mapView = options.mapView;
-      this.listenTo(this.map, 'cityChange', this.initWithCity);
+      this.state = options.state;
+      this.listenTo(this.state, 'change:city', this.onCityChange);
+      this.listenTo(this.state, 'change:layer', this.renderTableHead);
     },
 
-    initWithCity: function(){
-      this.city = this.map.get('city');
-      this.render();
-      this.buildings = this.city.asBuildings();
+    onCityChange: function(){
+      this.listenTo(this.state.get('city'), 'sync', this.onCitySync)
+    },
+
+    onCitySync: function(){
+      var city = this.state.get('city'),
+          title = city.get('title'),
+          url_name = city.get('url_name');
+
+      this.metrics = [this.state.get('layer')];
+
+      this.buildings = this.state.asBuildings();
       this.listenTo(this.buildings, 'sync', this.renderTableBody, this);
       this.listenTo(this.buildings, 'sort', this.renderTableBody, this);
       this.buildings.fetch();
-
-      // this.addMetric();
-
-      // this.listenTo(this.map, 'change:current_layer', this.addMetric);
-      // this.listenTo(this.city.layers, 'updateLayers', this.removeEmptyMetrics);
+      this.render();
 
       return this;
     },
@@ -58,30 +62,16 @@ define([
       return this;
     },
 
-    // addMetric: function(){
-    //   var newMetric = this.map.getCurrentLayer();
-    //   if (newMetric.get('display_type')==="category"){return this;}
-
-    //   var exists = _.find(this.metrics, function(metric){
-    //     return metric.get('field_name') == newMetric.get('field_name');
-    //   })
-
-    //   if (exists){return this;}
-
-    //   this.metrics.push(newMetric);
-
-    //   this.render();
-    //   return this;
-    // },
-
-
     renderTableHead: function(){
       var $head = this.$el.find('thead'),
-          currentLayer = this.map.get('current_layer'),
+          layer = this.state.get('layer'),
+          mapLayers = this.state.get('city').get('map_layers'),
+          currentLayer = _.findWhere(mapLayers, {field_name: layer}),
+          metrics = _.map(this.metrics, function(m){ return _.findWhere(mapLayers, {field_name: m})}),
           template = _.template(TableHeadTemplate);
 
       $head.replaceWith(template({
-        metrics: this.metrics,
+        metrics: metrics,
         sortedBy: this.sortedBy,
         currentLayer: currentLayer
       }));
@@ -90,11 +80,12 @@ define([
     renderTableBody: function(){
       var results = this.buildings, // result set from sql
           $body = this.$el.find('tbody'),
-          currentLayer = this.map.get('current_layer'),
-          property_name = this.city.get('property_name'),
-          building_type = this.city.get('building_type'),
+          currentLayer = this.state.get('layer'),
+          property_name = this.state.get('city').get('property_name'),
+          building_type = this.state.get('city').get('building_type'),
+          mapLayers = this.state.get('city').get('map_layers'),
           buildingFields = [property_name, building_type],
-          metrics = _.map(this.metrics, function(m) { return m.get('field_name'); });
+          metrics = _.map(this.metrics, function(m) { return _.findWhere(mapLayers, {field_name: m}); });
 
       var template = _.template(TableBodyRowsTemplate);
       var report = new ReportTranslator(buildingFields, metrics, results).toBuildingReport();

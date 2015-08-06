@@ -36,16 +36,15 @@ define([
 
       this.render();
       return this;
-
     },
     render: function(){
       var city = this.state.get('city'),
-          title = city.get('title'),
+          title = city.get('name'),
           url_name = city.get('url_name'),
           template = _.template(HeaderTemplate);
 
       document.title = title;
-      $('#title').html(template({title: title, url_name: url_name}))
+      $('body #title').html(template({title: title, url_name: url_name}))
 
       if (!this.leafletMap){
         this.leafletMap = new L.Map(this.el, {
