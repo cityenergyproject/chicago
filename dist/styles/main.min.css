@@ -553,7 +553,7 @@ header {
 #map-controls {
   height: 100%;
   overflow-y: scroll;
-  overflow: hidden;
+  overflow-x: hidden;
   float: left;
   width: 18.75em; }
   #map-controls .chart {
