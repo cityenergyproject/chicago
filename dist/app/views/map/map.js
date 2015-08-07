@@ -23,7 +23,7 @@ define([
 
     onCitySync: function(){
       var city = this.state.get('city'),
-          title = city.get('title'),
+          title = city.get('name'),
           url_name = city.get('url_name');
 
       this.allBuildings = this.state.asBuildings();
@@ -68,19 +68,22 @@ define([
     onBuildings: function(){
       var state = this.state,
           city = state.get('city'),
-          layers = city.layers,
+          layers = city.get('map_layers'),
           allBuildings = this.allBuildings,
           state = this.state;
 
       $('#map-category-controls').empty();
-      var layers = city.get('map_layers');
-      _.chain(layers).map(function(layer){
+      $('#map-controls').empty();
+
+      this.controls = _.chain(layers).map(function(layer){
         var viewClass = {
           range: Filter,
           category: Category
         }[layer.display_type];
         return new viewClass({layer: layer, allBuildings: allBuildings, state: state});
       }).each(function(view){ view.render(); });
+
+      return this;
     }
   });
 

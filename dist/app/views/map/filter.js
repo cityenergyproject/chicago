@@ -38,7 +38,6 @@ define([
           currentLayer = this.state.get('layer'),
           isCurrent = currentLayer == fieldName,
           $section = this.$section(),
-          chartContainer = $("#" + this.layer.field_name + " .chart"),
           filterRange = this.layer.filter_range,
           rangeSliceCount = this.layer.range_slice_count,
           colorStops = this.layer.color_range,
@@ -94,12 +93,11 @@ define([
       });
 
       if (!this.histogram) {
-        this.histogram = new HistogramView({gradients: bucketGradients, $container: chartContainer, slices: rangeSliceCount});
+        this.histogram = new HistogramView({gradients: bucketGradients, slices: rangeSliceCount});
       }
+      this.$el.find('.chart').html(this.histogram.render())
 
-      this.histogram.render();
-
-      $el.toggleClass('current', isCurrent);
+      this.$el.toggleClass('current', isCurrent);
       if(isCurrent || $section.find('.current').length > 0) { $section.addClass('expand'); }
       $section.toggleClass('current', isCurrent || $section.find('.current').length > 0);
       this.$el.appendTo($section);

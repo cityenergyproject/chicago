@@ -13,8 +13,6 @@ define([
       this.width = this.height * this.aspectRatio;
       this.gradients = options.gradients;
       this.slices = options.slices;
-      this.$container = options.$container;
-      this.$container.append(this.el);
       this.chart = d3.select(this.el).append('svg')
                      .attr('viewBox', '0 0 ' + this.width + ' ' + this.height)
                      .style('background', 'transparent')
@@ -47,7 +45,7 @@ define([
 
       bars.exit().remove();
 
-      return this;
+      return this.el;
     }
   });
 
