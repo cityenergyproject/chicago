@@ -42,29 +42,21 @@ define([
           $el = $('#' + fieldName),
           currentLayer = this.state.get('layer'),
           isCurrent = currentLayer == fieldName,
-          $section = this.$section();
-
-      if ($el.length == 0) {
-        this.$el.html(template(_.defaults(this.layer, {description: null})));
-        this.$el.attr("id", this.layer.field_name);
-      } else {
-        this.$el = $el;
-      }
-      $el.toggleClass('current', isCurrent);
-      $section.toggleClass('expand', $section.find('.current').length > 0);
-      $section.toggleClass('current', $section.find('.current').length > 0);
-      this.$el.appendTo($section);
-
-      var container = $("#" + this.layer.field_name + " .chart"),
+          $section = this.$section(),
+          chartContainer = $("#" + this.layer.field_name + " .chart"),
           filterRange = this.layer.filter_range,
-          fieldName = this.layer.field_name,
           rangeSliceCount = this.layer.range_slice_count,
           colorStops = this.layer.color_range,
           buildings = this.allBuildings,
           bucketCalculator = new BuildingBucketCalculator(buildings, fieldName, rangeSliceCount, filterRange),
+          extent = bucketCalculator.toExtent(),
           gradientCalculator = new BuildingColorBucketCalculator(buildings, fieldName, rangeSliceCount, colorStops),
           buckets = bucketCalculator.toBuckets(),
-          gradient = gradientCalculator.toGradientStops();
+          gradient = gradientCalculator.toGradientStops(),
+          histogram, $filter,
+          filterTemplate = _.template(FilterTemplate),
+          stateFilters = this.state.get('filters'),
+          filterState = _.findWhere(stateFilters, {field: fieldName}) || {min: extent[0], max: extent[1]};
 
       var filterData = _.map(gradient, function(stop, bucketIndex){
         return {
@@ -73,49 +65,53 @@ define([
         };
       });
 
-      var histogram = new HistogramView({
+      if ($el.length == 0) {
+        this.$el.html(template(_.defaults(this.layer, {description: null})));
+        this.$el.attr("id", this.layer.field_name);
+      } else {
+        this.$el = $el;
+      }
+      new HistogramView({
         distribution_data: filterData,
-        $container: container,
+        $container: chartContainer,
         slices: rangeSliceCount
-      });
+      }).render();
 
-      histogram.render();
-
-      var filterTemplate = _.template(FilterTemplate);
-      var $filter = this.$el.find('.filter-wrapper').html(filterTemplate({id: fieldName}));
-      var from_min = null, from_max = null;
-      var extent = bucketCalculator.toExtent();
-
+      $filter = this.$el.find('.filter-wrapper').html(filterTemplate({id: fieldName}));
       $filter.ionRangeSlider({
         type: 'double',
         min: extent[0],
         max: extent[1],
-        from: extent[0],
-        to: extent[1],
+        from: filterState.min,
+        to: filterState.max,
         hide_from_to: false,
         force_edges: true,
         grid: false,
         hide_min_max: true,
-        from_min: extent[0],
-        to_max: extent[1],
+        from_min: (this.layer.filter_range || {}).min,
+        to_max: (this.layer.filter_range || {}).max,
         prettify_enabled: true,
-        prettify: this.onPrettifyHandler(extent[0], extent[1]),
+        prettify: this.onPrettifyHandler((this.layer.filter_range || {}).min, (this.layer.filter_range || {}).max),
         onFinish: _.bind(this.onFilterFinish, this)
       });
 
+      $el.toggleClass('current', isCurrent);
+      $section.toggleClass('expand', $section.find('.current').length > 0);
+      $section.toggleClass('current', $section.find('.current').length > 0);
+      this.$el.appendTo($section);
       return this;
     },
 
     onFilterFinish: function(rangeSlider) {
       var filters = this.state.get('filters'),
           fieldName = this.layer.field_name;
-      delete filters[fieldName];
+      filters = _.reject(filters, function(f){ return f.field == fieldName; })
 
       if (rangeSlider.from !== rangeSlider.min || rangeSlider.to !== rangeSlider.max){
-        filters[fieldName] = [rangeSlider.from, rangeSlider.to];
+        filters.push({field: fieldName, min: rangeSlider.from, max: rangeSlider.to});
       }
 
-      this.state.set({filters: filters});
+      this.state.set({filters: filters})
     },
 
     onPrettifyHandler: function(min, max) {
@@ -134,7 +130,8 @@ define([
     },
 
     showLayer: function(){
-      this.state.set({layer: this.layer.field_name});
+      var fieldName = this.layer.field_name;
+      this.state.set({layer: fieldName, sort: fieldName, order: 'desc'});
     },
 
     toggleMoreInfo: function(){

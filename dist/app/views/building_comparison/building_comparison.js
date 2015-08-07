@@ -39,6 +39,7 @@ define([
       this.listenTo(this.state, 'change:city', this.onDataSourceChange);
       this.listenTo(this.state, 'change:layer', this.onLayerChange);
       this.listenTo(this.state, 'change:metrics', this.onMetricsChange);
+      this.listenTo(this.state, 'change:filters', this.onMetricsChange);
       this.listenTo(this.state, 'change:sort', this.onSort);
       this.listenTo(this.state, 'change:order', this.onSort);
     },
@@ -121,15 +122,16 @@ define([
           sortedField = this.state.get('sort'),
           metrics = this.state.get('metrics');
 
-      if (metrics == [removedField]) { return false; }
+      if (metrics.length == 1) { return false; }
       if(removedField == sortedField) { sortedField = metrics[0]; }
-      metrics = _.reject(metrics, removedField);
+      metrics = _.without(metrics, removedField);
       this.state.set({metrics: metrics, sort: sortedField});
     },
 
     changeActiveMetric: function(event) {
-      var $target = $(event.target);
-      this.state.set({layer: $target.val()})
+      var $target = $(event.target),
+          fieldName = $target.val();
+      this.state.set({layer: fieldName, sort: fieldName});
     },
 
     onSortClick: function() {

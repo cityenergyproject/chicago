@@ -41,6 +41,7 @@ define([
       this.allBuildings = new CityBuildings(null, {});
 
       this.listenTo(this.state, 'change:layer', this.onStateChange);
+      this.listenTo(this.state, 'change:filters', this.onStateChange);
       this.listenTo(this.state, 'change:tableName', this.onStateChange);
       this.listenTo(this.allBuildings, 'sync', this.render);
       this.onStateChange();
