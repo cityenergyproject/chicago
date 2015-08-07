@@ -35,4 +35,6 @@ define([
       return memo;
     }, {});
   };
+
+  return BuildingBucketCalculator;
 });

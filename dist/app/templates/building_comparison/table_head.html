@@ -1,0 +1,11 @@
+<thead>
+  <tr>
+    <th><h2>Building Comparison</h2></th>
+    <% _.each(metrics, function(metric){ %>
+    <th class="<%= metric.current %> <%= metric.sorted %>">
+      <input type="radio" name="comparison-sort" id="comparison-sort-<%= metric.field_name %>" value="<%= metric.field_name %>" <%= metric.checked %>>
+      <label for="comparison-sort-<%= metric.field_name %>"><%= metric.title %><span class="asc">&#9652;</span><span class="desc">&#9662;</span><span class="remove">&times;</span></label>
+    </th>
+    <% }) %>
+  </tr>
+</thead>

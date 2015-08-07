@@ -683,125 +683,124 @@ header {
   cursor: pointer;
   font-weight: 300; }
 
+#map-controls .category-header {
+  position: relative; }
+
+#map-controls h2 {
+  font-weight: 300;
+  margin-bottom: 0;
+  text-indent: 2em;
+  padding: 0.75em 0; }
+
+#map-controls h3 {
+  margin: 0;
+  font-size: inherit; }
+
+#map-controls .map-control {
+  padding: 1em;
+  padding-left: 2em;
+  display: none;
+  background-color: #dedede;
+  background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
+  background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0, , , , , , , , );
+  background-image: linear-gradient(to right,#dedede, #d0d0d0, , , , , , , , );
+  color: #fff; }
+
+#map-controls .map-control + .map-control {
+  border-top: 1px solid #f2f2f2; }
+
+#map-controls .chart {
+  margin-top: 0.75em;
+  margin-bottom: 0.25em; }
+
+#map-controls .control-head {
+  margin-bottom: .5em;
+  line-height: 1.2em;
+  font-size: .9em;
+  height: 1.2em;
+  position: relative; }
+
+#map-controls .more-info {
+  font-weight: 100;
+  position: absolute;
+  right: 0.25em;
+  top: 0;
+  font-size: 0.9em; }
+
+#map-controls .description {
+  margin-top: 1em;
+  font-size: 0.9em;
+  display: none; }
+
+#map-controls .map-control.show-more-info .more,
+#map-controls .more-info .less {
+  display: none; }
+
+#map-controls .map-control.show-more-info .less,
+#map-controls .map-control.show-more-info .description {
+  display: block; }
+
+#map-controls .category.expand .map-control {
+  display: block; }
+
 #map-controls {
   background-color: #f2f2f2; }
   #map-controls .category, #map-controls .category.expand h2 {
     box-shadow: inset 0 -1px #e66346; }
-  #map-controls h2 {
-    font-weight: 300;
-    margin-bottom: 0;
-    text-indent: 2em;
-    padding: 0.75em 0; }
+  #map-controls .current.category {
+    box-shadow: inset 1em -1px #e66346; }
+  #map-controls h2:after, #map-controls .category-header:after {
+    content: "\A";
+    display: block;
+    position: absolute;
+    height: 0;
+    width: 0;
+    bottom: -10px;
+    right: 1px;
+    border: 10px solid transparent;
+    border-bottom-width: 0; }
+  #map-controls .category-header:after {
+    bottom: -9px;
+    border-top-color: #f2f2f2; }
+  #map-controls h2:after {
+    border-top-color: #e66346; }
   #map-controls h3 {
-    margin: 0;
-    font-size: inherit; }
-  #map-controls .map-control {
-    padding: 1em;
-    padding-left: 2em;
-    display: none;
-    background-color: #dedede;
-    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
-    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0, , , , , , , , );
-    background-image: linear-gradient(to right,#dedede, #d0d0d0, , , , , , , , );
-    color: #fff; }
-  #map-controls .map-control + .map-control {
-    border-top: 1px solid #f2f2f2; }
-  #map-controls .map-control.current {
-    box-shadow: inset 1em 0 #e66346; }
+    font-weight: bold; }
+  #map-controls .category {
+    cursor: pointer; }
+  #map-controls .current.map-control {
+    box-shadow: inset 1em 0 #e66346;
+    color: #e66346; }
   #map-controls .map-control:last-child {
     box-shadow: inset 0 -1px #e66346; }
-  #map-controls .map-control.current:last-child {
+  #map-controls .current.map-control:last-child {
     box-shadow: inset 1em -1px #e66346; }
-  #map-controls .map-control.current {
-    color: #e66346; }
-  #map-controls .chart {
-    margin-top: 0.75em;
-    margin-bottom: 0.25em; }
-  #map-controls .control-head {
-    margin-bottom: .5em;
-    line-height: 1.2em;
-    font-size: .9em;
-    height: 1.2em;
-    position: relative; }
   #map-controls .more-info {
-    font-weight: 100;
-    position: absolute;
-    right: 0.25em;
-    top: 0;
-    font-size: 0.9em; }
-  #map-controls .description {
-    margin-top: 1em;
-    font-size: 0.9em;
-    display: none; }
-  #map-controls .map-control.show-more-info .more,
+    text-transform: uppercase; }
+  #map-controls .more-info .more,
   #map-controls .more-info .less {
-    display: none; }
-  #map-controls .map-control.show-more-info .less,
-  #map-controls .map-control.show-more-info .description {
-    display: block; }
-  #map-controls .category.expand .map-control {
-    display: block; }
-
-#map-controls .category-header {
-  position: relative; }
-
-#map-controls h2:after, #map-controls .category-header:after {
-  content: "\A";
-  display: block;
-  position: absolute;
-  height: 0;
-  width: 0;
-  bottom: -10px;
-  right: 1px;
-  border: 10px solid transparent;
-  border-bottom-width: 0; }
-
-#map-controls .category-header:after {
-  bottom: -9px;
-  border-top-color: #f2f2f2; }
-
-#map-controls h2:after {
-  border-top-color: #e66346; }
-
-#map-controls h3 {
-  font-weight: bold; }
-
-#map-controls .category {
-  cursor: pointer; }
-
-#map-controls .more-info {
-  text-transform: uppercase; }
-
-#map-controls .more-info .more,
-#map-controls .more-info .less {
-  padding-right: 0.9em; }
-
-#map-controls .more-info .more:after,
-#map-controls .more-info .less:after {
-  content: "\A";
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  margin-top: -0.333333em;
-  border-style: solid; }
-
-#map-controls .more-info .more:after {
-  border-width: 0.4em 0 0.4em 0.6em;
-  border-color: transparent transparent transparent #fff; }
-
-#map-controls .more-info .less:after {
-  border-width: 0.4em 0.6em 0.4em 0;
-  border-color: transparent #fff transparent transparent; }
-
-#map-controls .current .more-info .more:after {
-  border-color: transparent transparent transparent #e66346; }
-
-#map-controls .current .more-info .less:after {
-  border-color: transparent #e66346 transparent transparent; }
-
-#map-controls .map-control:not(.current) rect {
-  fill: #fff !important; }
+    padding-right: 0.9em; }
+  #map-controls .more-info .more:after,
+  #map-controls .more-info .less:after {
+    content: "\A";
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -0.333333em;
+    border-style: solid; }
+  #map-controls .more-info .more:after {
+    border-width: 0.4em 0 0.4em 0.6em;
+    border-color: transparent transparent transparent #fff; }
+  #map-controls .more-info .less:after {
+    border-width: 0.4em 0.6em 0.4em 0;
+    border-color: transparent #fff transparent transparent; }
+  #map-controls .current.map-control .more-info .more:after {
+    border-color: transparent transparent transparent #e66346; }
+  #map-controls .current.map-control .more-info .less:after {
+    border-color: transparent #e66346 transparent transparent; }
+  #map-controls .map-control:not(.current) rect {
+    fill: #fff !important; }
 
 .main-container {
   position: absolute;

@@ -1,7 +1,7 @@
 {
     "url_name": "philadelphia",
-    "cartoDbUser": "cityenergyproject",
     "name": "Philadelphia",
+
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
         39.952584,
@@ -9,26 +9,29 @@
     ],
     "zoom": 11,
 
-    "building_info_fields": {
-        "property_id": "portfolio_manager_id",
-        "name": "property_name",
-        "address": "address",
-        "postal_code": "postal_code",
-        "building_type": "primary_property_type___epa_calculated"
-    },
+    "cartoDbUser": "cityenergyproject",
+    "property_name": "property_name",
+    "building_type": "primary_property_type___epa_calculated",
+    "popup_fields": [
+        {"field": "property_name", "label": ""},
+        {"field": "primary_property_type___epa_calculated", "label": ""},
+        {"field": "portfolio_manager_id", "label": "Property ID: "},
+        {"field": "address", "label": ""},
+        {"field": "postal_code", "label": ""}
+    ],
     "map_layers": [
         {
             "title": "Building Type",
             "field_name": "primary_property_type___epa_calculated",
             "display_type": "category",
-            "category": "Building Info",
+            "section": "Building Info",
             "categories_to_display": 9
         },
         {
             "title": "Year Built",
             "field_name": "year_built",
             "display_type": "range",
-            "category": "Building Info",
+            "section": "Building Info",
             "range_slice_count": 10,
             "filter_range": {"min" : 1880},
             "color_range": ["#A0DCD5","#747EB9"]
@@ -37,7 +40,7 @@
             "title": "Square Feet",
             "field_name": "property_floor_area_buildings_and_parking_ft",
             "display_type": "range",
-            "category": "Building Info",
+            "section": "Building Info",
             "range_slice_count": 30,
             "filter_range": {"max" : 1500000},
             "color_range": ["#A0DCD5","#747EB9"]
@@ -46,7 +49,7 @@
             "title": "Energy Star Score",
             "field_name": "energy_star_score",
             "display_type": "range",
-            "category": "Building Info",
+            "section": "Building Info",
             "range_slice_count": 10,
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
         },
@@ -54,7 +57,7 @@
             "title": "Energy Use per Sq Ft",
             "field_name": "site_eui_kbtu_ft",
             "display_type": "range",
-            "category": "Energy Use",
+            "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 400},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -63,7 +66,7 @@
             "title": "Electricity Use",
             "field_name": "electricity_use___grid_purchase_and_generated_from_onsite_renew",
             "display_type": "range",
-            "category": "Energy Use",
+            "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 100000000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -72,7 +75,7 @@
             "title": "Steam Energy",
             "field_name": "district_steam_use_kbtu",
             "display_type": "range",
-            "category": "Energy Use",
+            "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 100000000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -81,7 +84,7 @@
             "title": "Fuel Oil",
             "field_name": "fuel_oil__2_use_kbtu",
             "display_type": "range",
-            "category": "Energy Use",
+            "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 12000000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -90,7 +93,7 @@
             "title": "Gas Use",
             "field_name": "natural_gas_use_kbtu",
             "display_type": "range",
-            "category": "Energy Use",
+            "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 60000000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -99,7 +102,7 @@
             "title": "Total GHG Emissions (Metric Tons CO2e)",
             "field_name": "total_ghg_emissions_mtco2e",
             "display_type": "range",
-            "category": "Climate Emissions",
+            "section": "Climate Emissions",
             "range_slice_count": 30,
             "filter_range": {"max" : 20000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
@@ -108,7 +111,7 @@
             "title": "Water Use",
             "field_name": "water_use_all_water_sources_kgal",
             "display_type": "range",
-            "category": "Water",
+            "section": "Water",
             "range_slice_count": 30,
             "filter_range": {"max" : 50000},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]

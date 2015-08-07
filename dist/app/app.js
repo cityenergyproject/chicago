@@ -5,7 +5,7 @@ define([
   'router'
 ], function($, _, Backbone, Router){
   var initialize = function(){
-    var AppRouter = new Router();
+    new Router();
     Backbone.history.start();
   };
 

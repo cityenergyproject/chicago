@@ -1,0 +1,13 @@
+<div class="control-head">
+  <h3 class='show-layer'><%= title %></h3>
+  <% if (description) { %>
+    <span class='more-info'><span class='more'>More Info</span><span class='less'>Less Info</span></span>
+  <% } %>
+</div>
+
+<div class="chart"></div>
+<div class='filter-wrapper'></div>
+
+<% if (description) { %>
+  <p class='description'><%= description %></p>
+<% } %>
