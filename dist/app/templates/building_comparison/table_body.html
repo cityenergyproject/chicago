@@ -1,0 +1,18 @@
+<tbody>
+<% _.each(buildings, function(building){ %>
+  <tr>
+    <td class='building_info'>
+      <% _.each(building.fields, function(value){ %>
+        <div><%= value %></div>
+      <% }) %>
+    </td>
+    <% _.each(building.metrics, function(value, field){ %>
+      <td class="<%= field %>">
+        <div class="metric-container">
+          <span><%= value || "N/A" %></span>
+        </div>
+      </td>
+    <% }) %>
+  </tr>
+<% }) %>
+</tbody>
