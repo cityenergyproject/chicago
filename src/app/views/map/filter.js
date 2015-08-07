@@ -22,10 +22,21 @@ define([
       this.listenTo(this.state, 'change:url_name', this.onDataSourceChange);
       this.listenTo(this.state, 'change:year', this.onDataSourceChange);
       this.listenTo(this.state, 'change:layer', this.onLayerChange);
+      this.listenTo(this.state, 'change:filters', this.render);
     },
 
     onDataSourceChange: function(){
       this.$container.empty();
+      if(this.histogram) {
+        this.histogram = null;
+      }
+      if (this.$filter) {
+        this.$filter.destroy();
+      }
+      if (this.$slider) {
+        this.$slider.remove();
+      }
+      this.render();
     },
 
     onLayerChange: function(){
@@ -52,13 +63,15 @@ define([
           extent = bucketCalculator.toExtent(),
           gradientCalculator = new BuildingColorBucketCalculator(buildings, fieldName, rangeSliceCount, colorStops),
           buckets = bucketCalculator.toBuckets(),
-          gradient = gradientCalculator.toGradientStops(),
+          gradientStops = gradientCalculator.toGradientStops(),
           histogram, $filter,
           filterTemplate = _.template(FilterTemplate),
           stateFilters = this.state.get('filters'),
-          filterState = _.findWhere(stateFilters, {field: fieldName}) || {min: extent[0], max: extent[1]};
+          filterState = _.findWhere(stateFilters, {field: fieldName}) || {min: extent[0], max: extent[1]},
+          filterRangeMin = (filterRange || {}).min,
+          filterRangeMax = (filterRange || {}).max;
 
-      var filterData = _.map(gradient, function(stop, bucketIndex){
+      var bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
         return {
           color: stop,
           count: buckets[bucketIndex] || 0
@@ -67,41 +80,48 @@ define([
 
       if ($el.length == 0) {
         this.$el.html(template(_.defaults(this.layer, {description: null})));
+        this.$el.find('.filter-wrapper').html(filterTemplate({id: fieldName}));
         this.$el.attr("id", this.layer.field_name);
       } else {
         this.$el = $el;
       }
-      new HistogramView({
-        distribution_data: filterData,
-        $container: chartContainer,
-        slices: rangeSliceCount
-      }).render();
 
-      $filter = this.$el.find('.filter-wrapper').html(filterTemplate({id: fieldName}));
-      $filter.ionRangeSlider({
-        type: 'double',
+      if (!this.$filter) {
+        this.$slider = this.$el.find('.filter-wrapper').ionRangeSlider({
+          type: 'double',
+          hide_from_to: false,
+          force_edges: true,
+          grid: false,
+          hide_min_max: true,
+          prettify_enabled: true,
+          prettify: this.onPrettifyHandler(filterRangeMin, filterRangeMax),
+          onFinish: _.bind(this.onFilterFinish, this),
+        });
+        this.$filter = this.$slider.data("ionRangeSlider");
+      }
+
+      this.$filter.update({
         min: extent[0],
         max: extent[1],
         from: filterState.min,
         to: filterState.max,
-        hide_from_to: false,
-        force_edges: true,
-        grid: false,
-        hide_min_max: true,
-        from_min: (this.layer.filter_range || {}).min,
-        to_max: (this.layer.filter_range || {}).max,
-        prettify_enabled: true,
-        prettify: this.onPrettifyHandler((this.layer.filter_range || {}).min, (this.layer.filter_range || {}).max),
-        onFinish: _.bind(this.onFilterFinish, this)
+        from_min: filterRangeMin,
+        to_max: filterRangeMax
       });
 
+      if (!this.histogram) {
+        this.histogram = new HistogramView({gradients: bucketGradients, $container: chartContainer, slices: rangeSliceCount});
+      }
+
+      this.histogram.render();
+
       $el.toggleClass('current', isCurrent);
-      $section.toggleClass('expand', $section.find('.current').length > 0);
-      $section.toggleClass('current', $section.find('.current').length > 0);
+      if(isCurrent || $section.find('.current').length > 0) { $section.addClass('expand'); }
+      $section.toggleClass('current', isCurrent || $section.find('.current').length > 0);
       this.$el.appendTo($section);
+
       return this;
     },
-
     onFilterFinish: function(rangeSlider) {
       var filters = this.state.get('filters'),
           fieldName = this.layer.field_name;
@@ -117,8 +137,8 @@ define([
     onPrettifyHandler: function(min, max) {
       return function(num) {
         switch(num) {
-          case min: return num + "+";
-          case max: return num + "-";
+          case min: return num;
+          case max: return num + "+";
           default: return num;
         }
       };

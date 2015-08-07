@@ -19,10 +19,17 @@ define([
     });
   };
 
+  CityBuildingQuery.prototype.toWrappedValue = function(value) {
+    return "'" + value + "'";
+  };
+
   CityBuildingQuery.prototype.toCategorySql = function() {
+    var self = this;
     return _.map(this.categories, function(category){
-      var operation = category.other ? "NOT IN" : "IN";
-      return category.field + " " + operation + " (" + category.values.join(', ') + ")";
+      var operation = (category.other === 'false' || category.other === false) ? "IN" : "NOT IN",
+          values = _.map(category.values, self.toWrappedValue);
+      if (values.length === 0) return "";
+      return category.field + " " + operation + " (" + values.join(', ') + ")";
     });
   };
 

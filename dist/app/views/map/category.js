@@ -17,15 +17,30 @@ define([
     },
 
     render: function(){
-      var counts = this.allBuildings.countBy(this.layer.field_name);
-      var template = _.template(MapCategoryControlTemplate);
+      var fieldName = this.layer.field_name
+          counts = this.allBuildings.countBy(fieldName),
+          fieldKeys = _.keys(counts),
+          defaultCategoryState = {field: fieldName, values: [fieldKeys], other: true},
+          categoryState = _.findWhere(this.state.get('categories'), {field: fieldName}) || defaultCategoryState,
+          template = _.template(MapCategoryControlTemplate);
 
-      if (_.keys(counts)[0] == "undefined") { return this; }
+      if (fieldKeys[0] == "undefined") { return this; }
+
+      var categories = _.map(counts, function(count, name){
+        var stateHasValue = _.contains(categoryState.values, name),
+            stateIsInverted = (categoryState.other === true || categoryState.other === 'true'),
+            checked = stateIsInverted ? !stateHasValue : stateHasValue;
+        return {
+          checked: checked ? 'checked="checked"' : '',
+          count: count,
+          name: name
+        }
+      });
 
       var compiled = template({
         id: this.layer.field_name,
         title: this.layer.title,
-        categories: counts
+        categories: categories
       });
 
       this.$el = $(compiled).appendTo(this.$container);
@@ -39,13 +54,20 @@ define([
     },
 
     toggleCategory: function(){
-      var unchecked = this.$el.find("input:not(:checked)").map(function(){return $(this).val();});
-      var checked = this.$el.find("input:checked").map(function(){return $(this).val();});
-      if (_.contains(checked, "Other")){
-        this.state.set(this.layer.field_name, {values: unchecked.toArray(), other: true});
-      } else {
-        this.state.set(this.layer.field_name, {values: checked.toArray(), other: false});
+      var categories = this.state.get('categories'),
+          fieldName = this.layer.field_name,
+          unchecked = this.$el.find(".categories input:not(:checked)").map(function(){return $(this).val();}),
+          checked = this.$el.find(".categories input:checked").map(function(){return $(this).val();});
+
+      categories = _.reject(categories, function(f){ return f.field == fieldName; })
+
+      if (unchecked.length < checked.length){
+        categories.push({field: fieldName, values: unchecked.toArray(), other: true});
+      } else if (checked.length > 0) {
+        categories.push({field: fieldName, values: checked.toArray(), other: false});
       }
+
+      this.state.set({categories: categories});
     }
   });
 

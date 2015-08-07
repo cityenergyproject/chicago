@@ -1,18 +1,18 @@
 <div class='map-category-control'>
-  <input type="checkbox" <%= typeof(checked) !== 'undefined' && checked ? 'checked="checked"' : ''%> id="category-<%= id %>" />
+  <input type="checkbox" id="category-<%= id %>" />
   <label class="category-list-toggle" for="category-<%= id %>"><%= title %></label>
   <div class='categories'>
     <ul>
-    <% _.each(categories, function(count, name){ %>
+    <% _.each(categories, function(category){ %>
       <li>
         <input type="checkbox"
-          id="filter-<%=id%>-<%=name.toString().toLowerCase().replace(/\s/g, "-")%>"
-          name="filter-<%=id%>%>"
-          value="<%= name %>"
-          checked="checked"
+          id="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>"
+          name="filter-<%=id%>"
+          value="<%= category.name %>"
+          <%= category.checked %>
         />
-        <label for="filter-<%=id%>-<%=name.toString().toLowerCase().replace(/\s/g, "-")%>">
-          <div class="content"><div class="check"></div><%= name %></div>
+        <label for="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>">
+          <div class="content"><div class="check"></div><%= category.name %></div>
         </label>
       </li>
     <% }) %>

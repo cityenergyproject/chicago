@@ -102,7 +102,8 @@ define([
           newState = new StateBuilder(results, year, layer).toState(),
           defaultMapState = {lat: city.get('center')[0], lng: city.get('center')[1], zoom: city.get('zoom')},
           mapState = this.state.pick('lat', 'lng', 'zoom');
-      this.state.set(_.extend({city: city}, newState, mapState, this.state.pick));
+      _.defaults(mapState, defaultMapState);
+      this.state.set(_.extend({city: city}, newState, mapState));
     },
 
     root: function () {
@@ -114,7 +115,7 @@ define([
     },
 
     year: function(cityname, year, params){
-      if (params) { params = deparam(params); }
+      params = params ? deparam(params) : {};
       this.state.set(_.extend({}, params, {url_name: cityname, year: year}));
     }
   });

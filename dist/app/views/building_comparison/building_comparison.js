@@ -39,14 +39,19 @@ define([
       this.listenTo(this.state, 'change:city', this.onDataSourceChange);
       this.listenTo(this.state, 'change:layer', this.onLayerChange);
       this.listenTo(this.state, 'change:metrics', this.onMetricsChange);
-      this.listenTo(this.state, 'change:filters', this.onMetricsChange);
       this.listenTo(this.state, 'change:sort', this.onSort);
       this.listenTo(this.state, 'change:order', this.onSort);
     },
 
     onDataSourceChange: function(){
       _.extend(this.buildings, this.state.pick('tableName', 'cartoDbUser'));
-      this.buildings.fetch();
+      this.listenTo(this.state, 'change:filters', this.onSearchChange);
+      this.listenTo(this.state, 'change:categories', this.onSearchChange);
+      this.buildings.fetch(this.state.get('categories'), this.state.get('filters'));
+    },
+
+    onSearchChange: function(){
+      this.buildings.fetch(this.state.get('categories'), this.state.get('filters'));
     },
 
     onLayerChange: function() {
