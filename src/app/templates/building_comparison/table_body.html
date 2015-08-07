@@ -1,6 +1,6 @@
 <tbody>
 <% _.each(buildings, function(building){ %>
-  <tr>
+  <tr id='<%= building.id %>' class="<%= building.id == currentBuilding ? 'current' : '' %>">
     <td class='building_info'>
       <% _.each(building.fields, function(value){ %>
         <div><%= value %></div>

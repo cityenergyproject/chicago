@@ -13,7 +13,7 @@ define([
   'views/building_comparison/building_comparison',
 ], function($, deparam, _, Backbone, CityModel, CityBuildings, HeaderView, MapView, AddressSearchView, YearControlView, BuildingComparisonView) {
   var RouterState = Backbone.Model.extend({
-    queryFields: ['filters', 'categories', 'layer', 'metrics', 'sort', 'order', 'lat', 'lng', 'zoom'],
+    queryFields: ['filters', 'categories', 'layer', 'metrics', 'sort', 'order', 'lat', 'lng', 'zoom', 'building'],
     defaults: {
       metrics: [],
       categories: {},

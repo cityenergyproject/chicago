@@ -7,7 +7,8 @@ define([
   'text!/app/templates/building_comparison/table_body.html'
 ], function($, _, Backbone, BuildingComparator, TableHeadTemplate,TableBodyRowsTemplate){
 
-  var ReportTranslator = function(buildingFields, metricFields, buildings) {
+  var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings) {
+    this.buildingId = buildingId;
     this.buildingFields = buildingFields;
     this.metricFields = metricFields;
     this.buildings = buildings;
@@ -15,6 +16,7 @@ define([
 
   ReportTranslator.prototype.toBuildingRow = function(building) {
     var result = {
+      id: building.get(this.buildingId),
       fields: _.values(building.pick(this.buildingFields)),
       metrics: building.pick(this.metricFields)
     };
@@ -41,6 +43,7 @@ define([
       this.listenTo(this.state, 'change:metrics', this.onMetricsChange);
       this.listenTo(this.state, 'change:sort', this.onSort);
       this.listenTo(this.state, 'change:order', this.onSort);
+      this.listenTo(this.state, 'change:building', this.render);
     },
 
     onDataSourceChange: function(){
@@ -101,11 +104,14 @@ define([
       var buildings = this.buildings,
           $body = this.$el.find('tbody'),
           buildingFields = _.values(this.state.get('city').pick('property_name', 'building_type')),
+          buildingId = this.state.get('city').get('property_id'),
+          currentBuilding = this.state.get('building'),
           metricFields = this.state.get('metrics'),
           template = _.template(TableBodyRowsTemplate),
-          report = new ReportTranslator(buildingFields, metricFields, buildings);
+          report = new ReportTranslator(buildingId, buildingFields, metricFields, buildings);
 
       $body.replaceWith(template({
+        currentBuilding: currentBuilding,
         buildings: report.toBuildingReport()
       }));
     },
@@ -113,11 +119,19 @@ define([
     events: {
       'click .remove' : 'removeMetric',
       'click label' : 'onSortClick',
-      'change input' : 'changeActiveMetric'
+      'change input' : 'changeActiveMetric',
+      'click tbody tr': 'onRowClick'
     },
 
     onMetricsChange: function(){
       this.render();
+    },
+
+    onRowClick: function(){
+      var $target = $(event.target),
+          $row = $target.closest('tr'),
+          buildingId = $row.attr('id');
+      this.state.set({building: buildingId});
     },
 
     removeMetric: function(event){

@@ -10,6 +10,7 @@
     "zoom": 11,
 
     "cartoDbUser": "cityenergyproject",
+    "property_id": "portfolio_manager_id",
     "property_name": "property_name",
     "building_type": "primary_property_type___epa_calculated",
     "popup_fields": [

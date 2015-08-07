@@ -111,6 +111,10 @@
     text-transform: uppercase;
   }
 
+  tbody tr {
+    cursor: pointer;
+  }
+
   label {
     background: #fff;
     border-radius: 1em;
@@ -128,5 +132,9 @@
     font-weight: bold;
     text-align: center;
     color: $medium-gray;
+  }
+
+  .current .metric-container {
+    color: $base-font-color;
   }
 }

@@ -10,6 +10,7 @@
     "zoom": 11,
 
     "cartoDbUser": "cityenergyproject",
+    "property_id": "property_id",
     "property_name": "property_name",
     "building_type": "primary_property_type_self_selected",
     "popup_fields": [

@@ -891,6 +891,9 @@ header {
 .building-report th, .building-report label {
   text-transform: uppercase; }
 
+.building-report tbody tr {
+  cursor: pointer; }
+
 .building-report label {
   background: #fff;
   border-radius: 1em;
@@ -905,6 +908,9 @@ header {
   font-weight: bold;
   text-align: center;
   color: #d1d1d0; }
+
+.building-report .current .metric-container {
+  color: #e66346; }
 
 .year-control {
   border-bottom: 0.1em solid transparent; }
