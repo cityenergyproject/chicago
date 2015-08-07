@@ -19,24 +19,8 @@ define([
       this.layer = options.layer;
       this.allBuildings = options.allBuildings;
       this.state = options.state;
-      this.listenTo(this.state, 'change:url_name', this.onDataSourceChange);
-      this.listenTo(this.state, 'change:year', this.onDataSourceChange);
       this.listenTo(this.state, 'change:layer', this.onLayerChange);
       this.listenTo(this.state, 'change:filters', this.render);
-    },
-
-    onDataSourceChange: function(){
-      this.$container.empty();
-      if(this.histogram) {
-        this.histogram = null;
-      }
-      if (this.$filter) {
-        this.$filter.destroy();
-      }
-      if (this.$slider) {
-        this.$slider.remove();
-      }
-      this.render();
     },
 
     onLayerChange: function(){
