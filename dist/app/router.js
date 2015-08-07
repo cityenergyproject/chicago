@@ -86,10 +86,12 @@ define([
       var mapView = new MapView({state: this.state});
       var addressSearchView = new AddressSearchView({mapView: mapView, state: this.state});
       this.state.on('change', this.onChange, this);
-      this.state.on('change:year', this.onDataSourceChange, this);
-      this.state.on('change:url_name', this.onDataSourceChange, this);
     },
     onChange: function(){
+      var changed = _.keys(this.state.changed);
+      if (_.contains(changed, 'url_name') || _.contains(changed, 'year')){
+        this.onDataSourceChange();
+      }
       this.navigate(this.state.toUrl(), {trigger: false, replace: true});
     },
     onDataSourceChange: function(){
