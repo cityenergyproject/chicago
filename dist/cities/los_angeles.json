@@ -65,7 +65,7 @@
             "display_type": "range",
             "section": "Energy Efficiency",
             "range_slice_count": 18,
-            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "color_range": ["#F77156","#DAC04D","#6BB0A5"],
             "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
         },
         {
