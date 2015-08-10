@@ -60,9 +60,14 @@ define([
     onLayerChange: function() {
       var metrics = this.state.get('metrics'),
           newLayer = this.state.get('layer');
-      if (metrics.length < 5 && !_.contains(metrics, newLayer)) {
-        this.state.set({metrics: metrics.concat([newLayer])})
+      if (_.contains(metrics, newLayer)) {return this;}
+      if (metrics.length < 5) {
+        this.state.set({metrics: metrics.concat([newLayer])});
+      }else{
+        metrics[4] = newLayer;
+        this.state.set({metrics: metrics});
       }
+      return this;
     },
 
     render: function(){
