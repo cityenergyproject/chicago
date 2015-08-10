@@ -3,9 +3,10 @@ define([
   'underscore',
   'backbone',
   'models/building_comparator',
+  'models/building_color_bucket_calculator',
   'text!/app/templates/building_comparison/table_head.html',
   'text!/app/templates/building_comparison/table_body.html'
-], function($, _, Backbone, BuildingComparator, TableHeadTemplate,TableBodyRowsTemplate){
+], function($, _, Backbone, BuildingComparator, BuildingColorBucketCalculator, TableHeadTemplate,TableBodyRowsTemplate){
 
   var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings) {
     this.buildingId = buildingId;
@@ -119,6 +120,32 @@ define([
         currentBuilding: currentBuilding,
         buildings: report.toBuildingReport()
       }));
+
+      this.highlightCurrentBuildingRow();
+    },
+
+    highlightCurrentBuildingRow: function(){
+      var buildings = this.buildings,
+          buildingId = this.state.get('city').get('property_id'),
+          currentBuilding = this.state.get('building'),
+          metricFields = this.state.get('metrics'),
+          mapLayers = this.state.get('city').get('map_layers'),
+
+
+      $currentBuildingRow = $('tr.current')
+      _.each(metricFields, function(metric){
+        var layer = _.findWhere(mapLayers, {field_name: metric}),
+            $metricContainer = $currentBuildingRow.find('.' + metric + ' .metric-container')
+            value = $metricContainer.find('span').text();
+            rangeSliceCount = layer.range_slice_count,
+            colorStops = layer.color_range,
+            gradientCalculator = new BuildingColorBucketCalculator(buildings, metric, rangeSliceCount, colorStops);
+
+            $metricContainer.css('color', gradientCalculator.toColor(value))
+      });
+
+      return this;
+
     },
 
     events: {
