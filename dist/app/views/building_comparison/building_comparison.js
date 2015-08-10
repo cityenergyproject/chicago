@@ -107,11 +107,13 @@ define([
     },
 
     renderTableBody: function(){
-      var buildings = this.buildings,
-          $body = this.$el.find('tbody'),
+      var buildings = this.buildings;
+      if (!buildings.length > 0) { return; }
+
+      var $body = this.$el.find('tbody'),
           buildingFields = _.values(this.state.get('city').pick('property_name', 'building_type')),
           buildingId = this.state.get('city').get('property_id'),
-          currentBuilding = this.state.get('building'),
+          currentBuilding = this.state.get('building') || buildings.first().get(buildingId),
           metricFields = this.state.get('metrics'),
           template = _.template(TableBodyRowsTemplate),
           report = new ReportTranslator(buildingId, buildingFields, metricFields, buildings);
@@ -191,7 +193,7 @@ define([
       var sortField = $parent.find('input').val(),
           sortOrder = this.state.get('order');
       sortOrder = (sortOrder == 'asc') ? 'desc' : 'asc';
-      this.state.set({sort: sortField, order: sortOrder});
+      this.state.set({sort: sortField, order: sortOrder, building: null});
     },
 
     onSort: function() {
