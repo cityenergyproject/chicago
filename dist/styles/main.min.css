@@ -625,7 +625,9 @@ header {
     z-index: 99;
     top: 3em;
     left: 0;
-    right: 0; }
+    right: 0;
+    height: 19.125em;
+    overflow-y: scroll; }
   .map-category-control ul {
     padding: 0.5em 0; }
   .map-category-control li {
