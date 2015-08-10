@@ -184,7 +184,7 @@ define([
     changeActiveMetric: function(event) {
       var $target = $(event.target),
           fieldName = $target.val();
-      this.state.set({layer: fieldName, sort: fieldName});
+      this.state.set({layer: fieldName, sort: fieldName, building: null});
     },
 
     onSortClick: function() {
