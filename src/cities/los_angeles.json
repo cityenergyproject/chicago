@@ -15,10 +15,14 @@
     "building_type": "primary_property_type_self_selected",
     "popup_fields": [
         {"field": "property_name", "label": ""},
-        {"field": "primary_property_type_self_selected", "label": ""},
-        {"field": "property_id", "label": "Property ID: "},
-        {"field": "councildistrict2012", "label": "Council District: "},
-        {"field": "address_1", "label": ""}
+        {"field": "address_1", "label": ""},
+        {"field": "primary_property_type_self_selected", "label": "Building Type: "},
+        {"field": "year_built", "label": "Year Built: "},
+        {"field": "property_floor_area_buildings_and_parking_ft", "label": "Square Feet: "},
+        {"field": "energy_star_score", "label": "Energy Star Score: "},
+        {"field": "weather_normalized_site_eui_kbtu_ft", "label":"Site Energy Use: "},
+        {"field": "weather_normalized_source_eui_kbtu_ft", "label":"Source Energy Use: "},
+        {"field": "total_ghg_emissions_intensity_kgco2e_ft", "label":"GHG Emissions: "}
     ],
     "map_layers": [
         {
