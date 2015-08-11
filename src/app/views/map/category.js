@@ -37,6 +37,14 @@ define([
         }
       });
 
+      categories = _.sortBy(categories, function(category){
+        if (_.isNaN(parseFloat(category.name))){
+          return category.name;
+        }else{
+          return parseFloat(category.name);
+        }
+      })
+
       var compiled = template({
         id: this.layer.field_name,
         title: this.layer.title,

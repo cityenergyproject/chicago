@@ -134,7 +134,8 @@
     color: $medium-gray;
   }
 
-  .current .metric-container {
-    color: $base-font-color;
+  rect {
+    fill-opacity: 0.4;
   }
+
 }

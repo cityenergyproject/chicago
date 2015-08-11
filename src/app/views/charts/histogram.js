@@ -8,7 +8,7 @@ define([
     className: "histogram",
 
     initialize: function(options){
-      this.aspectRatio = 7/1;
+      this.aspectRatio = options.aspectRatio || 7/1;
       this.height = 100;
       this.width = this.height * this.aspectRatio;
       this.gradients = options.gradients;

@@ -29,8 +29,9 @@ define([
   BuildingBucketCalculator.prototype.toBuckets = function() {
     var self = this;
     return this.buildings.reduce(function(memo, building){
-      var value = building.get(self.fieldName),
-          scaled = self.toBucket(value);
+      var value = building.get(self.fieldName);
+      if (!value) {return memo;}
+      var scaled = self.toBucket(value);
       memo[scaled] = memo[scaled] + 1 || 1;
       return memo;
     }, {});

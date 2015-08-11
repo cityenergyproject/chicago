@@ -59,12 +59,15 @@ define([
   }
 
   StateBuilder.prototype.toState = function() {
-    var year = this.toYear();
+    var year = this.toYear(),
+        layer = this.toLayer(year);
     return {
       year: year,
       cartoDbUser: this.city.cartoDbUser,
       tableName: this.city.years[year].table_name,
-      layer: this.toLayer(year),
+      layer: layer,
+      sort: layer,
+      order: 'desc'
     }
   };
 
