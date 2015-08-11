@@ -563,7 +563,13 @@ header {
       width: 22.5em; } }
 
 #buildings .building-report-header-container {
-  height: 4em; }
+  height: 3em; }
+  @media screen and (min-width: 43.75em) {
+    #buildings .building-report-header-container {
+      height: 4em; } }
+  @media screen and (min-width: 56.25em) {
+    #buildings .building-report-header-container {
+      height: 3em; } }
 
 #buildings .building-report-header-container.fixed table {
   position: fixed;
@@ -748,7 +754,8 @@ header {
   display: block; }
 
 #map-controls .histogram {
-  padding: 0 1em; }
+  padding: 0 1em;
+  height: 2.9375em; }
 
 #map-controls {
   background-color: #f2f2f2; }
@@ -920,7 +927,10 @@ header {
   text-align: center;
   color: #d1d1d0; }
 
-.building-report rect {
+.building-report .metric-container .histogram {
+  height: 1.9375em; }
+
+.building-report .metric-container .histogram rect {
   fill-opacity: 0.4; }
 
 .year-control {

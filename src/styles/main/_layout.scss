@@ -110,7 +110,13 @@ header {
 
 #buildings {
   .building-report-header-container {
-    height: 4em;
+    height: 3em;
+    @include media($medium-screen-up) {
+      height: 4em;
+    }
+    @include media($large-screen-up) {
+      height: 3em;
+    }
   }
 
   .building-report-header-container.fixed table {
