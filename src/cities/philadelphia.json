@@ -52,7 +52,7 @@
             "display_type": "range",
             "section": "Building Info",
             "range_slice_count": 10,
-            "color_range": ["#F77156","#DAC04D","#6BB0A5"],
+            "color_range": ["#F77156","#DAC04D","#6BB0A5"]
         },
         {
             "title": "Energy Use per Sq Ft",
