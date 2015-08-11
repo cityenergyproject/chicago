@@ -4,9 +4,11 @@ define([
   'backbone',
   'models/building_comparator',
   'models/building_color_bucket_calculator',
+  'models/building_bucket_calculator',
+  'views/charts/histogram',
   'text!/app/templates/building_comparison/table_head.html',
   'text!/app/templates/building_comparison/table_body.html'
-], function($, _, Backbone, BuildingComparator, BuildingColorBucketCalculator, TableHeadTemplate,TableBodyRowsTemplate){
+], function($, _, Backbone, BuildingComparator, BuildingColorBucketCalculator, BuildingBucketCalculator, HistogramView, TableHeadTemplate,TableBodyRowsTemplate){
 
   var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings) {
     this.buildingId = buildingId;
@@ -37,6 +39,7 @@ define([
       this.state = options.state;
       this.$el.html('<table class="building-report"><thead></thead><tbody></tbody></table>');
       this.buildings = this.state.asBuildings();
+      this.allBuildings = this.state.asBuildings();
       this.listenTo(this.buildings, 'sync', this.render, this);
       this.listenTo(this.buildings, 'sort', this.render, this);
       this.listenTo(this.state, 'change:city', this.onDataSourceChange);
@@ -48,6 +51,9 @@ define([
     },
 
     onDataSourceChange: function(){
+      _.extend(this.allBuildings, this.state.pick('tableName', 'cartoDbUser'));
+      this.allBuildings.fetch();
+
       _.extend(this.buildings, this.state.pick('tableName', 'cartoDbUser'));
       this.listenTo(this.state, 'change:filters', this.onSearchChange);
       this.listenTo(this.state, 'change:categories', this.onSearchChange);
@@ -127,7 +133,7 @@ define([
     },
 
     highlightCurrentBuildingRow: function(){
-      var buildings = this.buildings,
+      var buildings = this.allBuildings,
           buildingId = this.state.get('city').get('property_id'),
           currentBuilding = this.state.get('building'),
           metricFields = this.state.get('metrics'),
@@ -143,7 +149,25 @@ define([
             colorStops = layer.color_range,
             gradientCalculator = new BuildingColorBucketCalculator(buildings, metric, rangeSliceCount, colorStops);
 
-            $metricContainer.css('color', gradientCalculator.toColor(value))
+            $metricContainer.css('color', gradientCalculator.toColor(value));
+
+            if (!$metricContainer.find('.histogram').length > 0) {
+              var gradientStops = gradientCalculator.toGradientStops(),
+                  filterRange = layer.filter_range,
+                  bucketCalculator = new BuildingBucketCalculator(buildings, metric, rangeSliceCount, filterRange),
+                  buckets = bucketCalculator.toBuckets(),
+                  bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
+                    return {
+                      color: stop,
+                      count: buckets[bucketIndex] || 0
+                    };
+                  });
+                var histogram = new HistogramView({gradients: bucketGradients, slices: rangeSliceCount, aspectRatio: 4/1}).render();
+                if (value != "N/A"){
+                  $(histogram).find('rect:nth-child(' + (bucketCalculator.toBucket(value)+1) + ')').css('fill-opacity', 1.0);
+                }
+                $metricContainer.prepend(histogram)
+            }
       });
 
       return this;

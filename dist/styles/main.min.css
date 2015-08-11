@@ -911,6 +911,9 @@ header {
   text-align: center;
   color: #d1d1d0; }
 
+.building-report rect {
+  fill-opacity: 0.4; }
+
 .year-control {
   border-bottom: 0.1em solid transparent; }
   .year-control li {
