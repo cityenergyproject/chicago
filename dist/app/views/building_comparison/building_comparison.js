@@ -147,27 +147,27 @@ define([
             value = $metricContainer.find('span').text();
             rangeSliceCount = layer.range_slice_count,
             colorStops = layer.color_range,
-            gradientCalculator = new BuildingColorBucketCalculator(buildings, metric, rangeSliceCount, colorStops);
+            gradientCalculator = new BuildingColorBucketCalculator(buildings, metric, rangeSliceCount, colorStops),
+            gradientStops = gradientCalculator.toGradientStops(),
+            filterRange = layer.filter_range,
+            bucketCalculator = new BuildingBucketCalculator(buildings, metric, rangeSliceCount, filterRange),
+            buckets = bucketCalculator.toBuckets(),
+            bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
+              return {
+                color: stop,
+                count: buckets[bucketIndex] || 0
+              };
+            });
 
-            $metricContainer.css('color', gradientCalculator.toColor(value));
+            var color = gradientCalculator.toColor(value);
+            $metricContainer.css('color', color);
 
-            if (!$metricContainer.find('.histogram').length > 0) {
-              var gradientStops = gradientCalculator.toGradientStops(),
-                  filterRange = layer.filter_range,
-                  bucketCalculator = new BuildingBucketCalculator(buildings, metric, rangeSliceCount, filterRange),
-                  buckets = bucketCalculator.toBuckets(),
-                  bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
-                    return {
-                      color: stop,
-                      count: buckets[bucketIndex] || 0
-                    };
-                  });
-                var histogram = new HistogramView({gradients: bucketGradients, slices: rangeSliceCount, aspectRatio: 4/1}).render();
-                if (value != "N/A"){
-                  $(histogram).find('rect:nth-child(' + (bucketCalculator.toBucket(value)+1) + ')').css('fill-opacity', 1.0);
-                }
-                $metricContainer.prepend(histogram)
+            var histogram = new HistogramView({gradients: bucketGradients, slices: rangeSliceCount, aspectRatio: 4/1}).render();
+            if (value != "N/A"){
+              $(histogram).find('rect:nth-child(' + (_.findIndex(bucketGradients, {color: color})+1) + ')').css('fill-opacity', 1.0);
             }
+
+            $metricContainer.prepend(histogram)
       });
 
       return this;
