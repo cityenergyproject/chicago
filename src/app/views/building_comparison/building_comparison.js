@@ -37,7 +37,7 @@ define([
 
     initialize: function(options){
       this.state = options.state;
-      this.$el.html('<table class="building-report"><thead></thead><tbody></tbody></table>');
+      this.$el.html('<div class="building-report-header-container"><table class="building-report"><thead></thead></table></div><table class="building-report"><tbody></tbody></table>');
       this.buildings = this.state.asBuildings();
       this.allBuildings = this.state.asBuildings();
       this.listenTo(this.buildings, 'sync', this.render, this);
@@ -48,6 +48,7 @@ define([
       this.listenTo(this.state, 'change:sort', this.onSort);
       this.listenTo(this.state, 'change:order', this.onSort);
       this.listenTo(this.state, 'change:building', this.render);
+      $(window).scroll(_.bind(this.onScroll, this));
     },
 
     onDataSourceChange: function(){
@@ -62,6 +63,15 @@ define([
 
     onSearchChange: function(){
       this.buildings.fetch(this.state.get('categories'), this.state.get('filters'));
+    },
+
+    onScroll: function() {
+      var $container = this.$el.find('.building-report-header-container'),
+          topOfScreen = $(window).scrollTop()
+          topOfTable  = $container.offset().top,
+          scrolledPastTableHead = topOfScreen > topOfTable;
+
+      $container.toggleClass('fixed', scrolledPastTableHead);
     },
 
     onLayerChange: function() {

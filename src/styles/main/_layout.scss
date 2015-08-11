@@ -109,6 +109,17 @@ header {
 }
 
 #buildings {
+  .building-report-header-container {
+    height: 4em;
+  }
+
+  .building-report-header-container.fixed table {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+
   h2 {
     font-size: 1.1em;
 
@@ -117,7 +128,7 @@ header {
     }
   }
 
-  th:first-child {
+  th:first-child, td:first-child {
     width: $nav-col-fixed-width / 2;
 
     @include media($medium-screen-up) {
