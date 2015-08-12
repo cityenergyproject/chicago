@@ -113,15 +113,17 @@ header {
 }
 
 #map-controls {
+  position: absolute;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  float: left;
-  width: $nav-col-fixed-width;
+  left: 0;
 
   .irs {
     height: 21px;
   }
+
+  width: $nav-col-fixed-width;
 
   @include media($large-screen-up) {
     width: $large-nav-col-fixed-width;
@@ -129,9 +131,15 @@ header {
 }
 
 #map-wrapper{
-  width: auto;
+  position: absolute;
   height: 100%;
+  right: 0;
   overflow: hidden;
+  left: $nav-col-fixed-width;
+
+  @include media($large-screen-up) {
+    left: $large-nav-col-fixed-width;
+  }
 }
 
 #map {
@@ -140,6 +148,9 @@ header {
 }
 
 #buildings {
+  position: absolute;
+  top: 100%;
+
   .building-report-header-container {
     height: $building-comparison-header-height;
 

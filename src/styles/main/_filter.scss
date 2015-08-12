@@ -23,9 +23,6 @@
   .map-control {
     padding: 1em;
     padding-left: 2em;
-    display: none;
-    @include linear-gradient(to right, #dedede, #d0d0d0);
-    color: #fff;
   }
 
   .map-control + .map-control {
@@ -70,7 +67,11 @@
     display: block;
   }
 
-  input:checked + label + .category-control-container .map-control {
+  .category-control-container {
+    display: none;
+  }
+
+  input:checked + label + .category-control-container {
     display: block;
   }
 
@@ -90,7 +91,6 @@
   .current.category {
     box-shadow: inset 1em -1px $base-font-color;
   }
-
 
   h2, .map-control {
     @extend %disable-user-select;
@@ -123,6 +123,12 @@
 
   .category {
     cursor: pointer;
+  }
+
+  .category-control-container {
+    @include linear-gradient(to right, #dedede, #d0d0d0);
+    background-color: #d0d0d0;
+    color: #fff;
   }
 
   .current.map-control {

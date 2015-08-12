@@ -99,7 +99,7 @@ define([
       this.$el.find('.chart').html(this.histogram.render())
 
       this.$el.toggleClass('current', isCurrent);
-      if(isCurrent || $section.find('.current').length > 0) { $section.addClass('expand'); }
+      if(isCurrent || $section.find('.current').length > 0) { $section.find('input').prop('checked', true); }
       $section.toggleClass('current', isCurrent || $section.find('.current').length > 0);
       $section.find('.category-control-container').append(this.$el);
 
@@ -140,12 +140,6 @@ define([
     toggleMoreInfo: function(){
       this.$el.toggleClass('show-more-info');
       return this;
-    },
-
-    onSectionHeaderClick: function(event) {
-      var $target = $(event.target),
-          $parent = $target.closest('.category');
-      $parent.toggleClass('expand');
     },
 
     $section: function(){

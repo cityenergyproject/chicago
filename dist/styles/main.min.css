@@ -570,10 +570,11 @@ header {
   top: 0.5em; }
 
 #map-controls {
+  position: absolute;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  float: left;
+  left: 0;
   width: 18.75em; }
   #map-controls .irs {
     height: 21px; }
@@ -582,43 +583,48 @@ header {
       width: 22.5em; } }
 
 #map-wrapper {
-  width: auto;
+  position: absolute;
   height: 100%;
-  overflow: hidden; }
+  right: 0;
+  overflow: hidden;
+  left: 18.75em; }
+  @media screen and (min-width: 56.25em) {
+    #map-wrapper {
+      left: 22.5em; } }
 
 #map {
   height: 100%;
   width: 100%; }
 
-#buildings .building-report-header-container {
-  height: 3em; }
-  @media screen and (min-width: 43.75em) {
-    #buildings .building-report-header-container {
-      height: 4em; } }
-  @media screen and (min-width: 56.25em) {
-    #buildings .building-report-header-container {
-      height: 3em; } }
-
-#buildings .building-report-header-container.fixed table {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0; }
-
-#buildings h2 {
-  font-size: 1.1em; }
-  @media screen and (min-width: 43.75em) {
-    #buildings h2 {
-      font-size: 1.5em; } }
-
-#buildings th:first-child, #buildings td:first-child {
-  width: 9.375em; }
-  @media screen and (min-width: 43.75em) {
-    #buildings th:first-child, #buildings td:first-child {
-      width: 18.75em; } }
-  @media screen and (min-width: 56.25em) {
-    #buildings th:first-child, #buildings td:first-child {
-      width: 22.5em; } }
+#buildings {
+  position: absolute;
+  top: 100%; }
+  #buildings .building-report-header-container {
+    height: 3em; }
+    @media screen and (min-width: 43.75em) {
+      #buildings .building-report-header-container {
+        height: 4em; } }
+    @media screen and (min-width: 56.25em) {
+      #buildings .building-report-header-container {
+        height: 3em; } }
+  #buildings .building-report-header-container.fixed table {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0; }
+  #buildings h2 {
+    font-size: 1.1em; }
+    @media screen and (min-width: 43.75em) {
+      #buildings h2 {
+        font-size: 1.5em; } }
+  #buildings th:first-child, #buildings td:first-child {
+    width: 9.375em; }
+    @media screen and (min-width: 43.75em) {
+      #buildings th:first-child, #buildings td:first-child {
+        width: 18.75em; } }
+    @media screen and (min-width: 56.25em) {
+      #buildings th:first-child, #buildings td:first-child {
+        width: 22.5em; } }
 
 header h1 {
   line-height: 3em;
@@ -740,13 +746,7 @@ header {
 
 #map-controls .map-control {
   padding: 1em;
-  padding-left: 2em;
-  display: none;
-  background-color: #dedede;
-  background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
-  background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0, , , , , , , , );
-  background-image: linear-gradient(to right,#dedede, #d0d0d0, , , , , , , , );
-  color: #fff; }
+  padding-left: 2em; }
 
 #map-controls .map-control + .map-control {
   border-top: 1px solid #f2f2f2; }
@@ -782,7 +782,10 @@ header {
 #map-controls .map-control.show-more-info .description {
   display: block; }
 
-#map-controls input:checked + label + .category-control-container .map-control {
+#map-controls .category-control-container {
+  display: none; }
+
+#map-controls input:checked + label + .category-control-container {
   display: block; }
 
 #map-controls .histogram {
@@ -814,6 +817,13 @@ header {
     font-weight: bold; }
   #map-controls .category {
     cursor: pointer; }
+  #map-controls .category-control-container {
+    background-color: #dedede;
+    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
+    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0, , , , , , , , );
+    background-image: linear-gradient(to right,#dedede, #d0d0d0, , , , , , , , );
+    background-color: #d0d0d0;
+    color: #fff; }
   #map-controls .current.map-control {
     box-shadow: inset 1em 0 #e66346;
     color: #e66346; }
