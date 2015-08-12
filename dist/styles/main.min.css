@@ -721,8 +721,12 @@ header {
   cursor: pointer;
   font-weight: 300; }
 
-#map-controls .category-header {
-  position: relative; }
+#map-controls label {
+  position: relative;
+  margin-bottom: 0; }
+
+#map-controls input {
+  display: none; }
 
 #map-controls h2 {
   font-weight: 300;
@@ -778,7 +782,7 @@ header {
 #map-controls .map-control.show-more-info .description {
   display: block; }
 
-#map-controls .category.expand .map-control {
+#map-controls input:checked + label + .category-control-container .map-control {
   display: block; }
 
 #map-controls .histogram {
@@ -787,11 +791,11 @@ header {
 
 #map-controls {
   background-color: #f2f2f2; }
-  #map-controls .category, #map-controls .category.expand h2 {
+  #map-controls .category, #map-controls input:checked + label h2 {
     box-shadow: inset 0 -1px #e66346; }
   #map-controls .current.category {
     box-shadow: inset 1em -1px #e66346; }
-  #map-controls h2:after, #map-controls .category-header:after {
+  #map-controls h2:after, #map-controls label:after {
     content: "\A";
     display: block;
     position: absolute;
@@ -801,7 +805,7 @@ header {
     right: 1px;
     border: 10px solid transparent;
     border-bottom-width: 0; }
-  #map-controls .category-header:after {
+  #map-controls label:after {
     bottom: -9px;
     border-top-color: #f2f2f2; }
   #map-controls h2:after {

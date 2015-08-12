@@ -34,7 +34,8 @@ define([
     render: function(){
       var template = _.template(FilterContainer),
           fieldName = this.layer.field_name,
-          $el = $('#' + fieldName),
+          safeFieldName = fieldName.toLowerCase().replace(/\s/g, "-"),
+          $el = $('#' + safeFieldName),
           currentLayer = this.state.get('layer'),
           isCurrent = currentLayer == fieldName,
           $section = this.$section(),
@@ -61,10 +62,10 @@ define([
         };
       });
 
-      if ($el.length == 0) {
+      if ($el.length === 0) {
         this.$el.html(template(_.defaults(this.layer, {description: null})));
         this.$el.find('.filter-wrapper').html(filterTemplate({id: fieldName}));
-        this.$el.attr("id", this.layer.field_name);
+        this.$el.attr('id', safeFieldName);
       } else {
         this.$el = $el;
       }
@@ -100,7 +101,7 @@ define([
       this.$el.toggleClass('current', isCurrent);
       if(isCurrent || $section.find('.current').length > 0) { $section.addClass('expand'); }
       $section.toggleClass('current', isCurrent || $section.find('.current').length > 0);
-      this.$el.appendTo($section);
+      $section.find('.category-control-container').append(this.$el);
 
       return this;
     },
@@ -141,20 +142,21 @@ define([
       return this;
     },
 
+    onSectionHeaderClick: function(event) {
+      var $target = $(event.target),
+          $parent = $target.closest('.category');
+      $parent.toggleClass('expand');
+    },
+
     $section: function(){
       var sectionName = this.layer.section,
           safeSectionName = sectionName.toLowerCase().replace(/\s/g, "-"),
-          sectionId = "#category-" + safeSectionName,
-          $sectionEl = $(sectionId),
-          template = _.template(FilterSectionHeader);
+          $sectionEl = $("#" + safeSectionName),
+        template = _.template(FilterSectionHeader);
 
       if ($sectionEl.length > 0){ return $sectionEl; }
 
       $sectionEl = $(template({category: sectionName})).appendTo(this.$container);
-
-      $sectionEl.on('click', 'h2', function(event){
-        $(event.delegateTarget).toggleClass('expand')
-      });
 
       return $sectionEl;
     }
