@@ -23,7 +23,6 @@ define([
       var gradients = this.gradients,
           counts = _.pluck(gradients, 'count'),
           height = this.height,
-          slices = this.slices,
           yScale = d3.scale.linear()
                      .domain([0, d3.max(counts)])
                      .range([0, this.height]),

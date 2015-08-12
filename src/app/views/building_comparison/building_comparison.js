@@ -245,7 +245,7 @@ define([
       this.render();
     },
 
-    onRowClick: function(){
+    onRowClick: function(event){
       var $target = $(event.target),
           $row = $target.closest('tr'),
           buildingId = $row.attr('id');
@@ -271,10 +271,11 @@ define([
       this.state.set({layer: fieldName, sort: fieldName, building: null});
     },
 
-    onSortClick: function() {
+    onSortClick: function(event) {
       var $target = $(event.target);
       var $parent = $target.closest('th');
-      var sortField = $parent.find('input').val(),
+      var $sortInput = $parent.find('input');
+      var sortField = $sortInput.val(),
           sortOrder = this.state.get('order');
       sortOrder = (sortOrder == 'asc') ? 'desc' : 'asc';
       this.state.set({sort: sortField, order: sortOrder, building: null});
