@@ -80,7 +80,8 @@
             "range_slice_count": 18,
             "filter_range": {"max" : 300},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
-            "description": "Weather Normalized Site Energy divided by property size in square feet"
+            "description": "Weather Normalized Site Energy divided by property size in square feet",
+            "unit": "kbtu/ft&sup2;"
         },
         {
             "title": "Site Energy Use",
@@ -90,7 +91,8 @@
             "range_slice_count": 18,
             "filter_range": {"max" : 300},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
-            "description": "Weather Normalized Site Energy divided by property size in square feet"
+            "description": "Weather Normalized Site Energy divided by property size in square feet",
+            "unit": "kbtu/ft&sup2;"
         },
         {
             "title": "GHG Emissions",
@@ -100,7 +102,8 @@
             "range_slice_count": 18,
             "filter_range": {"max" : 25},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
-            "description": "Greenhouse Gas Emissions associated with onsite fuel combustion (e.g. combustion of natural gas or fuel oil) measured in kilograms divided by property square footage."
+            "description": "Greenhouse Gas Emissions associated with onsite fuel combustion (e.g. combustion of natural gas or fuel oil) measured in kilograms divided by property square footage.",
+            "unit": "kgCO&sup2;/ft&sup2;"
         }
     ],
     "years": {

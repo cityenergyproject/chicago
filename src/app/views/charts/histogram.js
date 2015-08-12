@@ -45,6 +45,10 @@ define([
 
       bars.exit().remove();
 
+      this.chart.selectAll('rect')
+                .filter(function(bucket, index) { return bucket.current === index; })
+                .classed("current", true);
+
       return this.el;
     }
   });

@@ -492,6 +492,25 @@ body {
     body {
       font-size: 16px; } }
 
+.main-container {
+  position: absolute;
+  top: 9em;
+  bottom: 7em;
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+  .main-container::after {
+    clear: both;
+    content: "";
+    display: table; }
+  @media screen and (min-width: 43.75em) {
+    .main-container {
+      bottom: 8em; } }
+  @media screen and (min-width: 56.25em) {
+    .main-container {
+      bottom: 7em; } }
+
 header {
   height: 6em; }
 
@@ -561,6 +580,15 @@ header {
   @media screen and (min-width: 56.25em) {
     #map-controls {
       width: 22.5em; } }
+
+#map-wrapper {
+  width: auto;
+  height: 100%;
+  overflow: hidden; }
+
+#map {
+  height: 100%;
+  width: 100%; }
 
 #buildings .building-report-header-container {
   height: 3em; }
@@ -816,28 +844,6 @@ header {
   #map-controls .map-control:not(.current) rect {
     fill: #fff !important; }
 
-.main-container {
-  position: absolute;
-  top: 9em;
-  bottom: 5em;
-  width: 100%;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto; }
-  .main-container::after {
-    clear: both;
-    content: "";
-    display: table; }
-
-#map-wrapper {
-  width: auto;
-  height: 100%;
-  overflow: hidden; }
-
-#map {
-  height: 100%;
-  width: 100%; }
-
 .building-report {
   margin: 0; }
   .building-report h2 {
@@ -889,9 +895,14 @@ header {
     display: block; }
   .building-report td:first-child div + div {
     margin-top: .25em; }
-  .building-report .metric-container {
-    padding: 0.5em 1.75em 0.5em 1em;
+  .building-report .metric-container,
+  .building-report .averages .subheader,
+  .building-report .average-container {
+    padding: 0 1em;
     max-width: 10em; }
+  .building-report .metric-container {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em; }
   .building-report .metric-container span {
     font-size: 1.25em; }
 
@@ -912,14 +923,40 @@ header {
 .building-report tbody tr {
   cursor: pointer; }
 
+.building-report tbody tr:first-child {
+  cursor: default; }
+
 .building-report label {
   background: #fff;
   border-radius: 1em;
   color: #e66346;
   cursor: pointer; }
 
-.building-report td:first-child div:first-child {
+.building-report .building-info div:first-child {
   font-weight: bold;
+  text-transform: uppercase; }
+
+.building-report .subheader, .building-report .average-info {
+  color: #d1d1d0;
+  text-transform: uppercase; }
+
+.building-report .averages .subheader, .building-report .averages .average-container {
+  text-align: center; }
+
+.building-report .averages .subheader span {
+  font-size: 0.9em; }
+
+.building-report .average-container {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden; }
+
+.building-report .average-container .average {
+  font-size: 1.2em;
+  font-weight: bold; }
+
+.building-report .average-container .unit {
+  font-size: 0.9em;
   text-transform: uppercase; }
 
 .building-report .metric-container {
@@ -927,10 +964,22 @@ header {
   text-align: center;
   color: #d1d1d0; }
 
+.building-report .undefined .value {
+  display: none; }
+
+.building-report .defined .no-value {
+  display: none; }
+
+.building-report .building:not(.current) .value {
+  color: #d1d1d0 !important; }
+
 .building-report .metric-container .histogram {
   height: 1.9375em; }
 
-.building-report .metric-container .histogram rect {
+.building-report .histogram rect:not(.current) {
+  fill-opacity: 0.4; }
+
+.building-report .undefined .histogram rect.current {
   fill-opacity: 0.4; }
 
 .year-control {

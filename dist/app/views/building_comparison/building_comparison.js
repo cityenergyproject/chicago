@@ -10,18 +10,27 @@ define([
   'text!/app/templates/building_comparison/table_body.html'
 ], function($, _, Backbone, BuildingComparator, BuildingColorBucketCalculator, BuildingBucketCalculator, HistogramView, TableHeadTemplate,TableBodyRowsTemplate){
 
-  var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings) {
+  var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings, gradientCalculators) {
     this.buildingId = buildingId;
     this.buildingFields = buildingFields;
     this.metricFields = metricFields;
     this.buildings = buildings;
+    this.gradientCalculators = gradientCalculators;
   };
 
   ReportTranslator.prototype.toBuildingRow = function(building) {
     var result = {
       id: building.get(this.buildingId),
       fields: _.values(building.pick(this.buildingFields)),
-      metrics: building.pick(this.metricFields)
+      metrics: _.map(this.metricFields, function(field) {
+        var value = building.get(field),
+            color = this.gradientCalculators[field].toColor(value);
+        return {
+          value: value,
+          color: color,
+          undefined: (value ? 'defined' : 'undefined')
+        };
+      }, this)
     };
     return result;
   };
@@ -29,6 +38,64 @@ define([
   ReportTranslator.prototype.toBuildingReport = function() {
     return this.buildings.map(this.toBuildingRow, this);
   };
+
+  var MetricAverageCalculator = function(buildings, fields, gradientCalculators){
+    this.buildings = buildings;
+    this.fields = fields;
+    this.gradientCalculators = gradientCalculators;
+  };
+
+  MetricAverageCalculator.prototype.calculateField = function(field){
+    var fieldName = field.field_name,
+        values = this.buildings.pluck(fieldName),
+        median = Math.round(d3.median(values) * 10) / 10,
+        gradientCalculator = this.gradientCalculators[fieldName];
+    return _.extend({}, field, {
+      median: median,
+      color: gradientCalculator.toColor(median)
+    });
+  };
+
+  MetricAverageCalculator.prototype.calculate = function(){
+    return _.map(this.fields, _.bind(this.calculateField, this));
+  };
+
+  var BuildingMetricCalculator = function(currentBuilding, buildings, metricFields, gradientCalculators) {
+    this.currentBuilding = currentBuilding;
+    this.buildings = buildings;
+    this.metricFields = metricFields;
+    this.gradientCalculators = gradientCalculators;
+  }
+
+  BuildingMetricCalculator.prototype.renderField = function(field) {
+    var fieldName = field.field_name,
+        gradients = this.gradientCalculators[fieldName],
+        slices = field.range_slice_count,
+        aspectRatio = 4/1;
+        gradientStops = gradients.toGradientStops(),
+        filterRange = field.filter_range,
+        bucketCalculator = new BuildingBucketCalculator(this.buildings, fieldName, slices, filterRange),
+        value = this.currentBuilding.get(fieldName),
+        currentColor = gradients.toColor(value),
+        buckets = bucketCalculator.toBuckets(),
+        bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
+          return {
+            current: _.indexOf(gradientStops, currentColor),
+            color: stop,
+            count: buckets[bucketIndex] || 0
+          };
+        }),
+        histogram = new HistogramView({gradients: bucketGradients, slices: slices, aspectRatio: aspectRatio});
+    return histogram;
+  }
+
+  BuildingMetricCalculator.prototype.render = function(rowContainer) {
+    rowContainer.find('td.metric').each(_.bind(function(index, cell) {
+      var field = this.metricFields[index],
+          histogram = this.renderField(field);
+      $(cell).find('.histogram').replaceWith(histogram.render())
+    }, this))
+  }
 
   var BuildingComparisonView = Backbone.View.extend({
     el: "#buildings",
@@ -38,9 +105,9 @@ define([
     initialize: function(options){
       this.state = options.state;
       this.$el.html('<div class="building-report-header-container"><table class="building-report"><thead></thead></table></div><table class="building-report"><tbody></tbody></table>');
-      this.buildings = this.state.asBuildings();
       this.allBuildings = this.state.asBuildings();
-      this.listenTo(this.buildings, 'sync', this.render, this);
+      this.buildings = this.state.asBuildings();
+      this.listenTo(this.allBuildings, 'sync', this.onBuildings, this);
       this.listenTo(this.buildings, 'sort', this.render, this);
       this.listenTo(this.state, 'change:city', this.onDataSourceChange);
       this.listenTo(this.state, 'change:layer', this.onLayerChange);
@@ -59,6 +126,22 @@ define([
       this.listenTo(this.state, 'change:filters', this.onSearchChange);
       this.listenTo(this.state, 'change:categories', this.onSearchChange);
       this.buildings.fetch(this.state.get('categories'), this.state.get('filters'));
+    },
+
+    onBuildings: function(){
+      var buildings = this.allBuildings,
+          layers = this.state.get('city').get('map_layers'),
+          fields = _.where(layers, {display_type: 'range'});
+      this.gradientCalculators = _.reduce(fields, function(memo, field){
+        memo[field.field_name] = new BuildingColorBucketCalculator(
+          buildings,
+          field.field_name,
+          field.range_slice_count,
+          field.color_range
+        );
+        return memo;
+      }, {});
+      this.render();
     },
 
     onSearchChange: function(){
@@ -89,6 +172,9 @@ define([
 
     render: function(){
       if(!this.state.get('city')) { return; }
+      if (!this.gradientCalculators) { return; }
+      if (!this.buildings.length > 0) { return; }
+
       this.renderTableHead();
       this.renderTableBody();
       return this;
@@ -108,10 +194,12 @@ define([
       var metrics = _.chain(metrics)
                      .map(function(m){ return _.findWhere(mapLayers, {field_name: m}); })
                      .map(function(layer){
+                      var current = layer.field_name == currentLayerName,
+                          sorted = layer.field_name == sortColumn;
                        return _.extend({
-                         current: layer.field_name == currentLayerName ? 'current' : '',
-                         sorted: layer.field_name == sortColumn ? 'sorted ' + sortOrder : '',
-                         checked: layer.field_name == currentLayer ? 'checked="checked"' : ''
+                         current: current ? 'current' : '',
+                         sorted: sorted ? 'sorted ' + sortOrder : '',
+                         checked: current ? 'checked="checked"' : ''
                        }, layer);
                      })
                      .value();
@@ -123,65 +211,27 @@ define([
     },
 
     renderTableBody: function(){
-      var buildings = this.buildings;
-      if (!buildings.length > 0) { return; }
-
-      var $body = this.$el.find('tbody'),
+      var buildings = this.buildings,
+          $body = this.$el.find('tbody'),
           buildingFields = _.values(this.state.get('city').pick('property_name', 'building_type')),
+          cityFields = this.state.get('city').get('map_layers'),
           buildingId = this.state.get('city').get('property_id'),
           currentBuilding = this.state.get('building') || buildings.first().get(buildingId),
-          metricFields = this.state.get('metrics'),
+          metricFieldNames = this.state.get('metrics'),
+          metricFields = _.map(metricFieldNames, function(name) { return _.findWhere(cityFields, {field_name: name}); })
           template = _.template(TableBodyRowsTemplate),
-          report = new ReportTranslator(buildingId, buildingFields, metricFields, buildings);
+          report = new ReportTranslator(buildingId, buildingFields, metricFieldNames, buildings, this.gradientCalculators),
+          metrics = new MetricAverageCalculator(buildings, metricFields, this.gradientCalculators).calculate(),
+          building = buildings.find(function(b) { return b.get(buildingId) == currentBuilding}),
+          buildingMetrics = new BuildingMetricCalculator(building, this.allBuildings, metricFields, this.gradientCalculators);
 
       $body.replaceWith(template({
         currentBuilding: currentBuilding,
+        metrics: metrics,
         buildings: report.toBuildingReport()
       }));
 
-      this.highlightCurrentBuildingRow();
-    },
-
-    highlightCurrentBuildingRow: function(){
-      var buildings = this.allBuildings,
-          buildingId = this.state.get('city').get('property_id'),
-          currentBuilding = this.state.get('building'),
-          metricFields = this.state.get('metrics'),
-          mapLayers = this.state.get('city').get('map_layers'),
-
-
-      $currentBuildingRow = $('tr.current')
-      _.each(metricFields, function(metric){
-        var layer = _.findWhere(mapLayers, {field_name: metric}),
-            $metricContainer = $currentBuildingRow.find('.' + metric + ' .metric-container')
-            value = $metricContainer.find('span').text();
-            rangeSliceCount = layer.range_slice_count,
-            colorStops = layer.color_range,
-            gradientCalculator = new BuildingColorBucketCalculator(buildings, metric, rangeSliceCount, colorStops),
-            gradientStops = gradientCalculator.toGradientStops(),
-            filterRange = layer.filter_range,
-            bucketCalculator = new BuildingBucketCalculator(buildings, metric, rangeSliceCount, filterRange),
-            buckets = bucketCalculator.toBuckets(),
-            bucketGradients = _.map(gradientStops, function(stop, bucketIndex){
-              return {
-                color: stop,
-                count: buckets[bucketIndex] || 0
-              };
-            });
-
-            var color = gradientCalculator.toColor(value);
-            $metricContainer.css('color', color);
-
-            var histogram = new HistogramView({gradients: bucketGradients, slices: rangeSliceCount, aspectRatio: 4/1}).render();
-            if (value != "N/A"){
-              $(histogram).find('rect:nth-child(' + (_.findIndex(bucketGradients, {color: color})+1) + ')').css('fill-opacity', 1.0);
-            }
-
-            $metricContainer.prepend(histogram)
-      });
-
-      return this;
-
+      buildingMetrics.render($('tr.current'));
     },
 
     events: {

@@ -82,9 +82,16 @@
     margin-top: .25em;
   }
 
-  .metric-container {
-    padding: 0.5em 1.75em 0.5em 1em;
+  .metric-container,
+  .averages .subheader,
+  .average-container {
+    padding: 0 1em;
     max-width: 10em;
+  }
+
+  .metric-container {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 
   .metric-container span {
@@ -115,6 +122,10 @@
     cursor: pointer;
   }
 
+  tbody tr:first-child {
+    cursor: default;
+  }
+
   label {
     background: #fff;
     border-radius: 1em;
@@ -123,8 +134,37 @@
     @extend %disable-user-select;
   }
 
-  td:first-child div:first-child {
+  .building-info div:first-child {
     font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .subheader, .average-info {
+    color: $medium-gray;
+    text-transform: uppercase;
+  }
+
+  .averages .subheader, .averages .average-container {
+    text-align: center;
+  }
+
+  .averages .subheader span {
+    font-size: 0.9em;
+  }
+
+  .average-container {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+
+  .average-container .average {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .average-container .unit {
+    font-size: 0.9em;
     text-transform: uppercase;
   }
 
@@ -133,11 +173,28 @@
     text-align: center;
     color: $medium-gray;
   }
+
+  .undefined .value {
+    display: none;
+  }
+
+  .defined .no-value {
+    display: none;
+  }
+
+  .building:not(.current) .value {
+    color: $medium-gray !important;
+  }
+
   .metric-container .histogram {
     height: em(31px);
   }
-  .metric-container .histogram rect {
+
+  .histogram rect:not(.current) {
     fill-opacity: 0.4;
   }
 
+  .undefined .histogram rect.current {
+    fill-opacity: 0.4;
+  }
 }

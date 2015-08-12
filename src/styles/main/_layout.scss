@@ -13,6 +13,26 @@ body {
   }
 }
 
+$toolbar-height: 3em;
+$building-comparison-header-height: 3em;
+$building-comparison-metric-row-height: 4em;
+
+.main-container {
+  position: absolute;
+  top: $header-height + $toolbar-height;
+  bottom: $building-comparison-header-height + $building-comparison-metric-row-height;
+  width: 100%;
+  @include outer-container(100%);
+
+  @include media($medium-screen-up) {
+    bottom: $building-comparison-header-height + $building-comparison-metric-row-height + 1em;
+  }
+
+  @include media($large-screen-up) {
+    bottom: $building-comparison-header-height + $building-comparison-metric-row-height;
+  }
+}
+
 header {
   height: $header-height;
 }
@@ -22,11 +42,11 @@ header {
 }
 
 .iframed .main-container {
-  top: 3em;
+  top: $toolbar-height;
 }
 
 #toolbar {
-  height: 3em;
+  height: $toolbar-height;
   position: relative;
 }
 
@@ -39,7 +59,7 @@ header {
 #search {
   position: absolute;
   top: 0;
-  height: 3em;
+  height: $toolbar-height;
   left: 0;
   width: $nav-col-fixed-width;
 
@@ -59,7 +79,7 @@ header {
 #map-category-controls {
   position: absolute;
   top: 0;
-  height: 3em;
+  height: $toolbar-height;
   left: $nav-col-fixed-width;
   right: 0;
 
@@ -108,14 +128,27 @@ header {
   }
 }
 
+#map-wrapper{
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
 #buildings {
   .building-report-header-container {
-    height: 3em;
+    height: $building-comparison-header-height;
+
     @include media($medium-screen-up) {
-      height: 4em;
+      height: $building-comparison-header-height + 1em;
     }
+
     @include media($large-screen-up) {
-      height: 3em;
+      height: $building-comparison-header-height;
     }
   }
 
