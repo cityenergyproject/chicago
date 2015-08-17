@@ -33,7 +33,7 @@
             "field_name": "year_built",
             "display_type": "range",
             "section": "Building Info",
-            "range_slice_count": 10,
+            "range_slice_count": 30,
             "filter_range": {"min" : 1880},
             "color_range": ["#A0DCD5","#747EB9"]
         },
@@ -51,7 +51,7 @@
             "field_name": "energy_star_score",
             "display_type": "range",
             "section": "Building Info",
-            "range_slice_count": 10,
+            "range_slice_count": 30,
             "color_range": ["#F77156","#DAC04D","#6BB0A5"]
         },
         {
