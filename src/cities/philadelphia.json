@@ -14,11 +14,15 @@
     "property_name": "property_name",
     "building_type": "primary_property_type___epa_calculated",
     "popup_fields": [
-        {"field": "property_name", "label": ""},
-        {"field": "primary_property_type___epa_calculated", "label": ""},
-        {"field": "portfolio_manager_id", "label": "Property ID: "},
-        {"field": "address", "label": ""},
-        {"field": "postal_code", "label": ""}
+      {"field": "property_name", "label": ""},
+      {"field": "address", "label": "Address: "},
+      {"field": "primary_property_type___epa_calculated", "label": "Building Type: "},
+      {"field": "year_built", "label": "Year Built: "},
+      {"field": "property_floor_area_buildings_and_parking_ft", "label": "Square Feet: "},
+      {"field": "energy_star_score", "label": "Energy Star Score: "},
+      {"field": "site_eui_kbtu_ft", "label":"Site Energy Use: "},
+      {"field": "source_eui_kbtu_ft", "label":"Source Energy Use: "},
+      {"field": "total_ghg_emissions_mtco2e", "label":"GHG Emissions: "}
     ],
     "map_layers": [
         {
@@ -52,7 +56,8 @@
             "display_type": "range",
             "section": "Building Info",
             "range_slice_count": 30,
-            "color_range": ["#F77156","#DAC04D","#6BB0A5"]
+            "color_range": ["#F77156","#DAC04D","#6BB0A5"],
+            "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
         },
         {
             "title": "Energy Use per Sq Ft",
@@ -61,7 +66,9 @@
             "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 400},
-            "color_range": ["#6BB0A5","#DAC04D","#F77156"]
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Site Energy divided by property size in square feet",
+            "unit": "kbtu/ft&sup2;"
         },
         {
             "title": "Electricity Use",
@@ -70,7 +77,9 @@
             "section": "Energy Use",
             "range_slice_count": 30,
             "filter_range": {"max" : 100000000},
-            "color_range": ["#6BB0A5","#DAC04D","#F77156"]
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Amount of electricity used, both from grid purchases and onsite renewables",
+            "unit": "kBTU"
         },
         {
             "title": "Steam Energy",
@@ -106,7 +115,9 @@
             "section": "Climate Emissions",
             "range_slice_count": 30,
             "filter_range": {"max" : 20000},
-            "color_range": ["#6BB0A5","#DAC04D","#F77156"]
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "unit": "M Tons CO&sub2;e",
+            "description": "A measure of the total amount of direct and indirect greenhouse gas emissions  expressed in carbon dioxide equivalent (CO&sub2;e)."
         },
         {
             "title": "Water Use",
@@ -115,7 +126,9 @@
             "section": "Water",
             "range_slice_count": 30,
             "filter_range": {"max" : 50000},
-            "color_range": ["#6BB0A5","#DAC04D","#F77156"]
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "unit": "kGal",
+            "description": "Sum of all water meters including all municipally supplied potable and reclaimed water, alternative water generated onsite, and other water sources."
         }
     ],
     "years": {
