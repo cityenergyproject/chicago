@@ -26,35 +26,10 @@
     ],
     "map_layers": [
         {
-            "title": "Building Type",
-            "field_name": "primary_property_type___epa_calculated",
-            "display_type": "category",
-            "section": "Building Info",
-            "categories_to_display": 9
-        },
-        {
-            "title": "Year Built",
-            "field_name": "year_built",
-            "display_type": "range",
-            "section": "Building Info",
-            "range_slice_count": 30,
-            "filter_range": {"min" : 1880},
-            "color_range": ["#A0DCD5","#747EB9"]
-        },
-        {
-            "title": "Square Feet",
-            "field_name": "property_floor_area_buildings_and_parking_ft",
-            "display_type": "range",
-            "section": "Building Info",
-            "range_slice_count": 30,
-            "filter_range": {"max" : 1500000},
-            "color_range": ["#A0DCD5","#747EB9"]
-        },
-        {
             "title": "Energy Star Score",
             "field_name": "energy_star_score",
             "display_type": "range",
-            "section": "Building Info",
+            "section": "Energy Efficiency",
             "range_slice_count": 30,
             "color_range": ["#F77156","#DAC04D","#6BB0A5"],
             "description": "Measure of a building's energy performance relative to similar properties nationwide on a scale from 1-100. A score of 50 is the median. Buildings scoring 75 or higher are considered high performing."
@@ -63,7 +38,7 @@
             "title": "Energy Use per Sq Ft",
             "field_name": "site_eui_kbtu_ft",
             "display_type": "range",
-            "section": "Energy Use",
+            "section": "Energy Efficiency",
             "range_slice_count": 30,
             "filter_range": {"max" : 400},
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
@@ -129,12 +104,37 @@
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "kGal",
             "description": "Sum of all water meters including all municipally supplied potable and reclaimed water, alternative water generated onsite, and other water sources."
+        },
+        {
+            "title": "Building Type",
+            "field_name": "primary_property_type___epa_calculated",
+            "display_type": "category",
+            "section": "Building Info",
+            "categories_to_display": 9
+        },
+        {
+            "title": "Year Built",
+            "field_name": "year_built",
+            "display_type": "range",
+            "section": "Building Info",
+            "range_slice_count": 30,
+            "filter_range": {"min" : 1880},
+            "color_range": ["#A0DCD5","#747EB9"]
+        },
+        {
+            "title": "Square Feet",
+            "field_name": "property_floor_area_buildings_and_parking_ft",
+            "display_type": "range",
+            "section": "Building Info",
+            "range_slice_count": 30,
+            "filter_range": {"max" : 1500000},
+            "color_range": ["#A0DCD5","#747EB9"]
         }
     ],
     "years": {
         "2014": {
             "table_name": "philadelphia_propertiesreported_csv",
-            "default_layer": "site_eui_kbtu_ft"
+            "default_layer": "energy_star_score"
         }
     }
 }
