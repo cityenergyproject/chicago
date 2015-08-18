@@ -84,7 +84,7 @@
             "color_range": ["#6BB0A5","#DAC04D","#F77156"]
         },
         {
-            "title": "Total GHG Emissions (Metric Tons CO2e)",
+            "title": "Total GHG Emissions",
             "field_name": "total_ghg_emissions_mtco2e",
             "display_type": "range",
             "section": "Climate Emissions",
