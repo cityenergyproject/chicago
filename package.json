@@ -4,7 +4,7 @@
   "description": "City Energy",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "gulp test",
+    "test": "jasmine",
     "watch": "gulp watch",
     "start": "gulp connect",
     "copy-lib": "gulp copy-lib"
@@ -23,6 +23,7 @@
     "node": "0.10.33"
   },
   "dependencies": {
+    "backbone": "^1.2.2",
     "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
@@ -35,7 +36,10 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
+    "jasmine": "^2.3.2",
     "main-bower-files": "^2.9.0",
-    "node-neat": "^1.7.2"
+    "node-neat": "^1.7.2",
+    "selenium-webdriver": "^2.46.1",
+    "underscore": "^1.8.3"
   }
 }

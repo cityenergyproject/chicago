@@ -34,6 +34,30 @@ define([
     return styles.join("\n");
   };
 
+  var BuildingInfoPresenter = function(city, allBuildings, buildingId){
+    this.city = city;
+    this.allBuildings = allBuildings;
+    this.buildingId = buildingId;
+  };
+
+  BuildingInfoPresenter.prototype.toLatLng = function() {
+    return {lat: this.toBuilding().get('lat'), lng: this.toBuilding().get('lng')};
+  };
+
+  BuildingInfoPresenter.prototype.toBuilding = function() {
+    return this.allBuildings.find(function(building) {
+      return building.get(this.city.get('property_id')) == this.buildingId
+    }, this);
+  };
+
+  BuildingInfoPresenter.prototype.toPopulatedLabels = function()  {
+    return _.map(this.city.get('popup_fields'), function(field) {
+      return _.extend({
+        value: this.toBuilding().get(field.field)
+      }, field);
+    }, this);
+  };
+
   var LayerView = Backbone.View.extend({
     initialize: function(options){
       this.state = options.state;
@@ -44,21 +68,24 @@ define([
       this.listenTo(this.state, 'change:filters', this.onStateChange);
       this.listenTo(this.state, 'change:categories', this.onStateChange);
       this.listenTo(this.state, 'change:tableName', this.onStateChange);
+      this.listenTo(this.state, 'change:building', this.onBuildingChange);
       this.listenTo(this.allBuildings, 'sync', this.render);
       this.onStateChange();
     },
 
-    onFeatureClick: function(e, latlng, pos, data){
+    onBuildingChange: function() {
       var template = _.template(BuildingInfoTemplate),
-          popupFields = this.state.get('city').get('popup_fields');
-          populatedLabels = _.reduce(popupFields, function(labels, field){
-            labels.push({label: field.label, value: data[field.field]});
-            return labels;
-          }, []);
+          presenter = new BuildingInfoPresenter(this.state.get('city'), this.allBuildings, this.state.get('building'));
       L.popup()
-       .setLatLng(latlng)
-       .setContent(template({labels: populatedLabels}))
+       .setLatLng(presenter.toLatLng())
+       .setContent(template({labels: presenter.toPopulatedLabels()}))
        .openOn(this.leafletMap);
+    },
+
+    onFeatureClick: function(event, latlng, _unused, data){
+      var propertyId = this.state.get('city').get('property_id'),
+          buildingId = data[propertyId];
+      this.state.set({building: buildingId});
     },
     onFeatureOver: function(){
       $('#map').css('cursor', "help");
@@ -76,7 +103,6 @@ define([
       var buildings = this.allBuildings,
           state = this.state,
           city = state.get('city'),
-          popupFields = _.pluck(city.get('popup_fields'), 'field').join(','),
           fieldName = state.get('layer'),
           cityLayer = _.findWhere(city.get('map_layers'), {field_name: fieldName}),
           buckets = cityLayer.range_slice_count
@@ -86,7 +112,7 @@ define([
       return {
         sql: buildings.toSql(state.get('categories'), state.get('filters')),
         cartocss: stylesheet.toCartoCSS(),
-        interactivity: popupFields
+        interactivity: this.state.get('city').get('property_id')
       }
     },
 
@@ -100,6 +126,7 @@ define([
         type: 'cartodb',
         sublayers: [this.toCartoSublayer()]
       }).addTo(this.leafletMap).on('done', this.onCartoLoad, this);
+
       return this;
     },
     onCartoLoad: function(layer) {
@@ -109,6 +136,7 @@ define([
       sub.on('featureClick', this.onFeatureClick, this);
       sub.on('featureOver', this.onFeatureOver, this);
       sub.on('featureOut', this.onFeatureOut, this);
+      this.onBuildingChange();
     }
   });
 
