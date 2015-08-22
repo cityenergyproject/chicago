@@ -49,14 +49,14 @@ define([
     var availableYears = _.chain(this.city.years).keys().sort();
     var defaultYear = availableYears.last().value();
     return availableYears.contains(currentYear).value() ? currentYear : defaultYear;
-  }
+  };
 
   StateBuilder.prototype.toLayer = function(year) {
     var currentLayer = this.layer;
     var availableLayers = _.chain(this.city.map_layers).pluck('field_name');
     var defaultLayer = this.city.years[year].default_layer;
-    return availableLayers.contains(currentLayer).value() ? currentLayer: defaultLayer;
-  }
+    return availableLayers.contains(currentLayer).value() ? currentLayer : defaultLayer;
+  };
 
   StateBuilder.prototype.toState = function() {
     var year = this.toYear(),

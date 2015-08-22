@@ -2,7 +2,7 @@ var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until;
 
-describe('Map', function() {
+describe('Building Comparison', function() {
   var driver;
 
   beforeEach(function(done) {
@@ -14,14 +14,13 @@ describe('Map', function() {
     driver.quit().then(done);
   });
 
-  describe("when a building is selected", function(){
+  describe("when the layer is malformed", function(){
     beforeEach(function(done) {
-      driver.get('http://localhost:8080/#los_angeles/2014?building=3935251').then(done);
+      driver.get('http://localhost:8080/#los_angeles/2014?layer=weather_normalized_source').then(done);
     });
 
-    it('opens a popup when the row is clicked', function(done) {
-      driver.wait(until.elementLocated(By.css('.leaflet-popup')), 10000);
-      done();
+    it('renders the building comparison table', function(done) {
+      driver.wait(until.elementLocated(By.css('.building')), 3500).then(done);
     });
   })
 });

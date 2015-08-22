@@ -97,6 +97,21 @@ define([
     }, this))
   }
 
+  var MetricsValidator = function(cityFields, metrics, newField) {
+    this.cityFields = cityFields;
+    this.metrics = metrics;
+    this.newField = newField;
+  };
+
+  MetricsValidator.prototype.toValidFields = function(){
+    var allValidFields = _.intersection(this.metrics.concat([this.newField]), this.cityFields),
+        lastValidField = _.last(allValidFields);
+    if (allValidFields.length > 5) {
+      allValidFields = _.first(allValidFields,4).concat([lastValidField]);
+    }
+    return allValidFields;
+  };
+
   var BuildingComparisonView = Backbone.View.extend({
     el: "#buildings",
     metrics: [],
@@ -158,15 +173,14 @@ define([
     },
 
     onLayerChange: function() {
+      if(!this.state.get('city')) { return; }
+
       var metrics = this.state.get('metrics'),
-          newLayer = this.state.get('layer');
-      if (_.contains(metrics, newLayer)) {return this;}
-      if (metrics.length < 5) {
-        this.state.set({metrics: metrics.concat([newLayer])});
-      }else{
-        metrics[4] = newLayer;
-        this.state.set({metrics: metrics});
-      }
+          newLayer = this.state.get('layer'),
+          cityFields = _.pluck(this.state.get('city').get('map_layers'), 'field_name'),
+          validator = new MetricsValidator(cityFields, metrics, newLayer),
+          validMetrics = validator.toValidFields();
+      this.state.set({metrics: validMetrics});
       return this;
     },
 
@@ -174,7 +188,7 @@ define([
       if(!this.state.get('city')) { return; }
       if (!this.gradientCalculators) { return; }
       if (!this.buildings.length > 0) { return; }
-
+      this.onLayerChange();
       this.renderTableHead();
       this.renderTableBody();
       return this;
