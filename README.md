@@ -1,8 +1,10 @@
-# City Energy Project
+# City Energy Project Building Map System
 
-Visualizing the energy use of buildings in major cities for the City Energy Project.
+This repository contains the code for a highly configurable system to map buildings according to various kinds of energy efficiency data, to make critical data about urban sustainability and conservation visible and accessible to a wide array of potential audiences. 
 
-This README is almost all boilerplate for now. We'll fill in the details as we begin work.
+The site was commissioned by the [City Energy Project](http://www.cityenergyproject.org/), a joint effort of the Natural Resources Defense Council (NRDC) and the Institute for Market Transformation (IMT). The City Energy Project is a national initiative to create healthier and more prosperous American cities by improving the energy efficiency of buildings. Working in partnership, the Project and cities will support innovative, practical solutions that cut energy waste, boost local economies, and reduce harmful pollution.
+
+In close collaboration with partners at the City Energy Project, [Stamen Design](http://stamen.com) and the [Ministry of Velocity](http://www.ministryofvelocity.com/) designed and built the system in summer 2015. Stamen a leading innovator in data visualization, with a long history of direct collaborations with industry leaders, universities, museums, and humanitarian organizations. **The Ministry of Velocity is...**
 
 ## Dependencies
 
