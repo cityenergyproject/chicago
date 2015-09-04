@@ -7,29 +7,30 @@ This README is almost all boilerplate for now. We'll fill in the details as we b
 ## Dependencies
 
 ### Software
+This project uses gulp for build scripts.
+Other dependencies are contained in `package.json` and `bower.json`.
 
-We're hosting all project data on CartoDB and hosting all code and documentation on Github. Specific dependencies are contained in `package.json` and `bower.json`.
+City data is hosted on CartoDB. Each city data table is specified in its respective JSON file contained in src/cities.
 
 #### Development
-  Use npm, gulp for local building
 
   Start webserver
   ```
-    $ gulp connect
+    $ npm start
   ```
 
   Start livereload
   ```
-    $ gulp watch
+    $ npm watch
   ```
-  
+
 ### Static Assets
 
-Source files are in /src
+Source files are in /src. The compiled files are in /dist.
 ```bash
   gulp
 ```
-to compile, and copy to dist folder
+to compile, and copy all site files to the /dist folder
 
 ## How do I install it?
 
@@ -37,7 +38,7 @@ to compile, and copy to dist folder
   * make sure you have [node](https://nodejs.org/) and [bower](http://bower.io/) installed
   * in the root of the repo, run ```sudo npm install```
   * in the root of the repo, run ```bower install```
-  * in a separate terminal window run ```gulp connect```
+  * in a separate terminal window run ```npm start```
   * point your browswer to http://localhost:8080/
 
 ## How do I deploy it to the world?
@@ -63,7 +64,7 @@ The first section sets the city name, URL, basemap tiles, default zoom location/
     "cartoDbUser": "cityenergyproject",
     "property_id": "portfolio_manager_id",
     "property_name": "property_name",
-    "building_type": "primary_property_type___epa_calculated",  
+    "building_type": "primary_property_type___epa_calculated",
 ```
 The next sections are where most of the detail work will happen.
 
