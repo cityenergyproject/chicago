@@ -6,8 +6,8 @@ define([
   'models/building_color_bucket_calculator',
   'models/building_bucket_calculator',
   'views/charts/histogram',
-  'text!/app/templates/building_comparison/table_head.html',
-  'text!/app/templates/building_comparison/table_body.html'
+  'text!templates/building_comparison/table_head.html',
+  'text!templates/building_comparison/table_body.html'
 ], function($, _, Backbone, BuildingComparator, BuildingColorBucketCalculator, BuildingBucketCalculator, HistogramView, TableHeadTemplate,TableBodyRowsTemplate){
 
   var ReportTranslator = function(buildingId, buildingFields, metricFields, buildings, gradientCalculators) {

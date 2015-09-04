@@ -4,7 +4,7 @@ define([
   'backbone',
   'collections/city_buildings',
   'models/building_color_bucket_calculator',
-  'text!/app/templates/map/building_info.html'
+  'text!templates/map/building_info.html'
 ], function($, _, Backbone, CityBuildings, BuildingColorBucketCalculator, BuildingInfoTemplate){
 
   var baseCartoCSS = [

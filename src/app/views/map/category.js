@@ -4,7 +4,7 @@ define([
   'backbone',
   'ionrangeslider',
   'models/city',
-  'text!/app/templates/map_controls/category.html',
+  'text!templates/map_controls/category.html',
 ], function($, _, Backbone, Ion, CityModel, MapCategoryControlTemplate){
 
   var MapCategoryControlView = Backbone.View.extend({

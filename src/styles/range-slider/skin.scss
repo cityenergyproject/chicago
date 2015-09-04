@@ -12,7 +12,7 @@
 .irs-bar,
 .irs-bar-edge,
 .irs-slider {
-    background: url(/lib/range-slider/sprite-skin.png) repeat-x;
+    background: url(../lib/range-slider/sprite-skin.png) repeat-x;
 }
 
 .irs {
@@ -87,8 +87,8 @@
     padding: 1px 5px;
     top: 3px;
     z-index: 2;
-    
-    
+
+
 }
 .lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single {
     background: #999;

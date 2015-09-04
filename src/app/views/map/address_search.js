@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!/app/templates/map/address_search.html'
+  'text!templates/map/address_search.html'
 ], function($, _, Backbone, AddressSearchTemplate){
 
   var AddressSearchView = Backbone.View.extend({

@@ -5,7 +5,7 @@ require.config({
     backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min',
     d3: '//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min',
     ionrangeslider: '../lib/range-slider/ion.rangeSlider',
-    templates: '../templates'
+    templates: 'templates'
   },
   shim: {
     ionrangeslider: ['jquery']

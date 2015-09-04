@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!/app/templates/map/year_control.html'
+  'text!templates/map/year_control.html'
 ], function($, _, Backbone, YearControlTemplate){
 
   var YearControlView = Backbone.View.extend({

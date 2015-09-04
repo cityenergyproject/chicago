@@ -6,9 +6,9 @@ define([
   'models/building_bucket_calculator',
   'models/building_color_bucket_calculator',
   'views/charts/histogram',
-  'text!/app/templates/map_controls/filter_section_header.html',
-  'text!/app/templates/map_controls/filter.html',
-  'text!/app/templates/map_controls/filter_container.html'
+  'text!templates/map_controls/filter_section_header.html',
+  'text!templates/map_controls/filter.html',
+  'text!templates/map_controls/filter_container.html'
 ], function($, _, Backbone, Ion, BuildingBucketCalculator, BuildingColorBucketCalculator, HistogramView, FilterSectionHeader, FilterTemplate, FilterContainer){
 
   var MapControlView = Backbone.View.extend({
