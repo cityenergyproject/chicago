@@ -38,14 +38,14 @@ to compile, and copy all site files to the /dist folder
 
   * clone the repo
   * make sure you have [node](https://nodejs.org/) and [bower](http://bower.io/) installed
-  * in the root of the repo, run ```sudo npm install```
+  * in the root of the repo, run ```npm install```
   * in the root of the repo, run ```bower install```
   * in a separate terminal window run ```npm start```
   * point your browswer to http://localhost:8080/
 
 ## How do I deploy it to the world?
 
-For the test site, we have an app live on Heroku where we push changes as a separate git remote. The `dist` directory also serves as a static site that can be hosted on any basic web server.
+You can fork a copy of the repository, and the `dist` directory will turn into your own version of the site via [Github Pages](https://pages.github.com).  Alternatively, you can host your own copy of the `dist` directory on your own web server.
 
 For setup and configuration instructions, see the [Setup and Configuration guide](https://github.com/stamen/cityenergy/wiki/Setup-and-Configuration).
 
