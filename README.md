@@ -48,3 +48,7 @@ to compile, and copy all site files to the /dist folder
 For the test site, we have an app live on Heroku where we push changes as a separate git remote. The `dist` directory also serves as a static site that can be hosted on any basic web server.
 
 For setup and configuration instructions, see the [Setup and Configuration guide](https://github.com/stamen/cityenergy/wiki/Setup-and-Configuration).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at [https://github.com/cityenergyproject/cityenergy](https://github.com/cityenergyproject/cityenergy).
