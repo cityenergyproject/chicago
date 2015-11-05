@@ -122,7 +122,7 @@ define([
         return this;
       }
       cartodb.createLayer(this.leafletMap, {
-        user_name: 'cityenergyproject',
+        user_name: 'cityenergy-slc',
         type: 'cartodb',
         sublayers: [this.toCartoSublayer()]
       }).addTo(this.leafletMap).on('done', this.onCartoLoad, this);

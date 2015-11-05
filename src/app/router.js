@@ -112,7 +112,7 @@ define([
     },
 
     root: function () {
-      this.navigate('/los_angeles', {trigger: true, replace: true});
+      this.navigate('/salt_lake_city', {trigger: true, replace: true});
     },
 
     city: function(cityname){
@@ -127,6 +127,3 @@ define([
 
   return Router;
 });
-
-
-

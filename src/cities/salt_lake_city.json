@@ -1,0 +1,98 @@
+{
+    "url_name": "salt_lake_city",
+    "name": "Salt Lake City",
+
+    "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    "center": [
+        40.760779,
+        -111.891047
+    ],
+    "zoom": 11,
+
+    "cartoDbUser": "cityenergy-slc",
+    "property_id": "cartodb_id",
+    "property_name": "property_name",
+    "building_type": "primary_property_type___self_selected",
+    "popup_fields": [
+        {"field": "lat", "label": "lat"},
+        {"field": "lng", "label": "lng"},
+        {"field": "property_name", "label": ""},
+        {"field": "address_1", "label": "Address: "},
+        {"field": "energy_star_score", "label": "Energy Star Score: "},
+        {"field": "weather_normalized_source_eui_kbtu_ft", "label":"Source EUI (kbtu/ft&sup2;): "},
+        {"field": "weather_normalized_site_eui_kbtu_ft", "label":"Site EUI (kbtu/ft&sup2;): "},
+        {"field": "local_air_emissions_lbs_of_local_air_pollution_sqft", "label":"Local Air Emissions (lbs/ft&sup2;): "},
+        {"field": "ghg_emissions_lbs_co2e_sqft", "label":"GHG Emissions (lbs/ft&sup2;): "},
+        {"field": "primary_property_type___self_selected", "label": "Building Type: "},
+        {"field": "year_built", "label": "Year Built: "},
+        {"field": "property_floor_area_buildings_and_parking_ft", "label": "Square Feet: "}
+    ],
+    "map_layers": [
+        {
+            "title": "Building Type",
+            "field_name": "primary_property_type___self_selected",
+            "display_type": "category",
+            "section": "Building Info",
+            "categories_to_display": 9
+        },
+        {
+            "title": "Energy Star",
+            "field_name": "energy_star_score",
+            "display_type": "range",
+            "section": "Energy Efficiency",
+            "range_slice_count": 18,
+            "color_range": ["#F77156","#DAC04D","#6BB0A5"],
+            "description": "Measure of a building’s energy performance relative to similar buildings nationwide on a scale from 1-100. A score of 50 is the average. Buildings scoring 75 or higher are considered high performing buildings and are eligible for Energy Star certification."
+        },
+        {
+            "title": "Source Energy Use Intensity",
+            "field_name": "weather_normalized_source_eui_kbtu_ft",
+            "display_type": "range",
+            "section": "Energy Use",
+            "range_slice_count": 18,
+            "filter_range": {"max" : 300},
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Measure of the total amount of raw fuel that is required to operate a building, including all energy lost through production, transmission, and delivery. This value is divided by the property size in square feet. A lower energy use intensity reflects more efficient use of energy. Expressed as kBtu/square feet.",
+            "unit": "kbtu/ft&sup2;"
+        },
+        {
+            "title": "Site Energy Use Intensity",
+            "field_name": "weather_normalized_site_eui_kbtu_ft",
+            "display_type": "range",
+            "section": "Energy Use",
+            "range_slice_count": 18,
+            "filter_range": {"max" : 300},
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Measure of the electricity and fuel directly consumed by a building as reflected in the utility bills. This value is divided by the property size in square feet. A lower energy use intensity reflects more efficient use of energy. Expressed as kBtu/square feet.",
+            "unit": "kbtu/ft&sup2;"
+        },
+        {
+            "title": "Local Air Emissions",
+            "field_name": "local_air_emissions_lbs_of_local_air_pollution_sqft",
+            "display_type": "range",
+            "section": "Air Pollution Emissions",
+            "range_slice_count": 8,
+            "filter_range": {"max" : 0.007},
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Emission intensity of common air pollutants that result from onsite combustion of fuel (e.g. natural gas) that contribute to air pollution. Includes nitrogen oxides (NOx), volatile organic compounds (VOCs), Sulphur dioxide (SO2), and particulate matter (PM2.5). Expressed as lbs. of local air pollution/square feet.",
+            "unit": "lbs/ft&sup2;"
+        },
+        {
+            "title": "GHG Emissions",
+            "field_name": "ghg_emissions_lbs_co2e_sqft",
+            "display_type": "range",
+            "section": "Air Pollution Emissions",
+            "range_slice_count": 18,
+            "filter_range": {"max" : 25},
+            "color_range": ["#6BB0A5","#DAC04D","#F77156"],
+            "description": "Greenhouse gas emissions associated with building energy consumption (electricity and natural gas). Expressed as lbs. of CO2e/square feet.",
+            "unit": "kgCO&sup2;/ft&sup2;"
+        }
+    ],
+    "years": {
+        "2014": {
+            "table_name": "slc_city_2014_benchmarking_geocoded",
+            "default_layer": "energy_star_score"
+        }
+    }
+}
