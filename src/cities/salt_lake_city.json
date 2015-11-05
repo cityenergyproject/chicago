@@ -14,8 +14,6 @@
     "property_name": "property_name",
     "building_type": "primary_property_type___self_selected",
     "popup_fields": [
-        {"field": "lat", "label": "lat"},
-        {"field": "lng", "label": "lng"},
         {"field": "property_name", "label": ""},
         {"field": "address_1", "label": "Address: "},
         {"field": "energy_star_score", "label": "Energy Star Score: "},
