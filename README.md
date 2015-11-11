@@ -23,16 +23,18 @@ City data is hosted on CartoDB. Each city data table is specified in its respect
 
   Start livereload
   ```
-    $ npm watch
+    $ npm run watch
   ```
 
 ### Static Assets
 
-Source files are in /src. The compiled files are in /dist.
+Source files are in `src/`. The compiled files are in `dist/`.
+
 ```bash
-  gulp
+npm run dist
 ```
-to compile, and copy all site files to the /dist folder
+
+to compile, and copy all site files to the `dist/` folder
 
 ## How do I install it?
 
@@ -41,7 +43,7 @@ to compile, and copy all site files to the /dist folder
   * in the root of the repo, run ```npm install```
   * in the root of the repo, run ```bower install```
   * in a separate terminal window run ```npm start```
-  * point your browswer to http://localhost:8080/
+  * point your browser to http://localhost:8080/
 
 ## How do I deploy it to the world?
 
