@@ -7,7 +7,8 @@
     "test": "jasmine",
     "watch": "gulp watch",
     "start": "gulp connect",
-    "copy-lib": "gulp copy-lib"
+    "copy-lib": "gulp copy-lib",
+    "dist": "gulp"
   },
   "repository": {
     "type": "git",
