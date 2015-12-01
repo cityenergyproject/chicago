@@ -49,7 +49,7 @@ to compile, and copy all site files to the `dist/` folder
 
 You can fork a copy of the repository, and the `dist` directory will turn into your own version of the site via [Github Pages](https://pages.github.com).  Alternatively, you can host your own copy of the `dist` directory on your own web server.
 
-For setup and configuration instructions, see the [Setup and Configuration guide](https://github.com/stamen/cityenergy/wiki/Setup-and-Configuration).
+For setup and configuration instructions, see the [Setup and Configuration guide](https://github.com/cityenergyproject/cityenergy/wiki/Setup-and-Configuration).
 
 ## Contributing
 
