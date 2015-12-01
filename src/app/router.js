@@ -112,7 +112,7 @@ define([
     },
 
     root: function () {
-      this.navigate('/salt_lake_city', {trigger: true, replace: true});
+      this.navigate('/chicago', {trigger: true, replace: true});
     },
 
     city: function(cityname){
