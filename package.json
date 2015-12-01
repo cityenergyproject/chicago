@@ -8,7 +8,8 @@
     "watch": "gulp watch",
     "start": "gulp connect",
     "copy-lib": "gulp copy-lib",
-    "dist": "gulp"
+    "dist": "gulp",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "main-bower-files": "^2.9.0",
     "node-neat": "^1.7.2",
     "selenium-webdriver": "^2.46.1",
+    "serve": "^1.4.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
