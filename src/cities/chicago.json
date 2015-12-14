@@ -13,10 +13,10 @@
     "cartoDbUser": "chicagoenergybenchmarking",
     "property_id": "cartodb_id",
     "property_name": "property_name",
-    "building_type": "primary_property_type_epa_calculated",
+    "building_type": "property_type",
     "popup_fields": [
         {"field": "property_name", "label": ""},
-        {"field": "primary_property_type_epa_calculated", "label": "Property Type"},
+        {"field": "property_type", "label": "Property Type"},
         {"field": "property_size", "label": "Property Size (ft²): "},
         {"field": "community_area", "label": "Neighborhood: "},
         {"field": "year_built", "label": "Year Built: "},
