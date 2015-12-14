@@ -18,7 +18,7 @@
         {"field": "property_name", "label": ""},
         {"field": "property_type", "label": "Property Type"},
         {"field": "property_size", "label": "Property Size (ft²): "},
-        {"field": "community_area", "label": "Neighborhood: "},
+        {"field": "neighborhood", "label": "Neighborhood: "},
         {"field": "year_built", "label": "Year Built: "},
         {"field": "number_of_buildings", "label": "Number of Buildings: "},
         {"field": "energy_star_score", "label": "ENERGY STAR Score: "},
@@ -26,6 +26,13 @@
         {"field": "total_ghg_emissions_metric_tons_co2e", "label": "Total GHG Emissions (Metric Tons CO₂e): "}
     ],
     "map_layers": [
+        {
+            "title": "Neighborhood",
+            "field_name": "neighborhood",
+            "display_type": "category",
+            "section": "Property Information",
+            "description": "The Community Area where the property is located. There are 77 Community Areas defined by the City of Chicago."
+        },
         {
             "title": "Property Size",
             "field_name": "property_size",
@@ -35,13 +42,6 @@
             "unit": "ft²",
             "section": "Property Information",
             "description": "Total interior floor space in square feet between the outside surfaces of a building’s enclosing walls. This includes tenant space, common areas, stairwells, basements, storage, and interior parking."
-        },
-        {
-            "title": "Neighborhood",
-            "field_name": "community_area",
-            "display_type": "category",
-            "section": "Property Information",
-            "description": "The Community Area where the property is located. There are 77 Community Areas defined by the City of Chicago."
         },
         {
             "title": "Year Built",
