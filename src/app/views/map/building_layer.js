@@ -53,7 +53,7 @@ define([
   BuildingInfoPresenter.prototype.toPopulatedLabels = function()  {
     return _.map(this.city.get('popup_fields'), function(field) {
       return _.extend({
-        value: this.toBuilding().get(field.field) || 'N/A'
+        value: (this.toBuilding().get(field.field) || 'N/A').toLocaleString()
       }, field);
     }, this);
   };

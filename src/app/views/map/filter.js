@@ -77,7 +77,7 @@ define([
           force_edges: true,
           grid: false,
           hide_min_max: true,
-          prettify_enabled: true,
+          prettify_enabled: !fieldName.match(/year/),
           prettify: this.onPrettifyHandler(filterRangeMin, filterRangeMax),
           onFinish: _.bind(this.onFilterFinish, this),
         });
@@ -120,9 +120,9 @@ define([
     onPrettifyHandler: function(min, max) {
       return function(num) {
         switch(num) {
-          case min: return num;
-          case max: return num + "+";
-          default: return num;
+          case min: return num.toLocaleString();
+          case max: return num.toLocaleString() + "+";
+          default: return num.toLocaleString();
         }
       };
     },
