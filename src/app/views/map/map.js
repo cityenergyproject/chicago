@@ -43,7 +43,15 @@ define([
       if (!this.leafletMap){
         this.leafletMap = new L.Map(this.el, {center: [lat, lng], zoom: zoom, scrollWheelZoom: false});
         this.leafletMap.attributionControl.setPrefix("");
-        L.tileLayer(city.get('tileSource')).addTo(this.leafletMap);
+
+        var tileSource = city.get('tileSource');
+
+        if (window.devicePixelRatio > 1) {
+          // replace the last "." with "@2x."
+          tileSource = tileSource.replace(/\.(?!.*\.)/, "@2x.");
+        }
+
+        L.tileLayer(tileSource).addTo(this.leafletMap);
         this.leafletMap.zoomControl.setPosition('topright');
         this.leafletMap.on('moveend', this.onMapMove, this);
         this.currentLayerView = new BuildingLayer({leafletMap: this.leafletMap, state: this.state});
