@@ -34,6 +34,16 @@
     clear: both;
   }
 
+  li.actions {
+    font-size: 0.7em;
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+
+    a {
+      color: #145887;
+    }
+  }
+
   .content {
     padding-left: 1.5em;
     position: relative;

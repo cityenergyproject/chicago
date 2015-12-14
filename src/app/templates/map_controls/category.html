@@ -3,6 +3,7 @@
   <label class="category-list-toggle" for="category-<%= id %>"><%= title %></label>
   <div class='categories'>
     <ul>
+      <li class='actions'><a href="" class="showAll">Show All</a> | <a href="" class="hideAll">Hide All</a></li>
     <% _.each(categories, function(category){ %>
       <li>
         <input type="checkbox"
