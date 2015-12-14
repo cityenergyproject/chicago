@@ -39,7 +39,7 @@
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "ft²",
             "section": "Property Information",
-            "description": "Total interior floor space between the outside surfaces of a building’s enclosing walls. This includes tenant space, common areas, stairwells, basements, storage, and interior parking."
+            "description": "Total interior floor space in square feet between the outside surfaces of a building’s enclosing walls. This includes tenant space, common areas, stairwells, basements, storage, and interior parking."
         },
         {
             "title": "Neighborhood",
@@ -85,7 +85,7 @@
             "section": "Energy Use",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "kBTU",
-            "description": "Amount of utility-supplied natural gas consumed by a property in a metric year, measured in kBTUs."
+            "description": "The annual amount of utility-supplied natural gas consumed by the property in a metric year, measured in kBTUs."
         },
         {
             "title": "District Steam Use",
@@ -124,7 +124,7 @@
             "range_slice_count": 18,
             "section": "Energy Performance Metrics",
             "color_range": ["#F77156","#DAC04D","#6BB0A5"],
-            "description": "A 1-100 rating that assesses a property’s overall energy performance, based on national data to control for differences among building uses & operations. A score of 50 represents the national median."
+            "description": "1-100 rating that assesses a property’s overall energy performance, based on national data to control for climate, building uses, and operations. A score of 50 represents the national median."
         },
         {
             "title": "Site Energy Use Intensity",
@@ -134,7 +134,7 @@
             "section": "Energy Performance Metrics",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "kBTU/ft²",
-            "description": "Site Energy Use divided by the property's gross floor area. Site Energy Use is the annual amount of all the energy consumed by the property on-site, as reported on utility bills."
+            "description": "Site Energy Use divided by the property's gross floor area, in kBTU/ft². Site Energy Use is the annual amount of all the energy consumed by the property on-site, as reported on utility bills."
         },
         {
             "title": "Source Energy Use Intensity",
@@ -144,7 +144,7 @@
             "section": "Energy Performance Metrics",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "kBTU/ft²",
-            "description": "Source Energy Use divided by the property's gross floor area. Source Energy Use is the annual energy used to operate the property, including losses from generation, transmission, & distribution."
+            "description": "Source Energy Use divided by the property's gross floor area, in kBTU/ft². Source Energy Use is the annual energy required to operate the property, including losses from energy generation, transmission, and distribution."
         },
         {
             "title": "Total GHG Emissions",
@@ -154,7 +154,7 @@
             "section": "Greenhouse Gas Emissions",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "Metric Tons CO₂e",
-            "description": "The total amount of greenhouse gas emissions, including carbon dioxide, methane, and nitrous oxide gases released into the atmosphere as a result of energy consumption at the property."
+            "description": "The total amount of greenhouse gas emissions, including CO₂, CH₄, and N₂O gases released into the atmosphere as a result of energy consumption at the property, in metric tons of CO₂ equivalent."
         },
         {
             "title": "GHG Intensity",
@@ -164,7 +164,7 @@
             "section": "Greenhouse Gas Emissions",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "Metric Tons CO₂e/ft²",
-            "description": "Total Greenhouse Gas Emissions divided by property's gross floor area."
+            "description": "Total Greenhouse Gas Emissions divided by property's gross floor area, measured in kilograms of carbon dioxide equivalent per square foot."
         }
     ],
     "years": {
