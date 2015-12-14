@@ -1,6 +1,6 @@
 {
     "url_name": "chicago",
-    "name": "Chicago",
+    "name": "Chicago Energy Benchmarking",
 
     "tileSource": "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     "center": [
