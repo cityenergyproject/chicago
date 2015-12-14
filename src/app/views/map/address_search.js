@@ -37,7 +37,7 @@ define([
 
     search: function(){
       var self = this;
-      var url = "http://pelias.mapzen.com/search";
+      var url = "https://search.mapzen.com/v1/search";
       var search = this.$el.val();
       var center = this.state.get('city').get('center');
       if (search===""){
@@ -46,7 +46,13 @@ define([
       }
       $.ajax({
         url: url,
-        data: {input: search, size: 1, lat: center[0], lon: center[1]},
+        data: {
+          api_key: 'search-oqsffOQ',
+          text: search,
+          size: 1,
+          'focus.point.lat': center[0],
+          'focus.point.lon': center[1]
+        },
         success: function(response){
           self.centerMapOn(response);
         }
