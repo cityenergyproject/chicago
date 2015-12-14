@@ -15,20 +15,14 @@
     "building_type": "primary_property_type_epa_calculated",
     "popup_fields": [
         {"field": "property_name", "label": ""},
+        {"field": "primary_property_type_epa_calculated", "label": "Property Type"},
         {"field": "property_gross_floor_area_epa_calculated_buildings_ft2", "label": "Property Size (ft²): "},
         {"field": "community_area", "label": "Neighborhood: "},
         {"field": "year_built", "label": "Year Built: "},
         {"field": "number_of_buildings", "label": "Number of Buildings: "},
-        {"field": "electricity_use_grid_purchase_and_generated_from_onsite_renewab", "label": "Electricity Use (kBTU): "},
-        {"field": "natural_gas_use_kbtu", "label": "Natural Gas Use (kBTU): "},
-        {"field": "district_steam_use_kbtu", "label": "District Steam Use (kBTU): "},
-        {"field": "district_chilled_water_use_kbtu", "label": "District Chillded Water Use (kBTU): "},
-        {"field": "all_other_fuel_use_kbtu", "label": "All Other Fuel Use (kBTU): "},
         {"field": "energy_star_score", "label": "ENERGY STAR Score: "},
         {"field": "site_eui_kbtu_ft2", "label": "Site Energy Use Intensity (kBTU/ft²): "},
-        {"field": "source_eui_kbtu_ft2", "label": "Source Energy Use Intensity (kBTU/ft²): "},
-        {"field": "total_ghg_emissions_metric_tons_co2e", "label": "Total GHG Emissions (Metric Tons CO₂e): "},
-        {"field": "ghg_intensity_metric_tons_co2e_ft2", "label": "GHG Intensity (Metric Tons CO₂e/ft²): "}
+        {"field": "total_ghg_emissions_metric_tons_co2e", "label": "Total GHG Emissions (Metric Tons CO₂e): "}
     ],
     "map_layers": [
         {
