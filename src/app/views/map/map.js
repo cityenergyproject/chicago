@@ -42,6 +42,7 @@ define([
 
       if (!this.leafletMap){
         this.leafletMap = new L.Map(this.el, {center: [lat, lng], zoom: zoom, scrollWheelZoom: false});
+        this.leafletMap.attributionControl.setPrefix("");
         L.tileLayer(city.get('tileSource')).addTo(this.leafletMap);
         this.leafletMap.zoomControl.setPosition('topright');
         this.leafletMap.on('moveend', this.onMapMove, this);
