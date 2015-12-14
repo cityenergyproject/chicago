@@ -34,6 +34,13 @@
             "description": "The Community Area where the property is located. There are 77 Community Areas defined by the City of Chicago."
         },
         {
+            "title": "Property Type",
+            "field_name": "property_type",
+            "display_type": "category",
+            "section": "Property Information",
+            "description": "The primary use of a property (e.g. office). Primary use is defined as a function that accounts for more than 50% of a property. "
+        },
+        {
             "title": "Property Size",
             "field_name": "property_size",
             "display_type": "range",
