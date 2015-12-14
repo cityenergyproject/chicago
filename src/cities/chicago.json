@@ -16,7 +16,7 @@
     "popup_fields": [
         {"field": "property_name", "label": ""},
         {"field": "primary_property_type_epa_calculated", "label": "Property Type"},
-        {"field": "property_gross_floor_area_epa_calculated_buildings_ft2", "label": "Property Size (ft²): "},
+        {"field": "property_size", "label": "Property Size (ft²): "},
         {"field": "community_area", "label": "Neighborhood: "},
         {"field": "year_built", "label": "Year Built: "},
         {"field": "number_of_buildings", "label": "Number of Buildings: "},
@@ -27,7 +27,7 @@
     "map_layers": [
         {
             "title": "Property Size",
-            "field_name": "property_gross_floor_area_epa_calculated_buildings_ft2",
+            "field_name": "property_size",
             "display_type": "range",
             "range_slice_count": 18,
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
