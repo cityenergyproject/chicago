@@ -87,7 +87,7 @@
             "section": "Energy Use",
             "color_range": ["#6BB0A5","#DAC04D","#F77156"],
             "unit": "kBTU",
-            "description": "The annual amount of utility-supplied natural gas consumed by the property in a metric year, measured in kBTUs."
+            "description": "The annual amount of utility-supplied natural gas consumed by the property, measured in kBTUs."
         },
         {
             "title": "District Steam Use",
