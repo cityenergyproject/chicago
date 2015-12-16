@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="styles/main.min.css">
+    <style>
+      .style-guide {
+        background: #ccc;
+        padding: 20px;
+        position: relative;
+      }
+      .style-guide > div {
+        background: red;
+        position: relative;
+      }
+      hr {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <div class="style-guide">
+    <div><header class="header-container"></header></div>
+
+    <script>
+      $.get("app/templates/layout/HeaderTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({title: "City of Los Angeles", url_name: "los_angeles"});
+        $(".header-container").html(evaluatedTemplate);
+      });
+    </script>
+
+    <hr/>
+
+    <div class="address-search-container"></div>
+    <script>
+      $.get("app/templates/map/AddressSearchTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({});
+        $(".address-search-container").html(evaluatedTemplate);
+      });
+    </script>
+
+    <hr/>
+
+    <div class="category-control-container" style="padding-bottom: 130px;"></div>
+    <script>
+      $.get("app/templates/map_controls/MapCategoryControlTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          id: "abc",
+          title: "tacos",
+          checked: true,
+          categories: [
+            {name: "Downtown", count: 1},
+            {name: "Jackie Brown is a 1997 comedy crime thriller film written, produced and directed by Quentin Tarantino. It is an adaptation of Elmore Leonard's 1992 novel Rum Punch, the first adaptation from Tarantino, and starring Pam Grier in the title role. The film pays homage to 1970s blaxploitation films, particularly the films Coffy (1973) and Foxy Brown (1974), both of which also starred Grier in the title roles.", count: 2}
+          ]
+        });
+        $(".category-control-container").html(evaluatedTemplate);
+      });
+    </script>
+
+    <hr/>
+
+    <div class="year-control-container" style="padding: 10px; background-color: #38b5e6;"></div>
+    <script>
+      $.get("app/templates/map/YearControlTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          current_year: "2015",
+          years: ["2013", "2014", "2015"]
+        });
+        $(".year-control-container").html(evaluatedTemplate);
+      });
+    </script>
+
+    <hr />
+
+    <div>
+      <table class="building-report table-head-container"></table>
+      <table class="building-report table-body-container"></table>
+    </div>
+    <script>
+      $.get("app/templates/building_comparison/TableHeadTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          metrics: [
+            {get: function(a) { return 'a very long string goes here'; }},
+            {get: function(a) { return 'tacos'; }},
+            {get: function(a) { return 'whatever'; }},
+            {get: function(a) { return 'the end'; }}
+          ],
+          sortedBy: {field_name: 'tacos', order: 'asc'},
+          currentLayer: 'a very long string goes here'
+        });
+        $(".table-head-container").html(evaluatedTemplate);
+      });
+
+      $.get("app/templates/building_comparison/TableBodyRowsTemplate.html", function(templateBody){
+        var evaluatedTemplate = _.template(templateBody)({
+          buildings: [
+            {
+              fields: ['cookies', 'engineer'],
+              metrics: {
+                tacos: 'something',
+                cheese: 'okay',
+                dingus: 'huh',
+                ending: 'lame'
+              }
+            }
+          ]
+        });
+        $(".table-body-container").html(evaluatedTemplate);
+      });
+    </script>
+  </div>
+  </body>
+</html>

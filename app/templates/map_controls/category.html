@@ -1,0 +1,22 @@
+<div class='map-category-control'>
+  <input type="checkbox" id="category-<%= id %>" />
+  <label class="category-list-toggle" for="category-<%= id %>"><%= title %></label>
+  <div class='categories'>
+    <ul>
+      <li class='actions'><a href="" class="showAll">Show All</a> | <a href="" class="hideAll">Hide All</a></li>
+    <% _.each(categories, function(category){ %>
+      <li>
+        <input type="checkbox"
+          id="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>"
+          name="filter-<%=id%>"
+          value="<%= category.name %>"
+          <%= category.checked %>
+        />
+        <label for="filter-<%=id%>-<%=category.name.toString().toLowerCase().replace(/\s/g, "-")%>">
+          <div class="content"><div class="check"></div><%= category.name %></div>
+        </label>
+      </li>
+    <% }) %>
+    </ul>
+  </div>
+</div>

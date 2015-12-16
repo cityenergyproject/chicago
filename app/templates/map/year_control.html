@@ -1,0 +1,5 @@
+<ol class="year-control">
+<% _.each(years, function(year){ %>
+  <li><input type="radio" id="year-<%= year %>" id="year-<%= year %>" value="<%= year %>" name="year" <%= (year == current_year) ? 'checked="checked"' : ''%>/><label for="year-<%= year %>"><%= year %></label></li>
+<% }) %>
+</ol>

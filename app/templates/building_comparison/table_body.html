@@ -1,0 +1,31 @@
+<tbody>
+  <tr class="averages">
+    <td>
+      <div class="average-info">averages based on ranges set in filters</div>
+    </td>
+<% _.each(metrics, function(metric){ %>
+    <td>
+      <div class="subheader"><span>average</span></div>
+      <div class="average-container" style="color: <%= metric.color %>"><span class="average"><%= metric.median.toLocaleString() %></span> <span class="unit"><%= metric.unit %></span></div>
+    </td>
+<% }) %>
+  </tr>
+<% _.each(buildings, function(building){ %>
+  <tr id='<%= building.id %>' class="building <%= building.id == currentBuilding ? 'current' : '' %>">
+    <td class='building-info'>
+      <% _.each(building.fields, function(value){ %>
+        <div><%= value.toLocaleString() %></div>
+      <% }) %>
+    </td>
+    <% _.each(building.metrics, function(metric){ %>
+      <td class="metric <%= metric.undefined %>">
+        <div class="metric-container">
+          <div class="histogram"></div>
+          <span class="value" style="color: <%= metric.color %>"><%= (metric.value || "").toLocaleString() %></span>
+          <span class="no-value">N/A</span>
+        </div>
+      </td>
+    <% }) %>
+  </tr>
+<% }) %>
+</tbody>
