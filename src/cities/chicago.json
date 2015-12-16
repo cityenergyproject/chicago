@@ -71,7 +71,7 @@
         },
         {
             "title": "Electricity Use",
-            "field_name": "electricity_use_grid_purchase_and_generated_from_onsite_renewab",
+            "field_name": "electricity_use_kbtu",
             "display_type": "range",
             "range_slice_count": 18,
             "section": "Energy Use",
@@ -160,7 +160,7 @@
         },
         {
             "title": "GHG Intensity",
-            "field_name": "ghg_intensity_metric_tons_co2e_ft2",
+            "field_name": "ghg_intensity_kg_co2e_ft2",
             "display_type": "range",
             "range_slice_count": 18,
             "section": "Greenhouse Gas Emissions",
