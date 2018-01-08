@@ -177,6 +177,10 @@
         "2016": {
             "table_name": "chicago_2016",
             "default_layer": "energy_star_score"
+        },
+        "2017": {
+            "table_name": "chicago_2017",
+            "default_layer": "energy_star_score"
         }
     }
 }
