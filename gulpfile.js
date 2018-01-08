@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
-    notify = require('gulp-notify'),
     jasmine = require('gulp-jasmine'),
     connect     = require('gulp-connect'),
     livereload = require('gulp-livereload'),
@@ -21,13 +20,11 @@ var gulp = require('gulp'),
 gulp.task('fileinclude', function() {
   return  gulp.src(['src/index.html', 'src/styles.html', 'src/iframe.html'])
     .pipe(gulp.dest('dist'))
-    .pipe(notify({ message: 'Index Copied' }));
 });
 
 gulp.task('templates', function() {
   return gulp.src('src/app/templates/**/*.html')
     .pipe(gulp.dest('dist/app/templates'))
-    .pipe(notify({ message: 'templates copied' }));
 });
 
 // Styles
@@ -37,7 +34,6 @@ gulp.task('styles', function() {
     .pipe(autoprefixer('last 2 version'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist/styles'))
-    .pipe(notify({ message: 'Styles task complete' }));
 });
 
 // Scripts
@@ -46,7 +42,6 @@ gulp.task('scripts', function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('dist/app'))
-    .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 // Cities Config
@@ -55,14 +50,12 @@ gulp.task('cities_config', function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('dist/cities'))
-    .pipe(notify({ message: 'Cities config task complete' }));
 });
 
 // Images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
     .pipe(gulp.dest('dist/images'))
-    .pipe(notify({ message: 'Images task complete' }));
 });
 
 gulp.task('copy-bower', function() {
@@ -78,7 +71,6 @@ gulp.task('clean', function(cb) {
 gulp.task('copy-lib', function() {
   return gulp.src('src/lib/**/*')
     .pipe(gulp.dest('dist/lib'))
-    .pipe(notify({ message: 'lib copied' }));
 });
 
 // Default task
