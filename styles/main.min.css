@@ -57,8 +57,7 @@ textarea {
   font-size: 1em;
   margin-bottom: 0.6em;
   padding: 0.3em;
-  -webkit-transition: border-color;
-          transition: border-color;
+  transition: border-color;
   width: 100%; }
   input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, input:not([type]):hover, textarea:hover,
   select[multiple=multiple]:hover,
@@ -170,8 +169,7 @@ p {
 a {
   color: white;
   text-decoration: none;
-  -webkit-transition: color 0.1s linear;
-          transition: color 0.1s linear; }
+  transition: color 0.1s linear; }
   a:active, a:focus, a:hover {
     color: #d9d9d9; }
   a:active, a:focus {
@@ -814,7 +812,6 @@ header {
     cursor: pointer; }
   #map-controls .category-control-container {
     background-color: #dedede;
-    background-image: -webkit-linear-gradient(left, #dedede, #d0d0d0);
     background-image: linear-gradient(to right,#dedede, #d0d0d0);
     background-color: #d0d0d0;
     color: #fff; }
